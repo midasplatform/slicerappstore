@@ -1,0 +1,91 @@
+<?php
+/*=========================================================================
+MIDAS Server
+Copyright (c) Kitware SAS. 20 rue de la Villette. All rights reserved.
+69328 Lyon, FRANCE.
+
+See Copyright.txt for details.
+This software is distributed WITHOUT ANY WARRANTY; without even
+the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE.  See the above copyright notices for more information.
+=========================================================================*/
+
+if($this->slicerView)
+  {
+  // Get required jQuery
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery-ui.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.treeTable.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.qtip.min.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/index/index.index.js"></script>';
+  }
+$this->headScript()->appendFile($this->moduleWebroot.'/public/js/index/index.index.js');
+?>
+<link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/index/index.index.css" />
+
+<?php
+if($this->slicerView)
+  {
+  echo '<div class="viewWrapperSlicer">';
+  }
+else
+  {
+  echo '<div class="viewWrapperBrowser">';
+  }
+?>
+  <div class="extensionsHeader">
+    <div class="extensionsTitle">Slicer Extensions</div>
+    <?php if(!$this->slicerView)
+      { ?>
+    <div class="extensionFilterArea">
+      <select id="osSelect">
+        <option value="win">Windows</option>
+        <option value="linux">Linux</option>
+        <option value="macosx">Mac OSX</option>
+      </select>
+      <select id="archSelect">
+        <option value="i386">32-bit</option>
+        <option value="amd64">64-bit</option>
+      </select>
+      <select id="versionSelect">
+        <?php
+        foreach($this->availableVersions as $version)
+          {
+          echo '<option value="'.$version.'">'.$version.'</option>';
+          }
+        ?>
+      </select>
+    </div>
+    <?php } ?>
+  </div>
+  <div class="extensionsBody">
+    <div class="extensionsBodyLeftColumn">
+      <div class="categoryList">
+      Categories go here
+      </div>
+    </div>
+    <div class="extensionsBodyRightColumn">
+      <div class="extensionList">
+        <div class="loadingExtensions">
+          <img alt="" src="<?php echo $this->coreWebroot?>/public/images/icons/loading.gif" /> Loading extensions
+        </div>
+        <div id="extensionsContainer">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEMPLATE: extension -->
+<div class="extensionWrapper" style="display: none;" id="extensionTemplate">
+  
+</div>
+
+<!-- Pass json to our javascript -->
+<div style="display: none;" id="jsonContent">
+  <?php echo json_encode(array('webroot' => $this->webroot,
+                         'coreWebroot' => $this->coreWebroot,
+                         'moduleWebroot' => $this->moduleWebroot,
+                         'slicerView' => $this->slicerView));
+  ?>
+</div>

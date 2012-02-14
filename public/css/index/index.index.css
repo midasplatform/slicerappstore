@@ -1,0 +1,64 @@
+div.viewWrapper {
+  width: 100% !important;
+}
+
+div.viewWrapperSlicer,div.viewWrapperBrowser {
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana sans-serif;
+  font-size: 13px;
+  margin-left: 8px;
+  color: #777777;
+}
+
+div.viewWrapperSlicer {
+}
+
+div.viewWrapperBrowser {
+}
+
+div.extensionsHeader,div.extensionsBody {
+  margin-right: 10px;
+}
+
+div.extensionsHeader {
+  height: 45px;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+div.extensionsTitle {
+  float: left;
+  font-size: 24px;
+  font-weight: bolder;
+  margin-top: 10px;
+}
+
+div.extensionFilterArea {
+  float: right;
+  margin-top: 10px;
+}
+
+div.extensionsBodyLeftColumn {
+  float: left;
+  width: 230px;
+  border-right: 1px solid #d0d0d0;
+  min-height: 450px;
+}
+
+div.extensionsBodyRightColumn {
+
+}
+
+div.extensionWrapper {
+  background-color: #ff8888;
+  margin: 10px;
+  width: 120px;
+  height: 120px;
+  float: left;
+}
+
+.loadingExtensions {
+  padding-top: 8px;
+}
+
+.loadingExtensions img {
+  margin-left: 10px;
+}
