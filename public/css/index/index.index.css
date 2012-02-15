@@ -1,3 +1,7 @@
+body {
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana sans-serif;
+}
+
 div.viewWrapper {
   width: 100% !important;
 }
@@ -44,15 +48,28 @@ div.extensionsBodyLeftColumn {
 }
 
 div.extensionsBodyRightColumn {
-
+  margin-left: 230px;
 }
 
 div.extensionWrapper {
-  background-color: #ff8888;
-  margin: 10px;
-  width: 120px;
-  height: 120px;
+  border: 1px solid white; /* Needed to preserve flow layout on hover */
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 5px;
+  width: 140px;
   float: left;
+}
+
+div.extensionWrapper:hover {
+  border: 1px solid #d7d7d7;
+  background-color: #f5f5f5;
+}
+
+div.extensionNameWrapper,div.subtitleWrapper {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .loadingExtensions {
@@ -61,4 +78,67 @@ div.extensionWrapper {
 
 .loadingExtensions img {
   margin-left: 10px;
+}
+
+img.extensionIcon {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
+a.extensionName,a.extensionName:visited,a.extensionName:active {
+  color: #242424 !important;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+a.extensionName:hover {
+  text-decoration: underline;
+  color: black !important;
+}
+
+span.subtitle {
+  font-size: 12px;
+}
+
+input.downloadButton {
+  width: 130px;
+  color: white;
+  font-size: 13px;
+  background-color: #2277aa;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid white;
+  margin-top: 5px;
+  line-height: 1.5;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: black 0 0 3px;
+  box-shadow: black 0 0 3px;
+  -moz-box-shadow: 0px 0px 3px black;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana sans-serif;
+}
+
+input.downloadButton:hover {
+  background-color: #00aaaa;
+  -webkit-box-shadow: black 0 0 6px;
+  box-shadow: black 0 0 6px;
+  -moz-box-shadow: 0px 0px 6px black;
+}
+
+.extensionRatings {
+  height: 22px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+span.averageRating {
+  margin-left: 4px;
 }

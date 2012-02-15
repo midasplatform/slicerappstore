@@ -54,11 +54,13 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $this->disableView();
 
     $packages = array();
-    for($i = 0; $i < 10; $i++)
+    for($i = 0; $i < 20; $i++)
       {
       $packages[] = array('slicerpackages_extension_id' => $i+1,
-                          'name' => 'Package '.($i+1),
-                          'subtitle' => 'Kitware, Inc');
+                          'productname' => 'Extension name '.($i+1),
+                          'subtitle' => 'Author names',
+                          'icon' => 'http://cdn2.iconfinder.com/data/icons/Siena/128/puzzle%20yellow.png',
+                          'ratings' => array('average' => 4.25, 'total' => 270));
       }
     echo JsonComponent::encode($packages);
     }

@@ -18,10 +18,17 @@ if($this->slicerView)
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.treeTable.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.qtip.min.js"></script>';
   echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/index/index.index.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->webroot.'/modules/ratings/public/js/star_rating/jquery.ui.stars.min.js"></script>';
+  }
+else
+  {
+  $this->headScript()->appendFile($this->webroot.'/modules/ratings/public/js/star_rating/jquery.ui.stars.min.js');
   }
 $this->headScript()->appendFile($this->moduleWebroot.'/public/js/index/index.index.js');
 ?>
 <link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/index/index.index.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/layout/jquery.qtip.min.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/ratings/public/css/star_rating/jquery.ui.stars.css" />
 
 <?php
 if($this->slicerView)
@@ -78,7 +85,31 @@ else
 
 <!-- TEMPLATE: extension -->
 <div class="extensionWrapper" style="display: none;" id="extensionTemplate">
-  
+  <div class="extensionIconWrapper">
+    <img alt="" src="" class="extensionIcon" />
+  </div>
+  <div class="extensionNameWrapper">
+    <a href="javascript:;" class="extensionName"></a>
+  </div>
+  <div class="subtitleWrapper">
+    <span class="subtitle"></span>
+  </div>
+  <div class="extensionRatings">
+    <input type="radio" name="avgrate" value="1"/>
+    <input type="radio" name="avgrate" value="2"/>
+    <input type="radio" name="avgrate" value="3"/>
+    <input type="radio" name="avgrate" value="4"/>
+    <input type="radio" name="avgrate" value="5"/>
+    <input type="radio" name="avgrate" value="6"/>
+    <input type="radio" name="avgrate" value="7"/>
+    <input type="radio" name="avgrate" value="8"/>
+    <input type="radio" name="avgrate" value="9"/>
+    <input type="radio" name="avgrate" value="10"/>
+    <span class="averageRating"></span>
+  </div>
+  <div class="downloadButtonWrapper">
+    <input type="button" class="downloadButton" />
+  </div>
 </div>
 
 <!-- Pass json to our javascript -->
