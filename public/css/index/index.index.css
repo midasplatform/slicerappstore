@@ -84,6 +84,7 @@ img.extensionIcon {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 8px;
   cursor: pointer;
 }
 

@@ -41,26 +41,17 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       }
     else
       {
-      //$this->view->availableVersions = $extensionModel->getAllReleases();
-      $this->view->availableVersions = array('4.0.0', '4.0.1');
+      $this->view->availableVersions = $extensionModel->getAllReleases();
       }
-    //$this->view->allCategories = $extensionModel->getAllCategories();
-    $this->view->allCategories = array('Top Level 1.Subcategory.Leaf',
-                                       'Top Level 1.Subcategory.Leaf2',
-                                       'Top Level 1.Subcategory.Leaf3',
-                                       'Top Level 1.Subcategory.Leaf4',
-                                       'Other Top Level.Subcategory C',
-                                       'Other Top Level.Subcategory A.Hello World',
-                                       'Other Top Level.Subcategory A.A Cat',
-                                       'Other Top Level.Subcategory B');
+    $this->view->allCategories = $extensionModel->getAllCategories();
     sort($this->view->allCategories);
 
     $os = $this->_getParam('os');
-    $arhc = $this->_getParam('arch');
+    $arch = $this->_getParam('arch');
     $release = $this->_getParam('release');
-    $this->view->os = isset($os) ? $os : 'win';
-    $this->view->arch = isset($os) ? $os : 'i386';
-    $this->view->release = isset($os) ? $os : '4.0.0';
+    $this->view->os = isset($os) ? $os : '';
+    $this->view->arch = isset($arch) ? $arch : '';
+    $this->view->release = isset($release) ? $release : '';
     }
 
   /**
@@ -77,17 +68,47 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $this->disableLayout();
     $this->disableView();
     $category = $this->_getParam('category');
-
-    $packages = array();
-    for($i = 0; $i < 15; $i++)
+    if(!$category)
       {
-      $packages[] = array('slicerpackages_extension_id' => $i+1,
-                          'productname' => $category.' extension '.($i+1),
-                          'subtitle' => 'Author names',
-                          'icon' => 'http://cdn2.iconfinder.com/data/icons/Siena/128/puzzle%20yellow.png',
-                          'ratings' => array('average' => 4.27, 'total' => 270));
+      $category = 'any';
       }
-    echo JsonComponent::encode($packages);
+    $os = $this->_getParam('os');
+    if(!$os)
+      {
+      $os = 'any';
+      }
+    $arch = $this->_getParam('arch');
+    if(!$arch)
+      {
+      $arch = 'any';
+      }
+    $release = $this->_getParam('release');
+    if(!$release)
+      {
+      $release = 'any';
+      }
+
+    $modelLoader = new MIDAS_ModelLoader();
+    $itemratingModel = $modelLoader->loadModel('Itemrating', 'ratings');
+    $extensionModel = $modelLoader->loadModel('Extension', 'slicerpackages');
+    $extensions = $extensionModel->get(array('os' => $os,
+                                             'arch' => $arch,
+                                             'release' => $release,
+                                             'category' => $category));
+
+    $results = array();
+    foreach($extensions as $extension)
+      {
+      $result = array('slicerpackages_extension_id' => $extension->getKey(),
+                      'item_id' => $extension->getItemId(),
+                      'icon' => $extension->getIconUrl(),
+                      'productname' => $extension->getProductname(),
+                      'category' => $extension->getCategory(),
+                      'subtitle' => 'contributor list'); //dummy until we decide what to put in the subtitle
+      $result['ratings'] = $itemratingModel->getAggregateInfo($extension->getItem());
+      $results[] = $result;
+      }
+    echo JsonComponent::encode($results);
     }
 
 } // end class
