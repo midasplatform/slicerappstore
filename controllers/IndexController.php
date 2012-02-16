@@ -24,6 +24,9 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
   /**
    * Action for rendering the page that lists extensions
    * @param slicerView Set this if you're accessing this page from within the Slicer web view.
+   * @param os (Optional) The default operating system to filter by
+   * @param arch (Optional) The default architecture to filter by
+   * @param release (Optional) The default release to filter by
    */
   function indexAction()
     {
@@ -51,30 +54,38 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
                                        'Other Top Level.Subcategory A.A Cat',
                                        'Other Top Level.Subcategory B');
     sort($this->view->allCategories);
+
+    $os = $this->_getParam('os');
+    $arhc = $this->_getParam('arch');
+    $release = $this->_getParam('release');
+    $this->view->os = isset($os) ? $os : 'win';
+    $this->view->arch = isset($os) ? $os : 'i386';
+    $this->view->release = isset($os) ? $os : '4.0.0';
     }
 
   /**
    * Call with ajax and filter parameters to get a list of extensions
-   * @param category
-   * @param os
-   * @param arch
-   * @param version
-   * @param limit
-   * @param offset
+   * @param category The category filter
+   * @param os The os filter (win | linux | macosx)
+   * @param arch The architecture filter (i386 | amd64)
+   * @param release The release filter
+   * @param limit (Unused currently) Pagination limit
+   * @param offset (Unused currently) Pagination offset
    */
   function listextensionsAction()
     {
     $this->disableLayout();
     $this->disableView();
+    $category = $this->_getParam('category');
 
     $packages = array();
-    for($i = 0; $i < 20; $i++)
+    for($i = 0; $i < 15; $i++)
       {
       $packages[] = array('slicerpackages_extension_id' => $i+1,
-                          'productname' => 'Extension name '.($i+1),
+                          'productname' => $category.' extension '.($i+1),
                           'subtitle' => 'Author names',
                           'icon' => 'http://cdn2.iconfinder.com/data/icons/Siena/128/puzzle%20yellow.png',
-                          'ratings' => array('average' => 4.25, 'total' => 270));
+                          'ratings' => array('average' => 4.27, 'total' => 270));
       }
     echo JsonComponent::encode($packages);
     }

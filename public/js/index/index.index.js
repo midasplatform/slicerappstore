@@ -1,32 +1,30 @@
 var midas = midas || {};
 midas.slicerappstore = midas.slicerappstore || {};
 midas.slicerappstore.category = '';
-midas.slicerappstore.os = '';
-midas.slicerappstore.arch = '';
-midas.slicerappstore.release = '';
 
 var json = null;
-
-/**
- * Fetch filtered extensions and re-render them based on the filter
- * parameters category, os, arch, release
- */
-midas.slicerappstore.applyFilter = function() {
-    console.log('fetching more results, category: ' + midas.slicerappstore.category);
-}
 
 /**
  * Called when a user clicks to view the extension page
  */
 midas.slicerappstore.extensionClick = function() {
-  console.log('open extension ' + $(this).attr('element'));
+  var url = json.webroot+'/slicerappstore/extension/view?extensionId='+$(this).attr('element');
+  if(json.slicerView) {
+      url += '&slicerView';
+  }
+  window.location.assign(url);
 }
 
 /**
  * Called when a user clicks the download or install button
  */
 midas.slicerappstore.downloadClick = function() {
-  console.log('download ' + $(this).attr('element'));
+    var url = json.webroot+'/slicerappstore/downloadextension?extensionId='+$(this).attr('element');
+    if(json.slicerView) {
+        window.location.assign('installextension:'+url);
+    } else {
+        window.location.assign(url);
+    }
 }
 
 /**
@@ -43,6 +41,12 @@ midas.slicerappstore.renderExtension = function(extension) {
       .qtip({
           content: {
               attr: 'qtip'
+          },
+          position: {
+              at: 'bottom left',
+              my: 'top left',
+              viewport: $(window),
+              effect: true
           }
       })
       .click(midas.slicerappstore.extensionClick);
@@ -70,8 +74,14 @@ midas.slicerappstore.renderExtension = function(extension) {
 /**
  * Based on the filter parameters, return a page of extension results
  */
-midas.slicerappstore.getExtensions = function() {
+midas.slicerappstore.applyFilter = function() {
+    $('#extensionsContainer').html('');
+    $('.loadingExtensions').show();
     $.post(json.webroot+'/slicerappstore/index/listextensions', {
+        category: midas.slicerappstore.category,
+        os: midas.slicerappstore.os,
+        arch: midas.slicerappstore.arch,
+        version: midas.slicerappstore.release
     }, function(data) {
         $('.loadingExtensions').hide();
         var resp = $.parseJSON(data);
@@ -121,6 +131,10 @@ midas.slicerappstore.showCategory = function(category) {
 $(document).ready(function() {
     json = $.parseJSON($('#jsonContent').html());
 
+    midas.slicerappstore.os = json.os;
+    midas.slicerappstore.arch = json.arch;
+    midas.slicerappstore.release = json.release;
+
     $.each(json.categories, function(k, category) {
         midas.slicerappstore.showCategory(category);
     });
@@ -139,6 +153,5 @@ $(document).ready(function() {
         $(this).addClass('selectedCategory');
         midas.slicerappstore.applyFilter();
     });
-
-    midas.slicerappstore.getExtensions();
+    midas.slicerappstore.applyFilter();
 });
