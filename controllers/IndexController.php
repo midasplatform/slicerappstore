@@ -43,7 +43,12 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       }
     //$this->view->allCategories = $extensionModel->getAllCategories();
     $this->view->allCategories = array('Top Level 1.Subcategory.Leaf',
+                                       'Top Level 1.Subcategory.Leaf2',
+                                       'Top Level 1.Subcategory.Leaf3',
+                                       'Top Level 1.Subcategory.Leaf4',
+                                       'Other Top Level.Subcategory C',
                                        'Other Top Level.Subcategory A.Hello World',
+                                       'Other Top Level.Subcategory A.A Cat',
                                        'Other Top Level.Subcategory B');
     sort($this->view->allCategories);
     }

@@ -94,15 +94,19 @@ midas.slicerappstore.showCategory = function(category) {
         var parentId = lastToken == '' ? 'categoriesList' : 'category_'+lastToken;
 
         name += token;
-        if(lastToken != '') {
+        if(lastToken != '') { //subcategory
             lastToken += '_';
             var id = 'category_'+lastToken+tokenId;
             if($('#'+id).length == 0) {
                 var html = '<li class="categoryControl" name="'+name+'" id="'+id+'">'+token+'</li>';
                 html = '<ul class="categoriesSubList">'+html+'</ul>';
-                $('#'+parentId).after(html);
+                var el = $('#'+parentId);
+                while(el.next().length > 0) {
+                    el = el.next(); //insert as last child
+                }
+                el.after(html);
             }
-        } else {
+        } else { //top level category
             var id = 'category_'+tokenId;
             if($('#'+id).length == 0) {
                 var html = '<li class="categoryControl" name="'+name+'" id="'+id+'">'+token+'</li>';
@@ -120,12 +124,19 @@ $(document).ready(function() {
     $.each(json.categories, function(k, category) {
         midas.slicerappstore.showCategory(category);
     });
-    $('li#categoryAll').click(function() {
+    midas.slicerappstore.selectedCategory = $('li#categoryAll').click(function() {
         midas.slicerappstore.category = '';
+        midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
+        midas.slicerappstore.selectedCategory = $(this);
+        $(this).addClass('selectedCategory');
         midas.slicerappstore.applyFilter();
-    });
+    }).addClass('selectedCategory');
+
     $('li.categoryControl').click(function() {
         midas.slicerappstore.category = $(this).attr('name');
+        midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
+        midas.slicerappstore.selectedCategory = $(this);
+        $(this).addClass('selectedCategory');
         midas.slicerappstore.applyFilter();
     });
 
