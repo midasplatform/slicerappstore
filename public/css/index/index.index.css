@@ -80,6 +80,10 @@ div.extensionNameWrapper,div.subtitleWrapper {
   margin-left: 10px;
 }
 
+form {
+  display: inline;
+}
+
 img.extensionIcon {
   display: block;
   margin-left: auto;
@@ -136,7 +140,7 @@ input.downloadButton:hover {
 }
 
 .extensionRatings {
-  height: 22px;
+  height: 20px;
   margin-top: 5px;
   margin-bottom: 5px;
 }

@@ -111,4 +111,24 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     echo JsonComponent::encode($results);
     }
 
+  /**
+   * Used to download an extension. Simply forwards the request to the core item download controller
+   * for the extension's corresponding item.
+   * @param extensionId The id of the extension to download
+   */
+  public function downloadextensionAction()
+    {
+    $extensionId = $this->_getParam('extensionId');
+    $modelLoader = new MIDAS_ModelLoader();
+    $extensionModel = $modelLoader->loadModel('Extension', 'slicerpackages');
+    $extension = $extensionModel->load($extensionId);
+
+    if(!$extension)
+      {
+      throw new Zend_Exception('Invalid extensionId parameter');
+      }
+    // Redirect to the download controller with the extension's item id
+    $this->_redirect('/download/index?items='.$extension->getItemId());
+    }
+
 } // end class

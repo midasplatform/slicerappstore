@@ -19,7 +19,7 @@ midas.slicerappstore.extensionClick = function() {
  * Called when a user clicks the download or install button
  */
 midas.slicerappstore.downloadClick = function() {
-    var url = json.webroot+'/slicerappstore/downloadextension?extensionId='+$(this).attr('element');
+    var url = json.webroot+'/slicerappstore/index/downloadextension?extensionId='+$(this).attr('element');
     if(json.slicerView) {
         window.location.assign('installextension:'+url);
     } else {
