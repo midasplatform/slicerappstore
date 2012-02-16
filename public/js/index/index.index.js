@@ -32,7 +32,8 @@ midas.slicerappstore.downloadClick = function() {
  * @param extension Json-ified slicerpackages_extension dao
  */
 midas.slicerappstore.renderExtension = function(extension) {
-    var extDiv = $('#extensionTemplate').clone();
+    var extDiv = $('#extensionTemplate').clone()
+      .attr('id', 'extensionWrapper_'+extension.slicerpackages_extension_id);
     var buttonText = json.slicerView ? 'Install' : 'Download';
     extDiv.attr('element', extension.slicerpackages_extension_id);
     extDiv.find('a.extensionName').html(extension.productname)
@@ -59,12 +60,13 @@ midas.slicerappstore.renderExtension = function(extension) {
       .click(midas.slicerappstore.downloadClick);
 
     var average = Math.round(extension.ratings.average * 100) / 100;
-    var starSelect = Math.round(average * 2) - 1;
-    $('#ratingsAverage').stars('selectID', starSelect);
-    extDiv.find('div.extensionRatings').stars({
-        disabled: true,
-        split: 2
-    }).stars('selectID', starSelect);
+    var starSelect = Math.round(average * 2);
+    extDiv.find('div.extensionRatings').find('input[value="'+starSelect+'"]').attr('checked', 'checked');
+    extDiv.find('div.extensionRatings').attr('id', 'rating_'+extension.slicerpackages_extension_id)
+      .stars({
+          disabled: true,
+          split: 2
+      });
     extDiv.find('span.averageRating').html(average);
 
     extDiv.appendTo('#extensionsContainer');
@@ -135,9 +137,29 @@ $(document).ready(function() {
     midas.slicerappstore.arch = json.arch;
     midas.slicerappstore.release = json.release;
 
+    if(!json.slicerView) {
+        midas.slicerappstore.os = $('#osSelect').val();
+        midas.slicerappstore.arch = $('#archSelect').val();
+
+        // Enable filtering by OS
+        $('#osSelect').change(function() {
+            midas.slicerappstore.os = $(this).val();
+            midas.slicerappstore.applyFilter();
+        });
+
+        // Enable filtering by architecture
+        $('#archSelect').change(function() {
+            midas.slicerappstore.arch = $(this).val();
+            midas.slicerappstore.applyFilter();
+        });
+    }
+
+    // Render the category tree based on all available categories
     $.each(json.categories, function(k, category) {
         midas.slicerappstore.showCategory(category);
     });
+
+    // Enable the "All" category filter
     midas.slicerappstore.selectedCategory = $('li#categoryAll').click(function() {
         midas.slicerappstore.category = '';
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
@@ -146,6 +168,7 @@ $(document).ready(function() {
         midas.slicerappstore.applyFilter();
     }).addClass('selectedCategory');
 
+    // Enable filtering by specific categories
     $('li.categoryControl').click(function() {
         midas.slicerappstore.category = $(this).attr('name');
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
@@ -153,5 +176,7 @@ $(document).ready(function() {
         $(this).addClass('selectedCategory');
         midas.slicerappstore.applyFilter();
     });
+    
+    // Fetch our results based on the initial settings
     midas.slicerappstore.applyFilter();
 });
