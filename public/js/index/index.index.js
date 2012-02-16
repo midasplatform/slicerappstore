@@ -1,7 +1,19 @@
 var midas = midas || {};
 midas.slicerappstore = midas.slicerappstore || {};
+midas.slicerappstore.category = '';
+midas.slicerappstore.os = '';
+midas.slicerappstore.arch = '';
+midas.slicerappstore.release = '';
 
 var json = null;
+
+/**
+ * Fetch filtered extensions and re-render them based on the filter
+ * parameters category, os, arch, release
+ */
+midas.slicerappstore.applyFilter = function() {
+    console.log('fetching more results, category: ' + midas.slicerappstore.category);
+}
 
 /**
  * Called when a user clicks to view the extension page
@@ -70,7 +82,52 @@ midas.slicerappstore.getExtensions = function() {
     });
 }
 
+/**
+ * Render the category tree based on tokens separated by . character
+ */
+midas.slicerappstore.showCategory = function(category) {
+    var tokens = category.split('.');
+    var lastToken = '';
+    var name = '';
+    $.each(tokens, function(k, token) {
+        var tokenId = token.replace(/ /g, '_');
+        var parentId = lastToken == '' ? 'categoriesList' : 'category_'+lastToken;
+
+        name += token;
+        if(lastToken != '') {
+            lastToken += '_';
+            var id = 'category_'+lastToken+tokenId;
+            if($('#'+id).length == 0) {
+                var html = '<li class="categoryControl" name="'+name+'" id="'+id+'">'+token+'</li>';
+                html = '<ul class="categoriesSubList">'+html+'</ul>';
+                $('#'+parentId).after(html);
+            }
+        } else {
+            var id = 'category_'+tokenId;
+            if($('#'+id).length == 0) {
+                var html = '<li class="categoryControl" name="'+name+'" id="'+id+'">'+token+'</li>';
+                $('#'+parentId).append(html);
+            }
+        }
+        lastToken += tokenId;
+        name += '.';
+    });
+}
+
 $(document).ready(function() {
     json = $.parseJSON($('#jsonContent').html());
+
+    $.each(json.categories, function(k, category) {
+        midas.slicerappstore.showCategory(category);
+    });
+    $('li#categoryAll').click(function() {
+        midas.slicerappstore.category = '';
+        midas.slicerappstore.applyFilter();
+    });
+    $('li.categoryControl').click(function() {
+        midas.slicerappstore.category = $(this).attr('name');
+        midas.slicerappstore.applyFilter();
+    });
+
     midas.slicerappstore.getExtensions();
 });

@@ -68,7 +68,10 @@ else
   <div class="extensionsBody">
     <div class="extensionsBodyLeftColumn">
       <div class="categoryList">
-      Categories go here
+        <div class="categoriesHeader">Categories</div>
+        <ul id="categoriesList" class="categoriesList">
+          <li id="categoryAll">All</li>
+        </ul>
       </div>
     </div>
     <div class="extensionsBodyRightColumn">
@@ -117,6 +120,7 @@ else
   <?php echo json_encode(array('webroot' => $this->webroot,
                          'coreWebroot' => $this->coreWebroot,
                          'moduleWebroot' => $this->moduleWebroot,
-                         'slicerView' => $this->slicerView));
+                         'slicerView' => $this->slicerView,
+                         'categories' => $this->allCategories));
   ?>
 </div>

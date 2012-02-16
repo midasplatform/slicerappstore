@@ -27,6 +27,9 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
    */
   function indexAction()
     {
+    $modelLoader = new MIDAS_ModelLoader();
+    $extensionModel = $modelLoader->loadModel('Extension', 'slicerpackages');
+
     $slicerView = $this->_getParam('slicerView');
     $this->view->slicerView = isset($slicerView);
     if($this->view->slicerView)
@@ -35,8 +38,14 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       }
     else
       {
-      $this->view->availableVersions = array(); //todo get all available releases
+      //$this->view->availableVersions = $extensionModel->getAllReleases();
+      $this->view->availableVersions = array('4.0.0', '4.0.1');
       }
+    //$this->view->allCategories = $extensionModel->getAllCategories();
+    $this->view->allCategories = array('Top Level 1.Subcategory.Leaf',
+                                       'Other Top Level.Subcategory A.Hello World',
+                                       'Other Top Level.Subcategory B');
+    sort($this->view->allCategories);
     }
 
   /**
