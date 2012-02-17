@@ -34,14 +34,14 @@ class Slicerappstore_ConfigController extends Slicerappstore_AppController
 
     $modelLoader = new MIDAS_ModelLoader();
     $settingModel = $modelLoader->loadModel('Setting');
-    $testSetting = $settingModel->getValueByName('test', $this->moduleName);
+    $defaultIconSetting = $settingModel->getValueByName('defaultIcon', $this->moduleName);
 
     $configForm = $this->ModuleForm->Config->createConfigForm();
 
     $formArray = $this->getFormAsArray($configForm);
-    if($testSetting)
+    if($defaultIconSetting)
       {
-      $formArray['test']->setValue($testSetting);
+      $formArray['defaultIcon']->setValue($defaultIconSetting);
       }
 
     $this->view->configForm = $formArray;
@@ -53,8 +53,8 @@ class Slicerappstore_ConfigController extends Slicerappstore_AppController
       $submitConfig = $this->_getParam('submitConfig');
       if(isset($submitConfig))
         {
-        $settingModel->setConfig('test',
-                                 $this->_getParam('test'),
+        $settingModel->setConfig('defaultIcon',
+                                 $this->_getParam('defaultIcon'),
                                  $this->moduleName);
         echo JsonComponent::encode(array(true, 'Changes saved'));
         }

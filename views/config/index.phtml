@@ -11,9 +11,8 @@ PURPOSE.  See the above copyright notices for more information.
 =========================================================================*/
 
 $this->headScript()->appendFile($this->coreWebroot . '/public/js/jquery/jquery.form.js');
-$this->headScript()->appendFile($this->moduleWebroot . '/public/js/config/config.index.js');
+$this->headScript()->appendFile($this->moduleWebroot.'/public/js/config/config.index.js');
 ?>
-
 <link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/common/common.genericPage.css" />
 <div class="viewMain">
      <div class ="genericWrapperTopRight">
@@ -32,8 +31,8 @@ $this->headScript()->appendFile($this->moduleWebroot . '/public/js/config/config
       <form class='genericForm' id='configForm' method='{$this->configForm['method']}'  action='{$this->configForm['action']}'>
       <h3>Slicer App Store Module Configuration:</h3>
             <div>
-              <label for='test'>Test Value</label>
-              {$this->configForm['test']}
+              <label for='test'>Default Icon URL</label>
+              {$this->configForm['defaultIcon']}
             </div>
           <div>
             {$this->configForm['submitConfig']}

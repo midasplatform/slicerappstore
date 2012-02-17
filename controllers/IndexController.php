@@ -89,19 +89,26 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       }
 
     $modelLoader = new MIDAS_ModelLoader();
+    $settingModel = $modelLoader->loadModel('Setting');
     $itemratingModel = $modelLoader->loadModel('Itemrating', 'ratings');
     $extensionModel = $modelLoader->loadModel('Extension', 'slicerpackages');
     $extensions = $extensionModel->get(array('os' => $os,
                                              'arch' => $arch,
                                              'release' => $release,
                                              'category' => $category));
+    $defaultIcon = $settingModel->getValueByName('defaultIcon', $this->moduleName);
 
     $results = array();
     foreach($extensions as $extension)
       {
+      $icon = $extension->getIconUrl();
+      if(!$icon)
+        {
+        $icon = $defaultIcon;
+        }
       $result = array('slicerpackages_extension_id' => $extension->getKey(),
                       'item_id' => $extension->getItemId(),
-                      'icon' => $extension->getIconUrl(),
+                      'icon' => $icon,
                       'productname' => $extension->getProductname(),
                       'category' => $extension->getCategory(),
                       'subtitle' => 'contributor list'); //dummy until we decide what to put in the subtitle

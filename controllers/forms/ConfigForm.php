@@ -27,11 +27,11 @@ class Slicerappstore_ConfigForm extends AppForm
 
     $form->setAction($this->webroot.'/slicerappstore/config/index')->setMethod('post');
 
-    $test = new Zend_Form_Element_Text('test');
+    $defaultIcon = new Zend_Form_Element_Text('defaultIcon');
     $submit = new Zend_Form_Element_Submit('submitConfig');
     $submit->setLabel('Save configuration');
 
-    $form->addElements(array($test, $submit));
+    $form->addElements(array($defaultIcon, $submit));
     return $form;
     } // end function createConfigForm
 
