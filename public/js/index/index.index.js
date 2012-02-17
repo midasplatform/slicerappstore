@@ -83,7 +83,7 @@ midas.slicerappstore.applyFilter = function() {
         category: midas.slicerappstore.category,
         os: midas.slicerappstore.os,
         arch: midas.slicerappstore.arch,
-        version: midas.slicerappstore.release,
+        release: midas.slicerappstore.release,
         revision: midas.slicerappstore.revision
     }, function(data) {
         $('.loadingExtensions').hide();
@@ -142,6 +142,7 @@ $(document).ready(function() {
     if(!json.slicerView) {
         midas.slicerappstore.os = $('#osSelect').val();
         midas.slicerappstore.arch = $('#archSelect').val();
+        midas.slicerappstore.release = $('#releaseSelect').val();
 
         // Enable filtering by OS
         $('#osSelect').change(function() {
@@ -152,6 +153,12 @@ $(document).ready(function() {
         // Enable filtering by architecture
         $('#archSelect').change(function() {
             midas.slicerappstore.arch = $(this).val();
+            midas.slicerappstore.applyFilter();
+        });
+
+        // Enable filtering by release
+        $('#releaseSelect').change(function() {
+            midas.slicerappstore.release = $(this).val();
             midas.slicerappstore.applyFilter();
         });
     }

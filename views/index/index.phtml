@@ -54,11 +54,11 @@ else
         <option value="i386">32-bit</option>
         <option value="amd64">64-bit</option>
       </select>
-      <select id="versionSelect">
+      <select id="releaseSelect">
         <?php
-        foreach($this->availableVersions as $version)
+        foreach($this->availableReleases as $release)
           {
-          echo '<option value="'.$version.'">'.$version.'</option>';
+          echo '<option value="'.$release.'">'.$release.'</option>';
           }
         ?>
       </select>

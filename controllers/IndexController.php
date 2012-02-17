@@ -41,7 +41,7 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       }
     else
       {
-      $this->view->availableVersions = $extensionModel->getAllReleases();
+      $this->view->availableReleases = $extensionModel->getAllReleases();
       }
     $this->view->allCategories = $extensionModel->getAllCategories();
     sort($this->view->allCategories);
