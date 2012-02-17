@@ -67,7 +67,7 @@ midas.slicerappstore.renderExtension = function(extension) {
           disabled: true,
           split: 2
       });
-    extDiv.find('span.averageRating').html(average);
+    extDiv.find('span.totalVotes').html('('+extension.ratings.total+')');
 
     extDiv.appendTo('#extensionsContainer');
     extDiv.show();

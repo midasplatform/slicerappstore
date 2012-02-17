@@ -145,8 +145,8 @@ input.downloadButton:hover {
   margin-bottom: 5px;
 }
 
-span.averageRating {
-  margin-left: 4px;
+span.totalVotes {
+  margin-left: 5px;
 }
 
 .categoriesHeader {
