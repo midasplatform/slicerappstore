@@ -1,0 +1,34 @@
+<?php
+/*=========================================================================
+MIDAS Server
+Copyright (c) Kitware SAS. 20 rue de la Villette. All rights reserved.
+69328 Lyon, FRANCE.
+
+See Copyright.txt for details.
+This software is distributed WITHOUT ANY WARRANTY; without even
+the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE.  See the above copyright notices for more information.
+=========================================================================*/
+
+if($this->slicerView)
+  {
+  // Get required jQuery
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery-ui.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.treeTable.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.qtip.min.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/extension/extension.view.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->webroot.'/modules/ratings/public/js/star_rating/jquery.ui.stars.min.js"></script>';
+  }
+else
+  {
+  $this->headScript()->appendFile($this->webroot.'/modules/ratings/public/js/star_rating/jquery.ui.stars.min.js');
+  }
+$this->headScript()->appendFile($this->moduleWebroot.'/public/js/extension/extension.view.js');
+?>
+<link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/extension/extension.view.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/layout/jquery.qtip.min.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/ratings/public/css/star_rating/jquery.ui.stars.css" />
+
+Placeholder view: <?php echo $this->extension->getProductname()?>
+
