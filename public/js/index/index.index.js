@@ -83,7 +83,8 @@ midas.slicerappstore.applyFilter = function() {
         category: midas.slicerappstore.category,
         os: midas.slicerappstore.os,
         arch: midas.slicerappstore.arch,
-        version: midas.slicerappstore.release
+        version: midas.slicerappstore.release,
+        revision: midas.slicerappstore.revision
     }, function(data) {
         $('.loadingExtensions').hide();
         var resp = $.parseJSON(data);
@@ -136,6 +137,7 @@ $(document).ready(function() {
     midas.slicerappstore.os = json.os;
     midas.slicerappstore.arch = json.arch;
     midas.slicerappstore.release = json.release;
+    midas.slicerappstore.revision = json.revision;
 
     if(!json.slicerView) {
         midas.slicerappstore.os = $('#osSelect').val();

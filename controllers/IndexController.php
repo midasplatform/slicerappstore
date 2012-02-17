@@ -49,9 +49,11 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $os = $this->_getParam('os');
     $arch = $this->_getParam('arch');
     $release = $this->_getParam('release');
+    $revision = $this->_getParam('revision');
     $this->view->os = isset($os) ? $os : '';
     $this->view->arch = isset($arch) ? $arch : '';
     $this->view->release = isset($release) ? $release : '';
+    $this->view->revision = isset($revision) ? $revision : '';
     }
 
   /**
@@ -87,6 +89,11 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       {
       $release = 'any';
       }
+    $revision = $this->_getParam('revision');
+    if(!$revision)
+      {
+      $revision = 'any';
+      }
 
     $modelLoader = new MIDAS_ModelLoader();
     $settingModel = $modelLoader->loadModel('Setting');
@@ -95,7 +102,8 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $extensions = $extensionModel->get(array('os' => $os,
                                              'arch' => $arch,
                                              'release' => $release,
-                                             'category' => $category));
+                                             'category' => $category,
+                                             'slicer_revision' => $revision));
     $defaultIcon = $settingModel->getValueByName('defaultIcon', $this->moduleName);
 
     $results = array();
