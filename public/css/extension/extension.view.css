@@ -1,0 +1,214 @@
+body {
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
+}
+
+div.viewWrapper {
+  padding-right: 25px !important;
+}
+
+#container_main {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+#navi_frame {
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+#extension_banner {
+  color: #333;
+  text-align: left;
+  line-height: 1;
+  overflow: auto;
+}
+
+.extension_title {
+  line-height: 22px;
+}
+
+.title {
+  margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 0px;
+  color: #333;
+  float: left;
+}
+
+.group_title {
+  color: #666;
+  padding-bottom: 0px;
+  line-height: normal;
+  margin-top: 5px;
+  font-weight: lighter;
+  font-size: 16px;
+}
+
+.button_bar {
+  float: right;
+  margin-right: 15px;
+}
+
+.category {
+  
+}
+
+.left_column {
+  float: left;
+  width: 200px;
+  overflow: auto;
+  border-right: 1px solid #d7d7d7;
+  padding-bottom: 15px;
+  padding-top: 5px;
+}
+
+.right_content {
+  clear: right;
+  margin-left: 200px;
+  padding-left: 10px;
+  padding-bottom: 15px;
+  padding-top: 5px;
+  border-left: 1px solid #d7d7d7;
+}
+
+.icon_art {
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
+
+.download_button {
+  margin-bottom: 15px;
+}
+
+.info_list {
+  font-size: 12px;
+  font-weight: lighter;
+  color: #666;
+  line-height: 16px;
+  margin-bottom: 5px;
+}
+
+.category {
+  font-weight: bold;
+  font-size: 13px;
+  margin-top: 5px;
+  color: #99aabb;
+}
+
+.rating_scale {
+}
+
+.description {
+  font-size: 13px;
+  font-weight: lighter;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 18px;
+}
+
+.content_header {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.screenshots {
+  font-size: 13px;
+  font-weight: lighter;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 18px;
+}
+
+.tutorials {
+  font-size: 13px;
+  font-weight: lighter;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 18px;
+}
+
+.reviews {
+  font-size: 13px;
+  font-weight: lighter;
+  color: #666;
+  margin-bottom: 25px;
+  line-height: 18px;
+}
+
+.googlePlus,.twitter,.facebook {
+  border: 1px solid white;
+}
+
+.googlePlus:hover,.twitter:hover,.facebook:hover {
+  cursor: pointer;
+  background-color: #f0f0f8;
+  border: 1px solid #ddd8d8;
+}
+
+#downloadButton {
+  width: 127px;
+  color: white;
+  font-size: 15px;
+  background-color: #2277aa;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid white;
+  margin-left: 11px;
+  margin-top: 5px;
+  line-height: 1.5;
+  display: block;
+  text-transform: uppercase;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: black 0 0 3px;
+  box-shadow: black 0 0 3px;
+  -moz-box-shadow: 0px 0px 3px black;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
+}
+
+#downloadButton:hover {
+  background-color: #00aaaa;
+  -webkit-box-shadow: black 0 0 7px;
+  box-shadow: black 0 0 7px;
+  -moz-box-shadow: 0px 0px 7px black;
+}
+
+/* ========= RATINGS SECTION ===============*/
+#ratingsAverage {
+
+}
+
+#ratingsUser {
+  width: 200px;
+  float: right;
+}
+
+#ratingsChart {
+
+}
+
+div.ratingsVSpacer {
+  height: 8px;
+}
+
+div.ratingCountWrapper {
+}
+
+span.averageStats {
+  margin-left: 7px;
+  color: #676767;
+}
+
+span.addRating {
+  margin-right: 7px;
+  color: #676767;
+  float: left;
+}
+/* ======= END RATINGS SECTION ============*/
+

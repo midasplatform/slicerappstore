@@ -29,6 +29,7 @@ class Slicerappstore_ExtensionController extends Slicerappstore_AppController
   function viewAction()
     {
     $modelLoader = new MIDAS_ModelLoader();
+    $settingModel = $modelLoader->loadModel('Setting');
     $extensionModel = $modelLoader->loadModel('Extension', 'slicerpackages');
     $extension = $extensionModel->load($this->_getParam('extensionId'));
     if(!$extension)
@@ -36,9 +37,19 @@ class Slicerappstore_ExtensionController extends Slicerappstore_AppController
       throw new Zend_Exception('Invalid extensionId');
       }
     $this->view->extension = $extension;
+    $this->view->icon = $extension->getIconUrl();
+    if(!$this->view->icon)
+      {
+      $this->view->icon = $settingModel->getValueByName('defaultIcon', $this->moduleName);
+      }
 
     $slicerView = $this->_getParam('slicerView');
     $this->view->slicerView = isset($slicerView);
+    $this->view->logged = $this->logged;
+
+    $itemratingModel = $modelLoader->loadModel('Itemrating', 'ratings');
+    $this->view->ratings = $itemratingModel->getAggregateInfo($extension->getItem());
+
     if($this->view->slicerView)
       {
       $this->disableLayout();

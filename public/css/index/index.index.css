@@ -1,5 +1,5 @@
 body {
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana sans-serif;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
 }
 
 div.viewWrapper {
@@ -7,7 +7,7 @@ div.viewWrapper {
 }
 
 div.viewWrapperSlicer,div.viewWrapperBrowser {
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana sans-serif;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
   font-size: 13px;
   margin-left: 8px;
   color: #777777;
