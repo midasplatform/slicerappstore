@@ -24,7 +24,9 @@ if($this->slicerView)
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jqplot/jqplot.barRenderer.min.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jqplot/jqplot.categoryAxisRenderer.min.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jqplot/jqplot.pointLabels.min.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jquery.autogrow-textarea.js"></script>';
   echo '<script type="text/javascript" src="'.$this->webroot.'/modules/ratings/public/js/star_rating/jquery.ui.stars.min.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->webroot.'/modules/comments/public/js/item/item.comments.js"></script>';
   }
 else
   {
@@ -32,15 +34,18 @@ else
   $this->headScript()->appendFile($this->coreWebroot.'/public/js/jquery/jqplot/jqplot.barRenderer.min.js');
   $this->headScript()->appendFile($this->coreWebroot.'/public/js/jquery/jqplot/jqplot.categoryAxisRenderer.min.js');
   $this->headScript()->appendFile($this->coreWebroot.'/public/js/jquery/jqplot/jqplot.pointLabels.min.js');
+  $this->headScript()->appendFile($this->coreWebroot.'/public/js/jquery/jquery.autogrow-textarea.js');
   $this->headScript()->appendFile($this->moduleWebroot.'/public/js/extension/extension.view.js');
   $this->headScript()->appendFile($this->webroot.'/modules/ratings/public/js/star_rating/jquery.ui.stars.min.js');
   $this->headScript()->appendFile($this->webroot.'/modules/ratings/public/js/common/common.ratings.js');
+  $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item/item.comments.js');
   }
 ?>
 <link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/extension/extension.view.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/layout/jquery.qtip.min.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/jquery/jquery.jqplot.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/ratings/public/css/star_rating/jquery.ui.stars.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/comments/public/css/item/item.comments.css" />
 
 <div id="container_main">
   <div id="extension_banner"> 
@@ -54,9 +59,9 @@ else
       </div>
     </div> 
     <div class="button_bar">
-      <img qtip="+1 on Google+" src="<?php echo $this->moduleWebroot?>/public/images/googleplus.png" width="48" height="48" class="googlePlus"/>
-      <img qtip="Tweet this" src="<?php echo $this->moduleWebroot?>/public/images/twitter.png" width="48" height="48" class="twitter"/>
-      <img qtip="Like on Facebook" src="<?php echo $this->moduleWebroot?>/public/images/LikeButton.png" width="103" height="48" class="facebook" />
+      <img qtip="+1 on Google+" src="<?php echo $this->moduleWebroot?>/public/images/googleplus.png" width="32" height="32" class="googlePlus"/>
+      <img qtip="Tweet this" src="<?php echo $this->moduleWebroot?>/public/images/twitter.png" width="32" height="32" class="twitter"/>
+      <img qtip="Like on Facebook" src="<?php echo $this->moduleWebroot?>/public/images/LikeButton.png" width="78" height="32" class="facebook" />
     </div>
   </div>
   <div class="left_column">
@@ -67,11 +72,7 @@ else
       <input type="button" id="downloadButton" value="Install" />
     </div>
     <div class="info_list">
-      <strong>List of info</strong>      <br />
-      item#1<br />
-      item#2<br />
-      item#3<br />
-      item#4 
+      <?php echo $this->extension->getItem()->getDownload() ?> downloads<br/>
     </div>
     <div class="rating_area">
       <?php echo $this->element('rating', 'ratings'); ?>
@@ -94,10 +95,10 @@ else
     <div class="tutorials">
     Content for  class "tutorials" Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here.</div>
     <div class="content_header">
-      User Reviews
+      User Comments
     </div>
     <div class="reviews">
-      Content for  class "tutorials" Goes Here. Content for class "tutorials" Goes Here. Content for class "tutorials" Goes Here. Content for class "tutorials" Goes Here. Content for class "tutorials" Goes Here. Content for class "tutorials" Goes Here. Content for class "tutorials" Goes Here. Content for class "tutorials" Goes Here.    
+      <?php echo $this->element('comment', 'comments'); ?>
     </div>
   </div>
 </div>
@@ -107,11 +108,13 @@ else
   <?php echo json_encode(array(
                         'slicerView' => $this->slicerView,
                         'extension' => $this->extension,
+                        'item' => $this->extension->getItem(),
                         'icon' => $this->icon,
                         'global' => array('logged' => $this->logged,
                                           'webroot' => $this->webroot,
                                           'moduleWebroot' => $this->moduleWebroot,
                                           'coreWebroot' => $this->coreWebroot),
-                        'modules' => array('ratings' => $this->ratings)));
+                        'modules' => array('ratings' => $this->ratings,
+                                           'comments' => $this->comments)));
   ?>
 </div>
