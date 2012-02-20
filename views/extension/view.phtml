@@ -55,7 +55,9 @@ else
         Contributor Names
       </div>
       <div class="category">
-        Category: <?php echo $this->extension->getCategory()?>
+        <span id="categoryBreadcrumb">
+          <a class="breadcrumbLink" href="<?php echo $this->webroot?>/slicerappstore<?php if($this->slicerView) echo '?slicerView'?>">Slicer Extensions</a>
+        </span>
       </div>
     </div> 
     <div class="button_bar">
