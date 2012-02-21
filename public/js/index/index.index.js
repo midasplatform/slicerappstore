@@ -19,10 +19,13 @@ midas.slicerappstore.extensionClick = function() {
  * Called when a user clicks the download or install button
  */
 midas.slicerappstore.downloadClick = function() {
-    var url = json.webroot+'/slicerappstore/index/downloadextension?extensionId='+$(this).attr('element');
+    var extensionId = $(this).attr('element');
     if(json.slicerView) {
-        window.location.assign('installextension:'+url);
+      if(window.extensions_manager_model) {
+        window.extensions_manager_model.downloadExtension(extensionId);
+      }
     } else {
+        var url = json.webroot+'/slicerappstore/index/downloadextension?extensionId='+extensionId;
         window.location.assign(url);
     }
 }
@@ -185,7 +188,7 @@ $(document).ready(function() {
         $(this).addClass('selectedCategory');
         midas.slicerappstore.applyFilter();
     });
-    
+
     // Fetch our results based on the initial settings
     midas.slicerappstore.applyFilter();
 });
