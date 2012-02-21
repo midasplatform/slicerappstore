@@ -242,3 +242,31 @@ span.addRating {
 }
 /* ======= END RATINGS SECTION ============*/
 
+
+/* ======= SCREENSHOT SECTION =============*/
+.screenshots {
+  display: inline-block;
+}
+
+.screenshotContainer {
+  border: 1px solid gray;
+  width: 180px;
+  height: 180px;
+  float: left;
+  margin-right: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+img.screenshotPreview {
+  width: 180px;
+  height: 180px;
+  cursor: pointer;
+}
+
+img.screenshotPreview:hover {
+  -webkit-box-shadow: black 0 0 6px;
+  box-shadow: black 0 0 6px;
+  -moz-box-shadow: 0px 0px 6px black;
+}
+/* ======= END SCREENSHOT SECTION =========*/

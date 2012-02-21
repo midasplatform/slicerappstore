@@ -19,6 +19,7 @@ if($this->slicerView)
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.qtip.min.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/midas.callback.js"></script>';
   echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/extension/extension.view.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/lightbox/jquery.lightbox-0.5.pack.js"></script>';
   echo '<script type="text/javascript" src="'.$this->webroot.'/modules/ratings/public/js/common/common.ratings.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jquery.jqplot.min.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jqplot/jqplot.barRenderer.min.js"></script>';
@@ -36,12 +37,14 @@ else
   $this->headScript()->appendFile($this->coreWebroot.'/public/js/jquery/jqplot/jqplot.pointLabels.min.js');
   $this->headScript()->appendFile($this->coreWebroot.'/public/js/jquery/jquery.autogrow-textarea.js');
   $this->headScript()->appendFile($this->moduleWebroot.'/public/js/extension/extension.view.js');
+  $this->headScript()->appendFile($this->moduleWebroot.'/public/js/lightbox/jquery.lightbox-0.5.pack.js');
   $this->headScript()->appendFile($this->webroot.'/modules/ratings/public/js/star_rating/jquery.ui.stars.min.js');
   $this->headScript()->appendFile($this->webroot.'/modules/ratings/public/js/common/common.ratings.js');
   $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item/item.comments.js');
   }
 ?>
 <link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/extension/extension.view.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/lightbox/jquery.lightbox-0.5.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/layout/jquery.qtip.min.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/jquery/jquery.jqplot.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/ratings/public/css/star_rating/jquery.ui.stars.css" />
@@ -85,17 +88,19 @@ else
   <div class="right_content">
     <div class="content_header">Description</div>
     <div class="description">
-    Content for  class "description" Goes Here. Content for  class &quot;description&quot; Goes Here. Content for  class &quot;description&quot; Goes Here. Content for class "description" Goes Here. Content for class "description" Goes Here. Content for class "description" Goes Here. Content for class "description" Goes Here. Content for class "description" Goes Here.</div> 
+      <?php echo htmlentities($this->extension->getDescription()) ?>
+    </div> 
     <div class="content_header">
       Screenshots
     </div>
     <div class="screenshots">
-    Content for  class "screenshots" Goes Here. Content for  class &quot;screenshots&quot; Goes Here. Content for  class &quot;screenshots&quot; Goes Here. Content for  class &quot;screenshots&quot; Goes Here. Content for  class &quot;screenshots&quot; Goes Here. Content for  class &quot;screenshots&quot; Goes Here. Content for  class &quot;screenshots&quot; Goes Here. Content for  class &quot;screenshots&quot; Goes Here.</div>
+    </div>
     <div class="content_header">
       Tutorials
     </div>
     <div class="tutorials">
-    Content for  class "tutorials" Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here. Content for  class &quot;tutorials&quot; Goes Here.</div>
+      There are no tutorials for this extension.
+    </div>
     <div class="content_header">
       User Comments
     </div>
@@ -103,6 +108,13 @@ else
       <?php echo $this->element('comment', 'comments'); ?>
     </div>
   </div>
+</div>
+
+<!-- TEMPLATE: Screenshot -->
+<div style="display: none;" class="screenshotContainer" id="screenshotTemplate">
+  <a class="screenshotPreview" href="">
+    <img class="screenshotPreview" alt="" src="" />
+  </a>
 </div>
 
 <!-- Pass json to our javascript -->
