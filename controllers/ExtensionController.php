@@ -49,6 +49,10 @@ class Slicerappstore_ExtensionController extends Slicerappstore_AppController
 
     $itemratingModel = $modelLoader->loadModel('Itemrating', 'ratings');
     $this->view->ratings = $itemratingModel->getAggregateInfo($extension->getItem());
+    if($this->userSession->Dao)
+      {
+      $this->view->ratings['userRating'] = $itemratingModel->getByUser($this->userSession->Dao, $extension->getItem());
+      }
     
     $componentLoader = new MIDAS_ComponentLoader();
     $commentComponent = $componentLoader->loadComponent('Comment', 'comments');

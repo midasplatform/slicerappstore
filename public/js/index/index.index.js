@@ -142,7 +142,9 @@ $(document).ready(function() {
     midas.slicerappstore.release = json.release;
     midas.slicerappstore.revision = json.revision;
 
-    if(!json.slicerView) {
+    if(json.slicerView) {
+        createNotice = function() {}; //dummy function definition to prevent exceptions
+    } else {
         midas.slicerappstore.os = $('#osSelect').val();
         midas.slicerappstore.arch = $('#archSelect').val();
         midas.slicerappstore.release = $('#releaseSelect').val();

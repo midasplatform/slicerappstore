@@ -24,9 +24,13 @@ $(document).ready(function() {
     json = $.parseJSON($('#jsonContent').html());
     midas.slicerappstore.renderCategory(json.extension.category);
 
+    if(json.slicerView) {
+        createNotice = function() {}; //dummy function definition to prevent exceptions
+    }
+
     $('#commentsDiv h4').remove();
     $('#ratingsDiv h4').remove();
-    $('#ratingsUser').remove(); //hide for now until we can put it somewhere better
+    $('#ratingsUser').appendTo('#ratingsDiv');
 
     $('.googlePlus,.twitter,.facebook').qtip({
         content: {
