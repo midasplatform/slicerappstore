@@ -47,11 +47,13 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     sort($this->view->allCategories);
 
     $avalue = function($k, $a, $default) { return array_key_exists($k, $a) ? $a[$k] : $default; };
+    $params = $this->_getAllParams();
 
-    $this->view->os = $avalue('os', $_GET, '');
-    $this->view->arch = $avalue('arch', $_GET, '');
-    $this->view->release = $avalue('release', $_GET, '');
-    $this->view->revision = $avalue('revision', $_GET, '');
+    $this->view->os = $avalue('os', $params, '');
+    $this->view->arch = $avalue('arch', $params, '');
+    $this->view->release = $avalue('release', $params, '');
+    $this->view->revision = $avalue('revision', $params, '');
+    $this->view->category = $avalue('category', $params, '');
     }
 
   /**

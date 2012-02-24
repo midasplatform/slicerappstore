@@ -1,6 +1,5 @@
 var midas = midas || {};
 midas.slicerappstore = midas.slicerappstore || {};
-midas.slicerappstore.category = '';
 
 var json = null;
 
@@ -141,6 +140,7 @@ $(document).ready(function() {
     midas.slicerappstore.arch = json.arch;
     midas.slicerappstore.release = json.release;
     midas.slicerappstore.revision = json.revision;
+    midas.slicerappstore.category = json.category;
 
     if(json.slicerView) {
         createNotice = function() {}; //dummy function definition to prevent exceptions
@@ -180,7 +180,7 @@ $(document).ready(function() {
         midas.slicerappstore.selectedCategory = $(this);
         $(this).addClass('selectedCategory');
         midas.slicerappstore.applyFilter();
-    }).addClass('selectedCategory');
+    });
 
     // Enable filtering by specific categories
     $('li.categoryControl').click(function() {
@@ -190,6 +190,11 @@ $(document).ready(function() {
         $(this).addClass('selectedCategory');
         midas.slicerappstore.applyFilter();
     });
+
+    var selector = midas.slicerappstore.category == '' ?
+        'li#categoryAll' :
+        'li.categoryControl[name="'+midas.slicerappstore.category+'"]';
+    midas.slicerappstore.selectedCategory = $(selector).addClass('selectedCategory');
 
     // Fetch our results based on the initial settings
     midas.slicerappstore.applyFilter();
