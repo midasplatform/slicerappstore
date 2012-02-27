@@ -114,12 +114,17 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
         {
         $icon = $defaultIcon;
         }
+      $contributors = $extension->getContributors();
+      if($contributors == '')
+        {
+        $contributors = 'Unknown contributors';
+        }
       $result = array('slicerpackages_extension_id' => $extension->getKey(),
                       'item_id' => $extension->getItemId(),
                       'icon' => $icon,
                       'productname' => $extension->getProductname(),
                       'category' => $extension->getCategory(),
-                      'subtitle' => 'contributor list'); //dummy until we decide what to put in the subtitle
+                      'subtitle' => $contributors);
       $result['ratings'] = $itemratingModel->getAggregateInfo($extension->getItem());
       $results[] = $result;
       }
