@@ -12,7 +12,10 @@ midas.slicerappstore.renderCategory = function(category) {
     $.each(categories, function(k, token) {
         currToken += token;
         var html = ' &gt; ';
-        html += '<a class="breadcrumbLink" href="'+json.global.webroot+'/slicerappstore?category='+currToken;
+        html += '<a class="breadcrumbLink" href="'+json.global.webroot+'/slicerappstore?category='+currToken
+             + '&os=' + json.extension.os
+             + '&arch=' + json.extension.arch
+             + '&revision=' + json.extension.slicer_revision;
         if(json.slicerView) {
             html += '&slicerView';
         }
@@ -83,4 +86,13 @@ $(document).ready(function() {
             effect: true
         }
     });
+
+    var url = json.global.webroot+'/slicerappstore'
+             + '?os=' + json.extension.os
+             + '&arch=' + json.extension.arch
+             + '&revision=' + json.extension.slicer_revision;
+    if(json.slicerView) {
+        url += '&slicerView';
+    }
+    $('#rootBreadcrumb').attr('href', url);
 });

@@ -58,11 +58,11 @@ else
     <div class="title">
       <div class="extension_title"><?php echo $this->extension->getProductname()?></div>
       <div class="group_title">
-        Contributor Names
+        <?php echo $this->extension->getContributors() ?>
       </div>
       <div class="category">
         <span id="categoryBreadcrumb">
-          <a class="breadcrumbLink" href="<?php echo $this->webroot?>/slicerappstore<?php if($this->slicerView) echo '?slicerView'?>">Slicer Extensions</a>
+          <a id="rootBreadcrumb" class="breadcrumbLink" href="">Slicer Extensions</a>
         </span>
       </div>
     </div>
