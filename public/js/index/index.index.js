@@ -132,6 +132,11 @@ $(document).ready(function() {
     midas.slicerappstore.revision = json.revision;
     midas.slicerappstore.category = json.category;
 
+    $('#osSelect').val(json.os);
+    $('#archSelect').val(json.arch);
+    $('#releaseSelect').val(json.release);
+    // TODO revision?
+
     if(json.slicerView) {
         createNotice = function() {}; //dummy function definition to prevent exceptions
     } else {
