@@ -1,6 +1,3 @@
-body {
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
-}
 
 div.viewWrapper {
   padding-right: 25px !important;
@@ -52,7 +49,7 @@ div.viewWrapper {
 }
 
 .category {
-  
+
 }
 
 .left_column {
@@ -78,7 +75,7 @@ div.viewWrapper {
   margin-left: 25px;
 }
 
-.download_button {
+.extensionActionButtonWrapper {
   margin-bottom: 15px;
   margin-left: 15px;
 }
@@ -145,36 +142,19 @@ div.viewWrapper {
   border: 1px solid #ddd8d8;
 }
 
-#downloadButton {
+input.extensionActionButton {
   width: 127px;
-  color: white;
   font-size: 15px;
-  background-color: #2277aa;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  border: 1px solid white;
   margin-left: 11px;
   margin-top: 5px;
-  line-height: 1.5;
-  display: block;
-  text-transform: uppercase;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -khtml-border-radius: 3px;
-  border-radius: 3px;
-  -webkit-box-shadow: black 0 0 3px;
-  box-shadow: black 0 0 3px;
-  -moz-box-shadow: 0px 0px 3px black;
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
-}
-
-#downloadButton:hover {
+  }
+/*
+#extensionActionButton:hover {
   background-color: #00aaaa;
   -webkit-box-shadow: black 0 0 7px;
   box-shadow: black 0 0 7px;
   -moz-box-shadow: 0px 0px 7px black;
-}
+}*/
 
 /* Breadcrumbs */
 .category {

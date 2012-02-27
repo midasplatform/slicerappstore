@@ -59,6 +59,11 @@ $(document).ready(function() {
     midas.slicerappstore.renderCategory(json.extension.category);
     midas.slicerappstore.renderScreenshots(json.extension.screenshots);
 
+    $('input.extensionActionButton')
+        .attr('element', json.extension.slicerpackages_extension_id)
+        .attr('extensionname', json.extension.productname);
+    midas.slicerappstore.updateExtensionButtonState(json.extension.productname);
+
     if(json.slicerView) {
         createNotice = function() {}; //dummy function definition to prevent exceptions
     }

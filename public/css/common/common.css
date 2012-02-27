@@ -1,0 +1,44 @@
+body {
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
+}
+
+input.extensionActionButton {
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid white;
+  line-height: 1.5;
+  display: block;
+  text-transform: uppercase;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: black 0 0 3px;
+  box-shadow: black 0 0 3px;
+  -moz-box-shadow: 0px 0px 3px black;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
+}
+
+input.extensionActionButton:hover {
+  -webkit-box-shadow: black 0 0 6px;
+  box-shadow: black 0 0 6px;
+  -moz-box-shadow: 0px 0px 6px black;
+}
+
+input.extensionDownloadButton, input.extensionInstallButton {
+  background-color: #2277aa;
+}
+
+input.extensionDownloadButton:hover, input.extensionInstallButton:hover {
+  background-color: #00aaaa;
+}
+
+input.extensionUninstallButton {
+  background-color: #007f09;
+}
+
+input.extensionUninstallButton:hover {
+  background-color: #6eb04b;
+}

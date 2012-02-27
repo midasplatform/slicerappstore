@@ -7,7 +7,7 @@ var json = null;
  * Called when a user clicks to view the extension page
  */
 midas.slicerappstore.extensionClick = function() {
-  var url = json.webroot+'/slicerappstore/extension/view?extensionId='+$(this).attr('element');
+  var url = json.global.webroot+'/slicerappstore/extension/view?extensionId='+$(this).attr('element');
   if(json.slicerView) {
       url += '&slicerView';
   }
@@ -15,31 +15,17 @@ midas.slicerappstore.extensionClick = function() {
 }
 
 /**
- * Called when a user clicks the download or install button
- */
-midas.slicerappstore.downloadClick = function() {
-    var extensionId = $(this).attr('element');
-    if(json.slicerView) {
-      if(window.extensions_manager_model) {
-        window.extensions_manager_model.downloadExtension(extensionId);
-      }
-    } else {
-        var url = json.webroot+'/slicerappstore/index/downloadextension?extensionId='+extensionId;
-        window.location.assign(url);
-    }
-}
-
-/**
  * Render the extension result in the result list area
  * @param extension Json-ified slicerpackages_extension dao
  */
 midas.slicerappstore.renderExtension = function(extension) {
+    var extensionName = extension.productname;
     var extDiv = $('#extensionTemplate').clone()
       .attr('id', 'extensionWrapper_'+extension.slicerpackages_extension_id);
-    var buttonText = json.slicerView ? 'Install' : 'Download';
-    extDiv.attr('element', extension.slicerpackages_extension_id);
-    extDiv.find('a.extensionName').html(extension.productname)
-      .attr('qtip', extension.productname)
+    extDiv.attr('element', extension.slicerpackages_extension_id)
+    .attr('extensionname', extensionName);
+    extDiv.find('a.extensionName').html(extensionName)
+      .attr('qtip', extensionName)
       .attr('element', extension.slicerpackages_extension_id)
       .qtip({
           content: {
@@ -56,10 +42,11 @@ midas.slicerappstore.renderExtension = function(extension) {
     extDiv.find('span.subtitle').html(extension.subtitle);
     extDiv.find('img.extensionIcon').attr('src', extension.icon)
       .attr('element', extension.slicerpackages_extension_id)
+      .attr('extensionname', extensionName)
       .click(midas.slicerappstore.extensionClick);
-    extDiv.find('input.downloadButton').val(buttonText)
+    extDiv.find('input.extensionActionButton')
       .attr('element', extension.slicerpackages_extension_id)
-      .click(midas.slicerappstore.downloadClick);
+      .attr('extensionname', extensionName);
 
     var average = Math.round(extension.ratings.average * 100) / 100;
     var starSelect = Math.round(average * 2);
@@ -72,6 +59,9 @@ midas.slicerappstore.renderExtension = function(extension) {
     extDiv.find('span.totalVotes').html('('+extension.ratings.total+')');
 
     extDiv.appendTo('#extensionsContainer');
+
+    midas.slicerappstore.updateExtensionButtonState(extensionName);
+
     extDiv.show();
 }
 
@@ -81,7 +71,7 @@ midas.slicerappstore.renderExtension = function(extension) {
 midas.slicerappstore.applyFilter = function() {
     $('#extensionsContainer').html('');
     $('.loadingExtensions').show();
-    $.post(json.webroot+'/slicerappstore/index/listextensions', {
+    $.post(json.global.webroot+'/slicerappstore/index/listextensions', {
         category: midas.slicerappstore.category,
         os: midas.slicerappstore.os,
         arch: midas.slicerappstore.arch,

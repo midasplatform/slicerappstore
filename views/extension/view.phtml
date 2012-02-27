@@ -18,6 +18,7 @@ if($this->slicerView)
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.treeTable.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.qtip.min.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/midas.callback.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/common/common.js"></script>';
   echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/extension/extension.view.js"></script>';
   echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/lightbox/jquery.lightbox-0.5.pack.js"></script>';
   echo '<script type="text/javascript" src="'.$this->webroot.'/modules/ratings/public/js/common/common.ratings.js"></script>';
@@ -36,6 +37,7 @@ else
   $this->headScript()->appendFile($this->coreWebroot.'/public/js/jquery/jqplot/jqplot.categoryAxisRenderer.min.js');
   $this->headScript()->appendFile($this->coreWebroot.'/public/js/jquery/jqplot/jqplot.pointLabels.min.js');
   $this->headScript()->appendFile($this->coreWebroot.'/public/js/jquery/jquery.autogrow-textarea.js');
+  $this->headScript()->appendFile($this->moduleWebroot.'/public/js/common/common.js');
   $this->headScript()->appendFile($this->moduleWebroot.'/public/js/extension/extension.view.js');
   $this->headScript()->appendFile($this->moduleWebroot.'/public/js/lightbox/jquery.lightbox-0.5.pack.js');
   $this->headScript()->appendFile($this->webroot.'/modules/ratings/public/js/star_rating/jquery.ui.stars.min.js');
@@ -43,6 +45,7 @@ else
   $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item/item.comments.js');
   }
 ?>
+<link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/common/common.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/extension/extension.view.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/lightbox/jquery.lightbox-0.5.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/layout/jquery.qtip.min.css" />
@@ -51,7 +54,7 @@ else
 <link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/comments/public/css/item/item.comments.css" />
 
 <div id="container_main">
-  <div id="extension_banner"> 
+  <div id="extension_banner">
     <div class="title">
       <div class="extension_title"><?php echo $this->extension->getProductname()?></div>
       <div class="group_title">
@@ -62,7 +65,7 @@ else
           <a class="breadcrumbLink" href="<?php echo $this->webroot?>/slicerappstore<?php if($this->slicerView) echo '?slicerView'?>">Slicer Extensions</a>
         </span>
       </div>
-    </div> 
+    </div>
     <div class="button_bar">
       <img qtip="+1 on Google+" src="<?php echo $this->moduleWebroot?>/public/images/googleplus.png" width="32" height="32" class="googlePlus"/>
       <img qtip="Tweet this" src="<?php echo $this->moduleWebroot?>/public/images/twitter.png" width="32" height="32" class="twitter"/>
@@ -73,8 +76,8 @@ else
     <div class="icon_art">
       <img src="<?php echo $this->icon ?>" width="128" height="128" />
     </div>
-    <div class="download_button">
-      <input type="button" id="downloadButton" value="Install" />
+    <div class="extensionActionButtonWrapper">
+      <input type="button" class="extensionActionButton" value=""/>
     </div>
     <div class="info_list">
       <?php echo $this->extension->getItem()->getDownload() ?> downloads<br/>
@@ -89,7 +92,7 @@ else
     <div class="content_header">Description</div>
     <div class="description">
       <?php echo htmlentities($this->extension->getDescription()) ?>
-    </div> 
+    </div>
     <div class="content_header">
       Screenshots
     </div>
