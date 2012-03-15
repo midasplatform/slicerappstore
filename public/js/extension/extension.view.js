@@ -4,6 +4,20 @@ midas.slicerappstore = midas.slicerappstore || {};
 var json = null;
 
 /**
+ * Displays the login dialog
+ */
+midas.slicerappstore.doLogin = function () {
+   // TODO show login dialog
+}
+
+/**
+ * Displays the register dialog
+ */
+midas.slicerappstore.doRegister = function () {
+    // TODO show register dialog
+}
+
+/**
  * Renders the category of this extension as a breadcrumb bar
  */
 midas.slicerappstore.renderCategory = function(category) {
@@ -69,6 +83,10 @@ $(document).ready(function() {
 
     if(json.slicerView) {
         createNotice = function() {}; //dummy function definition to prevent exceptions
+        midas.registerCallback('CALLBACK_RATINGS_AFTER_LOAD', 'ratings', function() {
+            $('#loginToComment,#loginToRate').unbind('click').click(midas.slicerappstore.doLogin);
+            $('#registerToComment,#registerToRate').unbind('click').click(midas.slicerappstore.doRegister);
+        });
     }
 
     $('#commentsDiv h4').remove();

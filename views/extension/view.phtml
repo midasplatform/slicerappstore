@@ -18,6 +18,7 @@ if($this->slicerView)
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.treeTable.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/jquery.qtip.min.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/midas.callback.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/layout/midas.dialog.js"></script>';
   echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/common/common.js"></script>';
   echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/extension/extension.view.js"></script>';
   echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/lightbox/jquery.lightbox-0.5.pack.js"></script>';
@@ -49,6 +50,7 @@ else
 <link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/extension/extension.view.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->moduleWebroot?>/public/css/lightbox/jquery.lightbox-0.5.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/layout/jquery.qtip.min.css" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/layout/jquery-ui.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->coreWebroot?>/public/css/jquery/jquery.jqplot.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/ratings/public/css/star_rating/jquery.ui.stars.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/comments/public/css/item/item.comments.css" />
@@ -136,3 +138,18 @@ else
                                            'comments' => $this->comments)));
   ?>
 </div>
+
+<?php
+if($this->slicerView)
+  { ?>
+  <div class="MainDialog" style="display:none;">
+    <div class="MainDialogContent">
+    </div>
+    <div class="MainDialogLoading">
+      <img alt="" src="<?php echo  $this->coreWebroot?>/public/images/icons/loading.gif" />
+    </div>
+    <input type="hidden" class="DialogContentPage"/>
+  </div>
+<?php
+  }
+?>
