@@ -74,6 +74,8 @@ $(document).ready(function() {
     $('#commentsDiv h4').remove();
     $('#ratingsDiv h4').remove();
     $('#ratingsUser').appendTo('#ratingsDiv');
+    $('div.loginToRate').appendTo('#ratingsDiv');
+    $('div.loginToRate').css('float', 'left');
 
     $('.googlePlus,.twitter,.facebook').qtip({
         content: {
