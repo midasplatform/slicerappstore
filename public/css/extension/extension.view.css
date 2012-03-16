@@ -1,3 +1,6 @@
+body {
+  font-size: 12px;
+}
 
 div.viewWrapper {
   padding-right: 25px !important;
@@ -148,13 +151,6 @@ input.extensionActionButton {
   margin-left: 11px;
   margin-top: 5px;
   }
-/*
-#extensionActionButton:hover {
-  background-color: #00aaaa;
-  -webkit-box-shadow: black 0 0 7px;
-  box-shadow: black 0 0 7px;
-  -moz-box-shadow: 0px 0px 7px black;
-}*/
 
 /* Breadcrumbs */
 .category {
@@ -250,3 +246,38 @@ img.screenshotPreview:hover {
   -moz-box-shadow: 0px 0px 6px black;
 }
 /* ======= END SCREENSHOT SECTION =========*/
+
+.dialogForm {
+  margin-bottom: 0px;
+}
+
+.dialogForm td,.dialogForm input {
+  font-size: 14px;
+}
+
+.dialogForm input[type=text],.dialogForm input[type=password] {
+  width: 200px;
+}
+
+.dialogForm input[type=button],.dialogForm input[type=submit] {
+  cursor: pointer;
+  background: #8689DE;
+  font-size: 13px;
+  border: 0;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 3px;
+  padding: 6px 8px 6px 8px;
+  color: white;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-right: 0;
+  float: right;
+}
+
+.dialogForm input[type=button]:hover,.dialogForm input[type=submit]:hover {
+  color: #1d5987;
+  text-decoration: none;
+  background: #cbd9e3;
+}

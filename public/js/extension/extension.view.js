@@ -7,14 +7,38 @@ var json = null;
  * Displays the login dialog
  */
 midas.slicerappstore.doLogin = function () {
-   // TODO show login dialog
+    var content = $('#loginFormTemplate').clone();
+    content.find('form.loginForm').attr('id', 'loginForm');
+    showDialogWithContent('Login', content.html(), false, { width: 320 });
+    $('#loginForm').ajaxForm({
+        success: function (responseText, statusText, xhr, form) {
+            var resp = $.parseJSON(responseText);
+            if(resp.status == 'ok') {
+                window.location.reload();
+            } else {
+                //TODO report login errors in a convenient way
+            }
+        }
+    });
 }
 
 /**
  * Displays the register dialog
  */
 midas.slicerappstore.doRegister = function () {
-    // TODO show register dialog
+    var content = $('#registerFormTemplate').clone();
+    content.find('form.registerForm').attr('id', 'registerForm');
+    showDialogWithContent('Register', content.html(), false, { width: 380 });
+    $('#registerForm').ajaxForm({
+        success: function (responseText, statusText, xhr, form) {
+            var resp = $.parseJSON(responseText);
+            if(resp.status == 'ok') {
+                window.location.reload();
+            } else {
+                //TODO report registration errors in a convenient way
+            }
+        }
+    });
 }
 
 /**

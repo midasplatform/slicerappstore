@@ -24,6 +24,7 @@ if($this->slicerView)
   echo '<script type="text/javascript" src="'.$this->moduleWebroot.'/public/js/lightbox/jquery.lightbox-0.5.pack.js"></script>';
   echo '<script type="text/javascript" src="'.$this->webroot.'/modules/ratings/public/js/common/common.ratings.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jquery.jqplot.min.js"></script>';
+  echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jquery.form.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jqplot/jqplot.barRenderer.min.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jqplot/jqplot.categoryAxisRenderer.min.js"></script>';
   echo '<script type="text/javascript" src="'.$this->coreWebroot.'/public/js/jquery/jqplot/jqplot.pointLabels.min.js"></script>';
@@ -142,13 +143,38 @@ else
 <?php
 if($this->slicerView)
   { ?>
-  <div class="MainDialog" style="display:none;">
+  <div class="MainDialog slicerViewDialog" style="display:none;">
     <div class="MainDialogContent">
     </div>
     <div class="MainDialogLoading">
       <img alt="" src="<?php echo  $this->coreWebroot?>/public/images/icons/loading.gif" />
     </div>
     <input type="hidden" class="DialogContentPage"/>
+  </div>
+
+  <!-- TEMPLATE: login form -->
+  <div id="loginFormTemplate" style="display:none;">
+    <form class="loginForm dialogForm" method="POST" action="<?php echo $this->webroot?>/user/ajaxlogin">
+      <table>
+        <tr><td>E-mail</td><td><input name="email" type="text" /></td></tr>
+        <tr><td>Password</td><td><input name="password" type="password" /></td></tr>
+        <tr><td></td><td><input type="submit" value="Login" /></td></tr>
+      </table>
+    </form>
+  </div>
+
+  <!-- TEMPLATE: register form -->
+  <div id="registerFormTemplate" style="display:none;">
+    <form class="registerForm dialogForm" method="POST" action="<?php echo $this->webroot?>/user/ajaxregister">
+      <table>
+        <tr><td>E-mail</td><td><input name="email" type="text" /></td></tr>
+        <tr><td>First Name</td><td><input name="firstname" type="text" /></td></tr>
+        <tr><td>Last Name</td><td><input name="lastname" type="text" /></td></tr>
+        <tr><td>Password</td><td><input name="password1" type="password" /></td></tr>
+        <tr><td>Confirm Password</td><td><input name="password2" type="password" /></td></tr>
+        <tr><td></td><td><input type="submit" value="Register" /></td></tr>
+      </table>
+    </form>
   </div>
 <?php
   }
