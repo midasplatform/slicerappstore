@@ -87,7 +87,15 @@ else
       <input type="button" class="extensionActionButton" value=""/>
     </div>
     <div class="info_list">
-      <?php echo $this->extension->getItem()->getDownload() ?> downloads<br/>
+      <div class="info_item">
+        Created <?php echo date('F j, Y', strtotime($this->extension->getItem()->getDateCreation())); ?>
+      </div>
+      <div class="info_item">
+        <?php echo UtilityComponent::formatSize($this->extension->getItem()->getSizebytes()); ?>
+      </div>
+      <div class="info_item">
+        <?php echo $this->extension->getItem()->getDownload() ?> downloads
+      </div>
     </div>
     <div class="rating_area">
       <?php echo $this->element('rating', 'ratings'); ?>
