@@ -139,4 +139,10 @@ $(document).ready(function() {
         url += '&slicerView';
     }
     $('#rootBreadcrumb').attr('href', url);
+    // Enable logout link
+    $('#logoutLink').click(function () {
+        $.post(json.global.webroot+'/user/logout', {noRedirect: true}, function() {
+            window.location.reload();
+        });
+    });
 });

@@ -281,3 +281,20 @@ img.screenshotPreview:hover {
   text-decoration: none;
   background: #cbd9e3;
 }
+
+div.logoutDiv {
+  text-align: right;
+  padding-top: 8px;
+  font-size: 13px;
+}
+
+div.logoutDiv a {
+  font-weight: bold;
+  color: #56758b;
+  text-decoration: none;
+}
+
+div.logoutDiv a:hover {
+  text-decoration: underline;
+}
+
