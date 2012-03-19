@@ -157,6 +157,8 @@ if($this->slicerView)
 
   <!-- TEMPLATE: login form -->
   <div id="loginFormTemplate" style="display:none;">
+    <div class="loginError">
+    </div>
     <form class="loginForm dialogForm" method="POST" action="<?php echo $this->webroot?>/user/ajaxlogin">
       <table>
         <tr><td>E-mail</td><td><input name="email" type="text" /></td></tr>
@@ -171,6 +173,8 @@ if($this->slicerView)
 
   <!-- TEMPLATE: register form -->
   <div id="registerFormTemplate" style="display:none;">
+    <div class="registerError">
+    </div>
     <form class="registerForm dialogForm" method="POST" action="<?php echo $this->webroot?>/user/ajaxregister">
       <table>
         <tr><td>E-mail</td><td><input name="email" type="text" /></td></tr>

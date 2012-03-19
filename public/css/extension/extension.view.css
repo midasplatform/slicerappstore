@@ -298,3 +298,19 @@ div.logoutDiv a:hover {
   text-decoration: underline;
 }
 
+div.loginError,div.registerError {
+  color: red;
+  font-weight: bold;
+}
+
+div.loginError {
+  padding-bottom: 8px;
+}
+
+input.invalidField {
+  background-color: #ff9191;
+}
+
+input.validField {
+  background-color: #91ff91;
+}

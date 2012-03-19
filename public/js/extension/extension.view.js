@@ -9,6 +9,7 @@ var json = null;
 midas.slicerappstore.doLogin = function () {
     var content = $('#loginFormTemplate').clone();
     content.find('form.loginForm').attr('id', 'loginForm');
+    content.find('div.loginError').attr('id', 'loginError');
     showDialogWithContent('Login', content.html(), false, { width: 320 });
     $('a.registerLink').click(midas.slicerappstore.doRegister);
     $('#loginForm').ajaxForm({
@@ -17,7 +18,7 @@ midas.slicerappstore.doLogin = function () {
             if(resp.status == 'ok') {
                 window.location.reload();
             } else {
-                //TODO report login errors in a convenient way
+                $('#loginError').html('Login failed');
             }
         }
     });
@@ -29,6 +30,7 @@ midas.slicerappstore.doLogin = function () {
 midas.slicerappstore.doRegister = function () {
     var content = $('#registerFormTemplate').clone();
     content.find('form.registerForm').attr('id', 'registerForm');
+    content.find('div.registerError').attr('id', 'registerError');
     showDialogWithContent('Register', content.html(), false, { width: 380 });
     $('a.loginLink').click(midas.slicerappstore.doLogin);
     $('#registerForm').ajaxForm({
@@ -37,7 +39,38 @@ midas.slicerappstore.doRegister = function () {
             if(resp.status == 'ok') {
                 window.location.reload();
             } else {
-                //TODO report registration errors in a convenient way
+                var errorText = '<ul>';
+                if(resp.alreadyRegistered) {
+                    $('#registerForm').find('input[type=text],input[type=password]')
+                    .removeClass('invalidField').addClass('validField');
+                    $('#registerForm').find('input[name=email]').removeClass('validField').addClass('invalidField');
+                    errorText += '<li>'+resp.message+'</li>';
+                } else {
+                    $('#registerForm').find('input[type=text],input[type=password]')
+                    .removeClass('validField').addClass('invalidField');
+
+                    $.each(resp.validValues, function(field, value) {
+                        $('#registerForm').find('input[name='+field+']')
+                        .removeClass('invalidField').addClass('validField');
+                    });
+                    if(!resp.validValues.email) {
+                        errorText += '<li>Invalid email</li>';
+                    }
+                    if(!resp.validValues.firstname) {
+                        errorText += '<li>Invalid first name</li>';
+                    }
+                    if(!resp.validValues.lastname) {
+                        errorText += '<li>Invalid last name</li>';
+                    }
+                    if(!resp.validValues.password1) {
+                        errorText += '<li>Invalid password</li>';
+                    }
+                    if(!resp.validValues.password2) {
+                        errorText += '<li>Passwords must match</li>';
+                    }
+                }
+                errorText += '</ul>';
+                $('#registerError').html(errorText);
             }
         }
     });
