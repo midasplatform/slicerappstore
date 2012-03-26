@@ -88,12 +88,9 @@ midas.slicerappstore.renderCategory = function(category) {
         html += '<a class="breadcrumbLink" href="'+json.global.webroot+'/slicerappstore?category='+currToken
              + '&os=' + json.extension.os
              + '&arch=' + json.extension.arch
-             + '&revision=' + json.extension.slicer_revision;
-        if(json.slicerView) {
-            html += '&slicerView';
-        }
-        html += '">';
-        html += token+'</a>';
+             + '&revision=' + json.extension.slicer_revision
+             + '&layout=' + json.layout
+             + '">' + token + '</a>';
         currToken += '.';
         $('#categoryBreadcrumb').append(html);
     });
@@ -131,7 +128,6 @@ midas.slicerappstore.renderScreenshots = function(screenshots) {
 }
 
 $(document).ready(function() {
-    json = $.parseJSON($('#jsonContent').html());
     midas.slicerappstore.renderCategory(json.extension.category);
     midas.slicerappstore.renderScreenshots(json.extension.screenshots);
 
@@ -140,8 +136,7 @@ $(document).ready(function() {
         .attr('extensionname', json.extension.productname);
     midas.slicerappstore.updateExtensionButtonState(json.extension.productname);
 
-    if(json.slicerView) {
-        createNotice = function() {}; //dummy function definition to prevent exceptions
+    if(json.layout == 'empty') {
         midas.registerCallback('CALLBACK_RATINGS_AFTER_LOAD', 'ratings', function() {
             $('#loginToComment,#loginToRate').unbind('click').click(midas.slicerappstore.doLogin);
             $('#registerToComment,#registerToRate').unbind('click').click(midas.slicerappstore.doRegister);
@@ -169,10 +164,9 @@ $(document).ready(function() {
     var url = json.global.webroot+'/slicerappstore'
              + '?os=' + json.extension.os
              + '&arch=' + json.extension.arch
-             + '&revision=' + json.extension.slicer_revision;
-    if(json.slicerView) {
-        url += '&slicerView';
-    }
+             + '&revision=' + json.extension.slicer_revision
+             + '&layout=' + json.layout;
+
     $('#rootBreadcrumb').attr('href', url);
     // Enable logout link
     $('#logoutLink').click(function () {

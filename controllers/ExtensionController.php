@@ -24,7 +24,6 @@ class Slicerappstore_ExtensionController extends Slicerappstore_AppController
   /**
    * Action for rendering the extension page
    * @param extensionId The extension id to view
-   * @param slicerView (optional) Set this if you're accessing this page from within the Slicer web view.
    */
   function viewAction()
     {
@@ -37,33 +36,31 @@ class Slicerappstore_ExtensionController extends Slicerappstore_AppController
       throw new Zend_Exception('Invalid extensionId');
       }
     $this->view->extension = $extension;
+    $this->view->json['extension'] = $extension;
+    $this->view->json['item'] = $extension->getItem();
     $this->view->icon = $extension->getIconUrl();
     if(!$this->view->icon)
       {
       $this->view->icon = $settingModel->getValueByName('defaultIcon', $this->moduleName);
       }
+    $this->view->json['icon'] = $this->view->icon;
 
-    $slicerView = $this->_getParam('slicerView');
-    $this->view->slicerView = isset($slicerView);
     $this->view->logged = $this->logged;
 
     $itemratingModel = $modelLoader->loadModel('Itemrating', 'ratings');
-    $this->view->ratings = $itemratingModel->getAggregateInfo($extension->getItem());
+    $this->view->json['modules']['ratings'] = $itemratingModel->getAggregateInfo($extension->getItem());
     if($this->userSession->Dao)
       {
-      $this->view->ratings['userRating'] = $itemratingModel->getByUser($this->userSession->Dao, $extension->getItem());
+      $this->view->json['modules']['ratings']['userRating'] = $itemratingModel->getByUser($this->userSession->Dao, $extension->getItem());
       }
     
     $componentLoader = new MIDAS_ComponentLoader();
     $commentComponent = $componentLoader->loadComponent('Comment', 'comments');
     list($comments, $total) = $commentComponent->getComments($extension->getItem(), 10, 0);
-    $this->view->comments = array('comments' => $comments,
+    $this->view->json['modules']['comments'] = array('comments' => $comments,
                                   'total' => $total,
                                   'user' => $this->userSession->Dao);
 
-    if($this->view->slicerView)
-      {
-      $this->disableLayout();
-      }
+    $this->view->layout = $this->view->json['layout'];
     }
 } // end class

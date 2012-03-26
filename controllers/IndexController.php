@@ -23,7 +23,6 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
 {
   /**
    * Action for rendering the page that lists extensions
-   * @param slicerView Set this if you're accessing this page from within the Slicer web view.
    * @param os (Optional) The default operating system to filter by
    * @param arch (Optional) The default architecture to filter by
    * @param release (Optional) The default release to filter by
@@ -33,27 +32,24 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $modelLoader = new MIDAS_ModelLoader();
     $extensionModel = $modelLoader->loadModel('Extension', 'slicerpackages');
 
-    $slicerView = $this->_getParam('slicerView');
-    $this->view->slicerView = isset($slicerView);
-    if($this->view->slicerView)
-      {
-      $this->disableLayout();
-      }
-    else
+    $layout = $this->_getParam('layout');
+    if(!isset($layout) || $layout != 'empty')
       {
       $this->view->availableReleases = $extensionModel->getAllReleases();
+      $this->view->layout = 'layout';
       }
-    $this->view->allCategories = $extensionModel->getAllCategories();
-    sort($this->view->allCategories);
+    
+    $this->view->layout = $this->view->json['layout'];
+    $this->view->json['categories'] = $extensionModel->getAllCategories();
+    sort($this->view->json['categories']);
 
     $avalue = function($k, $a, $default) { return array_key_exists($k, $a) ? $a[$k] : $default; };
     $params = $this->_getAllParams();
-
-    $this->view->os = $avalue('os', $params, '');
-    $this->view->arch = $avalue('arch', $params, '');
-    $this->view->release = $avalue('release', $params, '');
-    $this->view->revision = $avalue('revision', $params, '');
-    $this->view->category = $avalue('category', $params, '');
+    $this->view->json['os'] = $avalue('os', $params, '');
+    $this->view->json['arch'] = $avalue('arch', $params, '');
+    $this->view->json['release'] = $avalue('release', $params, '');
+    $this->view->json['revision'] = $avalue('revision', $params, '');
+    $this->view->json['category'] = $avalue('category', $params, '');
     }
 
   /**

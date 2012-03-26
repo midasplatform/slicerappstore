@@ -1,16 +1,11 @@
 var midas = midas || {};
 midas.slicerappstore = midas.slicerappstore || {};
 
-var json = null;
-
 /**
  * Called when a user clicks to view the extension page
  */
 midas.slicerappstore.extensionClick = function() {
-  var url = json.global.webroot+'/slicerappstore/extension/view?extensionId='+$(this).attr('element');
-  if(json.slicerView) {
-      url += '&slicerView';
-  }
+  var url = json.global.webroot+'/slicerappstore/extension/view?extensionId='+$(this).attr('element')+'&layout='+json.layout;
   window.location.assign(url);
 }
 
@@ -124,7 +119,6 @@ midas.slicerappstore.showCategory = function(category) {
 }
 
 $(document).ready(function() {
-    json = $.parseJSON($('#jsonContent').html());
 
     midas.slicerappstore.os = json.os;
     midas.slicerappstore.arch = json.arch;
@@ -137,9 +131,7 @@ $(document).ready(function() {
     $('#releaseSelect').val(json.release);
     // TODO revision?
 
-    if(json.slicerView) {
-        createNotice = function() {}; //dummy function definition to prevent exceptions
-    } else {
+    if(json.layout != 'empty' ) {
         midas.slicerappstore.os = $('#osSelect').val();
         midas.slicerappstore.arch = $('#archSelect').val();
         midas.slicerappstore.release = $('#releaseSelect').val();
