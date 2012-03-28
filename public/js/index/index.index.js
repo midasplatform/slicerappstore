@@ -1,5 +1,8 @@
 var midas = midas || {};
 midas.slicerappstore = midas.slicerappstore || {};
+midas.slicerappstore.PAGE_LIMIT = 12;
+midas.slicerappstore.totalResults = 0;
+midas.slicerappstore.pageOffset = 0;
 
 /**
  * Called when a user clicks to view the extension page
@@ -71,14 +74,34 @@ midas.slicerappstore.applyFilter = function() {
         os: midas.slicerappstore.os,
         arch: midas.slicerappstore.arch,
         release: midas.slicerappstore.release,
-        revision: midas.slicerappstore.revision
+        revision: midas.slicerappstore.revision,
+        limit: midas.slicerappstore.PAGE_LIMIT,
+        offset: midas.slicerappstore.pageOffset
     }, function(data) {
         $('.loadingExtensions').hide();
         var resp = $.parseJSON(data);
         $('#extensionsContainer').html('');
-        $.each(resp, function() {
+        $.each(resp.extensions, function() {
             midas.slicerappstore.renderExtension(this);
         });
+        var pageMessage = 'No extensions found';
+        midas.slicerappstore.totalResults = resp.total;
+        if(resp.total > 0) {
+            pageMessage = 'showing results ' + (midas.slicerappstore.pageOffset + 1);
+            pageMessage += '-' + (midas.slicerappstore.pageOffset + resp.extensions.length);
+            pageMessage += ' of ' + resp.total;
+        }
+        $('#paginationMessage').html(pageMessage);
+        if(resp.total > midas.slicerappstore.pageOffset + midas.slicerappstore.PAGE_LIMIT) {
+            $('#nextPageExtensions').show();
+        } else {
+            $('#nextPageExtensions').hide();
+        }
+        if(midas.slicerappstore.pageOffset > 0) {
+            $('#prevPageExtensions').show();
+        } else {
+            $('#prevPageExtensions').hide();
+        }
     });
 }
 
@@ -175,6 +198,15 @@ $(document).ready(function() {
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
         midas.slicerappstore.selectedCategory = $(this);
         $(this).addClass('selectedCategory');
+        midas.slicerappstore.applyFilter();
+    });
+
+    $('#prevPageExtensions').click(function() {
+        midas.slicerappstore.pageOffset -= midas.slicerappstore.PAGE_LIMIT;
+        midas.slicerappstore.applyFilter();
+    });
+    $('#nextPageExtensions').click(function() {
+        midas.slicerappstore.pageOffset += midas.slicerappstore.PAGE_LIMIT;
         midas.slicerappstore.applyFilter();
     });
 

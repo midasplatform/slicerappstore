@@ -58,8 +58,8 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
    * @param os The os filter (win | linux | macosx)
    * @param arch The architecture filter (i386 | amd64)
    * @param release The release filter
-   * @param limit (Unused currently) Pagination limit
-   * @param offset (Unused currently) Pagination offset
+   * @param limit Pagination limit
+   * @param offset Pagination offset
    */
   function listextensionsAction()
     {
@@ -90,20 +90,32 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       {
       $revision = 'any';
       }
+    $limit = $this->_getParam('limit');
+    if(!$limit)
+      {
+      $limit = 0;
+      }
+    $offset = $this->_getParam('offset');
+    if(!$offset)
+      {
+      $offset = 0;
+      }
 
     $modelLoader = new MIDAS_ModelLoader();
     $settingModel = $modelLoader->loadModel('Setting');
     $itemratingModel = $modelLoader->loadModel('Itemrating', 'ratings');
     $extensionModel = $modelLoader->loadModel('Extension', 'slicerpackages');
     $extensions = $extensionModel->get(array('os' => $os,
-                                             'arch' => $arch,
-                                             'release' => $release,
-                                             'category' => $category,
-                                             'slicer_revision' => $revision));
+                                          'arch' => $arch,
+                                          'release' => $release,
+                                          'category' => $category,
+                                          'slicer_revision' => $revision,
+                                          'limit' => $limit,
+                                          'offset' => $offset));
     $defaultIcon = $settingModel->getValueByName('defaultIcon', $this->moduleName);
 
     $results = array();
-    foreach($extensions as $extension)
+    foreach($extensions['extensions'] as $extension)
       {
       $icon = $extension->getIconUrl();
       if(!$icon)
@@ -124,7 +136,7 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       $result['ratings'] = $itemratingModel->getAggregateInfo($extension->getItem());
       $results[] = $result;
       }
-    echo JsonComponent::encode($results);
+    echo JsonComponent::encode(array('extensions' => $results, 'total' => $extensions['total']));
     }
 
   /**

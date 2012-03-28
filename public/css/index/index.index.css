@@ -141,11 +141,30 @@ ul.categoriesList li,ul.categoriesSubList li {
 }
 
 ul.categoriesList li:hover,ul.categoriesSubList li:hover {
-
   color: #222222;
 }
 
 .selectedCategory {
   font-weight: bolder;
   text-decoration: underline;
+}
+
+div.paginationBar {
+  padding-top: 8px;
+  border-top: 1px solid #d7d7d7;
+  margin-left: 10px;
+  margin-right: 5px;
+  margin-top: 15px;
+}
+
+#extensionsContainer {
+  display: inline-block;
+}
+
+#prevPageExtensions {
+  margin-left: 20px;
+}
+
+#nextPageExtensions {
+  margin-left: 15px;
 }
