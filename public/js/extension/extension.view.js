@@ -119,11 +119,11 @@ midas.slicerappstore.renderScreenshots = function(screenshots) {
       }
   });
   $('div.screenshots a.screenshotPreview').lightBox({
-      imageLoading: json.global.webroot+'/slicerappstore/public/images/lightbox/lightbox-ico-loading.gif',
-      imageBlank: json.global.webroot+'/slicerappstore/public/images/lightbox/lightbox-blank.gif',
-      imageBtnClose: json.global.webroot+'/slicerappstore/public/images/lightbox/lightbox-btn-close.gif',
-      imageBtnPrev: json.global.webroot+'/slicerappstore/public/images/lightbox/lightbox-btn-prev.gif',
-      imageBtnNext: json.global.webroot+'/slicerappstore/public/images/lightbox/lightbox-btn-next.gif'
+      imageLoading: json.global.webroot+'/modules/slicerappstore/public/images/lightbox/lightbox-ico-loading.gif',
+      imageBlank: json.global.webroot+'/modules/slicerappstore/public/images/lightbox/lightbox-blank.gif',
+      imageBtnClose: json.global.webroot+'/modules/slicerappstore/public/images/lightbox/lightbox-btn-close.gif',
+      imageBtnPrev: json.global.webroot+'/modules/slicerappstore/public/images/lightbox/lightbox-btn-prev.gif',
+      imageBtnNext: json.global.webroot+'/modules/slicerappstore/public/images/lightbox/lightbox-btn-next.gif'
   });
 }
 
