@@ -8,17 +8,17 @@ var json = null;
  */
 midas.slicerappstore.doLogin = function () {
     var content = $('#loginFormTemplate').clone();
-    content.find('form.loginForm').attr('id', 'loginForm');
-    content.find('div.loginError').attr('id', 'loginError');
+    content.find('form.loginForm').attr('id', 'appstoreLoginForm');
+    content.find('div.loginError').attr('id', 'appstoreLoginError');
     showDialogWithContent('Login', content.html(), false, { width: 320 });
     $('a.registerLink').click(midas.slicerappstore.doRegister);
-    $('#loginForm').ajaxForm({
+    $('#appstoreLoginForm').ajaxForm({
         success: function (responseText, statusText, xhr, form) {
             var resp = $.parseJSON(responseText);
             if(resp.status == 'ok') {
                 window.location.reload();
             } else {
-                $('#loginError').html('Login failed');
+                $('#appstoreLoginError').html('Login failed');
             }
         }
     });
