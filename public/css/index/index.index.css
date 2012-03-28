@@ -151,14 +151,10 @@ ul.categoriesList li:hover,ul.categoriesSubList li:hover {
 
 div.paginationBar {
   padding-top: 8px;
-  border-top: 1px solid #d7d7d7;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #d7d7d7;
   margin-left: 10px;
   margin-right: 5px;
-  margin-top: 15px;
-}
-
-#extensionsContainer {
-  display: inline-block;
 }
 
 #prevPageExtensions {
