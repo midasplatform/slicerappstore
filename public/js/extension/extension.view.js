@@ -10,7 +10,7 @@ midas.slicerappstore.doLogin = function () {
     var content = $('#loginFormTemplate').clone();
     content.find('form.loginForm').attr('id', 'appstoreLoginForm');
     content.find('div.loginError').attr('id', 'appstoreLoginError');
-    showDialogWithContent('Login', content.html(), false, { width: 320 });
+    midas.showDialogWithContent('Login', content.html(), false, { width: 320 });
     $('a.registerLink').click(midas.slicerappstore.doRegister);
     $('#appstoreLoginForm').ajaxForm({
         success: function (responseText, statusText, xhr, form) {
@@ -31,7 +31,7 @@ midas.slicerappstore.doRegister = function () {
     var content = $('#registerFormTemplate').clone();
     content.find('form.registerForm').attr('id', 'registerForm');
     content.find('div.registerError').attr('id', 'registerError');
-    showDialogWithContent('Register', content.html(), false, { width: 380 });
+    midas.showDialogWithContent('Register', content.html(), false, { width: 380 });
     $('a.loginLink').click(midas.slicerappstore.doLogin);
     $('#registerForm').ajaxForm({
         success: function (responseText, statusText, xhr, form) {
