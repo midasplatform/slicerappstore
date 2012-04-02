@@ -18,20 +18,20 @@ midas.slicerappstore.config.validateConfig = function(formData, jqForm, options)
 };
 
 midas.slicerappstore.config.successConfig = function(responseText, statusText, xhr, form) {
-    "use scrict";
+    "use strict";
     try {
         var jsonResponse = jQuery.parseJSON(responseText);
     } catch (e) {
-        alert("An error occured. Please check the logs.");
+        midas.createNotice("An error occured. Please check the logs.", 4000, 'error');
         return;
     }
-    if(jsonResponse==null) {
-        createNotive('Error',4000);
+    if(jsonResponse == null) {
+        midas.createNotice('Error', 4000, 'error');
         return;
     } else if(jsonResponse[0]) {
-        createNotive(jsonResponse[1],4000);
+        midas.createNotice(jsonResponse[1], 4000);
     } else {
-        createNotive(jsonResponse[1],4000);
+        midas.createNotice(jsonResponse[1], 4000, 'error');
     }
 };
 
