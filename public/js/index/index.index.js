@@ -162,18 +162,21 @@ $(document).ready(function() {
         // Enable filtering by OS
         $('#osSelect').change(function() {
             midas.slicerappstore.os = $(this).val();
+            midas.slicerappstore.pageOffset = 0;
             midas.slicerappstore.applyFilter();
         });
 
         // Enable filtering by architecture
         $('#archSelect').change(function() {
             midas.slicerappstore.arch = $(this).val();
+            midas.slicerappstore.pageOffset = 0;
             midas.slicerappstore.applyFilter();
         });
 
         // Enable filtering by release
         $('#releaseSelect').change(function() {
             midas.slicerappstore.release = $(this).val();
+            midas.slicerappstore.pageOffset = 0;
             midas.slicerappstore.applyFilter();
         });
     }
@@ -189,6 +192,7 @@ $(document).ready(function() {
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
         midas.slicerappstore.selectedCategory = $(this);
         $(this).addClass('selectedCategory');
+        midas.slicerappstore.pageOffset = 0;
         midas.slicerappstore.applyFilter();
     });
 
@@ -198,6 +202,7 @@ $(document).ready(function() {
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
         midas.slicerappstore.selectedCategory = $(this);
         $(this).addClass('selectedCategory');
+        midas.slicerappstore.pageOffset = 0;
         midas.slicerappstore.applyFilter();
     });
 
