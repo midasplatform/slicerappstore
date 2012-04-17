@@ -81,6 +81,8 @@ midas.slicerappstore.doRegister = function () {
  */
 midas.slicerappstore.renderCategory = function(category) {
     var currToken = '';
+    // if this extension belongs to multiple categories, we just render the first one
+    category = category.split(';')[0];
     var categories = category.split('.');
     $.each(categories, function(k, token) {
         currToken += token;
