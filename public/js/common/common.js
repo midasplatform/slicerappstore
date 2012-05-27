@@ -11,8 +11,10 @@ midas.slicerappstore.extensionButtonClick = function() {
         window.location.assign(url);
     } else if($(this).hasClass('extensionInstallButton')) {
         window.extensions_manager_model.downloadAndInstallExtension(extensionId);
-    } else if($(this).hasClass('extensionUninstallButton')) {
-        window.extensions_manager_model.uninstallExtension($(this).attr('extensionname'));
+    } else if($(this).hasClass('extensionCancelScheduledForUninstallButton')) {
+        window.extensions_manager_model.cancelExtensionScheduledForUninstall($(this).attr('extensionname'));
+    } else if($(this).hasClass('extensionScheduleUninstallButton')) {
+        window.extensions_manager_model.scheduleExtensionForUninstall($(this).attr('extensionname'));
     }
 }
 
@@ -22,11 +24,13 @@ midas.slicerappstore.extensionButtonClick = function() {
  */
 midas.slicerappstore.updateExtensionButtonState = function(extensionName) {
     if(!window.extensions_manager_model) {
-        midas.slicerappstore.setExtensionButtonState(extensionName, 'download');
+        midas.slicerappstore.setExtensionButtonState(extensionName, 'Download');
     } else {
-        var buttonState = 'install';
-        if(window.extensions_manager_model.isExtensionInstalled(extensionName)) {
-          buttonState = 'uninstall';
+        var buttonState = 'Install';
+        if(window.extensions_manager_model.isExtensionScheduledForUninstall(extensionName)) {
+          buttonState = 'CancelScheduledForUninstall';
+        } else if(window.extensions_manager_model.isExtensionInstalled(extensionName)) {
+          buttonState = 'ScheduleUninstall';
         }
         midas.slicerappstore.setExtensionButtonState(extensionName, buttonState);
     }
@@ -38,13 +42,22 @@ midas.slicerappstore.updateExtensionButtonState = function(extensionName) {
  * @param buttonState Either 'download', 'install' or 'uninstall'
  */
 midas.slicerappstore.setExtensionButtonState = function(extensionName, buttonState) {
-    if (buttonState != 'download' && buttonState != 'install' && buttonState != 'uninstall') {
+    if (buttonState != 'Download'
+        && buttonState != 'Install'
+        && buttonState != 'CancelScheduledForUninstall'
+        && buttonState != 'ScheduleUninstall') {
         alert('Unknown buttonState:' + buttonState);
     }
-    var buttonText = buttonState.charAt(0).toUpperCase() + buttonState.slice(1);
-    var buttonClass = 'extension' + buttonText + 'Button';
+    var buttonText = buttonState;
+    if(buttonState == 'ScheduleUninstall') {
+      buttonText = 'Uninstall';
+    } else if(buttonState == 'CancelScheduledForUninstall') {
+      buttonText = 'Uninstall';
+    }
+
+    var buttonClass = 'extension' + buttonState + 'Button';
     $('input[extensionname="' + extensionName + '"]').val(buttonText)
-      .removeClass('extensionDownloadButton extensionInstallButton extensionUninstallButton')
+      .removeClass('extensionDownloadButton extensionInstallButton extensionCancelScheduledForUninstallButton extensionScheduleUninstallButton')
       .addClass(buttonClass)
       .unbind('click').click(midas.slicerappstore.extensionButtonClick);
 }

@@ -26,6 +26,22 @@ input.extensionDownloadButton:hover, input.extensionInstallButton:hover {
   background-color: #00aaaa;
 }
 
+input.extensionCancelScheduledForUninstallButton {
+  background-color: #a11900;
+}
+
+input.extensionCancelScheduledForUninstallButton:hover {
+  background-color: #d06f5e;
+}
+
+input.extensionScheduleUninstallButton {
+  background-color: #007f09;
+}
+
+input.extensionScheduleUninstallButton:hover {
+  background-color: #6eb04b;
+}
+
 input.extensionUninstallButton {
   background-color: #007f09;
 }
