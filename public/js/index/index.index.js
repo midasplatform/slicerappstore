@@ -215,9 +215,6 @@ $(document).ready(function() {
     // TODO revision?
 
     if(json.layout != 'empty' ) {
-        midas.slicerappstore.os = $('#osSelect').val();
-        midas.slicerappstore.arch = $('#archSelect').val();
-        midas.slicerappstore.release = $('#releaseSelect').val();
 
         // Enable filtering by OS
         $('#osSelect').change(function() {
