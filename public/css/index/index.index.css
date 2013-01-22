@@ -154,7 +154,7 @@ ul.categoriesList li:hover,ul.categoriesSubList li:hover {
   text-decoration: underline;
 }
 
-div.paginationBar {
+div.paginationMessage {
   padding-top: 8px;
   padding-bottom: 8px;
   border-bottom: 1px solid #d7d7d7;
