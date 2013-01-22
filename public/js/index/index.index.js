@@ -1,7 +1,6 @@
 var midas = midas || {};
 midas.slicerappstore = midas.slicerappstore || {};
-midas.slicerappstore.PAGE_LIMIT = 12;
-midas.slicerappstore.totalResults = 0;
+midas.slicerappstore.totalResults = -1;
 midas.slicerappstore.pageOffset = 0;
 
 /**
@@ -16,7 +15,7 @@ midas.slicerappstore.extensionClick = function() {
  * Render the extension result in the result list area
  * @param extension Json-ified slicerpackages_extension dao
  */
-midas.slicerappstore.renderExtension = function(extension) {
+midas.slicerappstore.renderExtension = function(extension, index) {
     var extensionName = extension.productname;
     var extDiv = $('#extensionTemplate').clone()
       .attr('id', 'extensionWrapper_'+extension.slicerpackages_extension_id);
@@ -60,49 +59,47 @@ midas.slicerappstore.renderExtension = function(extension) {
 
     midas.slicerappstore.updateExtensionButtonState(extensionName);
 
-    extDiv.show();
+    extDiv.fadeIn(200 * index);
+}
+
+/**
+ * Reset variables, clear 'extensionsContainer' and show loading image.
+ */
+midas.slicerappstore.resetFilter = function(){
+  midas.slicerappstore.totalResults = -1;
+  midas.slicerappstore.pageOffset = 0;
+  $('.paginationMessage').hide();
+  $('.loadingExtensions').show();
+  $('#extensionsContainer').html('');
+}
+
+/**
+ * Compute number of items to fetch based on available width and height.
+ * If no items have been fetched, number of items filling the available space plus an
+ * extra row will be returned.
+ * If items have already been fetched, number of items filling one row will be returned.
+ */
+midas.slicerappstore.pageLimit = function(){
+    itemWidth = $('#extensionTemplate').outerWidth(true);
+    itemHeight = $('#extensionTemplate').outerHeight(true);
+    horizontalCount = Math.floor($('#extensionsContainer').width() / itemWidth);
+    verticalCount = Math.floor(($(window).height() - $('.extensionsHeader').height()) / itemHeight);
+    pageLimit = 0;
+    if (midas.slicerappstore.totalResults == -1){
+        pageLimit = horizontalCount * (verticalCount +1);
+    }
+    else {
+        pageLimit = horizontalCount;
+    }
+    return pageLimit;
 }
 
 /**
  * Based on the filter parameters, return a page of extension results
  */
 midas.slicerappstore.applyFilter = function() {
-    $('#extensionsContainer').html('');
-    $('.loadingExtensions').show();
-    $.post(json.global.webroot+'/slicerappstore/index/listextensions', {
-        category: midas.slicerappstore.category,
-        os: midas.slicerappstore.os,
-        arch: midas.slicerappstore.arch,
-        release: midas.slicerappstore.release,
-        revision: midas.slicerappstore.revision,
-        limit: midas.slicerappstore.PAGE_LIMIT,
-        offset: midas.slicerappstore.pageOffset
-    }, function(data) {
-        $('.loadingExtensions').hide();
-        var resp = $.parseJSON(data);
-        $('#extensionsContainer').html('');
-        $.each(resp.extensions, function() {
-            midas.slicerappstore.renderExtension(this);
-        });
-        var pageMessage = 'No extensions found';
-        midas.slicerappstore.totalResults = resp.total;
-        if(resp.total > 0) {
-            pageMessage = 'showing results ' + (midas.slicerappstore.pageOffset + 1);
-            pageMessage += '-' + (midas.slicerappstore.pageOffset + resp.extensions.length);
-            pageMessage += ' of ' + resp.total;
-        }
-        $('#paginationMessage').html(pageMessage);
-        if(resp.total > midas.slicerappstore.pageOffset + midas.slicerappstore.PAGE_LIMIT) {
-            $('#nextPageExtensions').show();
-        } else {
-            $('#nextPageExtensions').hide();
-        }
-        if(midas.slicerappstore.pageOffset > 0) {
-            $('#prevPageExtensions').show();
-        } else {
-            $('#prevPageExtensions').hide();
-        }
-    });
+    midas.slicerappstore.resetFilter();
+    $('#extensionsContainer').startScrollPagination();
 }
 
 /**
@@ -162,21 +159,18 @@ $(document).ready(function() {
         // Enable filtering by OS
         $('#osSelect').change(function() {
             midas.slicerappstore.os = $(this).val();
-            midas.slicerappstore.pageOffset = 0;
             midas.slicerappstore.applyFilter();
         });
 
         // Enable filtering by architecture
         $('#archSelect').change(function() {
             midas.slicerappstore.arch = $(this).val();
-            midas.slicerappstore.pageOffset = 0;
             midas.slicerappstore.applyFilter();
         });
 
         // Enable filtering by release
         $('#releaseSelect').change(function() {
             midas.slicerappstore.release = $(this).val();
-            midas.slicerappstore.pageOffset = 0;
             midas.slicerappstore.applyFilter();
         });
     }
@@ -192,26 +186,16 @@ $(document).ready(function() {
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
         midas.slicerappstore.selectedCategory = $(this);
         $(this).addClass('selectedCategory');
-        midas.slicerappstore.pageOffset = 0;
         midas.slicerappstore.applyFilter();
     });
 
     // Enable filtering by specific categories
     $('li.categoryControl').click(function() {
+        console.log("Enable filtering by specific categories");
         midas.slicerappstore.category = $(this).attr('name');
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
         midas.slicerappstore.selectedCategory = $(this);
         $(this).addClass('selectedCategory');
-        midas.slicerappstore.pageOffset = 0;
-        midas.slicerappstore.applyFilter();
-    });
-
-    $('#prevPageExtensions').click(function() {
-        midas.slicerappstore.pageOffset -= midas.slicerappstore.PAGE_LIMIT;
-        midas.slicerappstore.applyFilter();
-    });
-    $('#nextPageExtensions').click(function() {
-        midas.slicerappstore.pageOffset += midas.slicerappstore.PAGE_LIMIT;
         midas.slicerappstore.applyFilter();
     });
 
@@ -220,6 +204,43 @@ $(document).ready(function() {
         'li.categoryControl[name="'+midas.slicerappstore.category+'"]';
     midas.slicerappstore.selectedCategory = $(selector).addClass('selectedCategory');
 
-    // Fetch our results based on the initial settings
-    midas.slicerappstore.applyFilter();
+    // Setup scroll pagination and fetch results based on the initial settings
+    midas.slicerappstore.resetFilter();
+    $('#extensionsContainer').scrollPagination({
+      'contentPage': json.global.webroot+'/slicerappstore/index/listextensions',
+      'contentData': function(){
+          pageLimit = midas.slicerappstore.pageLimit();
+          contentData = {
+            category: midas.slicerappstore.category,
+            os: midas.slicerappstore.os,
+            arch: midas.slicerappstore.arch,
+            release: midas.slicerappstore.release,
+            revision: midas.slicerappstore.revision,
+            limit: pageLimit,
+            offset: midas.slicerappstore.pageOffset
+          };
+          midas.slicerappstore.pageOffset += pageLimit;
+          // Stop fetch on scroll if "not the first query" and "all items have been fetched"
+          if (midas.slicerappstore.totalResults != -1 &&
+              midas.slicerappstore.pageOffset >= midas.slicerappstore.totalResults){
+              $('#extensionsContainer').stopScrollPagination();
+          }
+          return contentData;
+      },
+      'scrollTarget': $(window),
+      'heightOffset': 20,
+      'dataType':'json',
+      'onSuccess': function(obj, data){
+          midas.slicerappstore.totalResults = data.total;
+          $.each(data.extensions, function(index, extension) {
+              midas.slicerappstore.renderExtension(extension, index);
+          });
+          if(data.total == 0) {
+              $('.paginationMessage').show().text('No extensions found');
+          }
+      },
+      'afterLoad': function(elementsLoaded){
+          $('.loadingExtensions').hide();
+      }
+    });
 });
