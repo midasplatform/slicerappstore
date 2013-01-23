@@ -126,7 +126,7 @@ return {
       category: midas.slicerappstore.category,
       os: midas.slicerappstore.os,
       arch: midas.slicerappstore.arch,
-      release: midas.slicerappstore.release,
+      //release: midas.slicerappstore.release,
       revision: midas.slicerappstore.revision,
       limit: currentPageLimit,
       offset: midas.slicerappstore.pageOffset
@@ -212,12 +212,10 @@ $(document).ready(function() {
     $('#osSelect').val(json.os);
     $('#archSelect').val(json.arch);
     $('#releaseSelect').val(json.release);
+    $('#revisionInput').val(json.revision);
     // TODO revision?
 
     if(json.layout != 'empty' ) {
-        midas.slicerappstore.os = $('#osSelect').val();
-        midas.slicerappstore.arch = $('#archSelect').val();
-        midas.slicerappstore.release = $('#releaseSelect').val();
 
         // Enable filtering by OS
         $('#osSelect').change(function() {
@@ -228,6 +226,12 @@ $(document).ready(function() {
         // Enable filtering by architecture
         $('#archSelect').change(function() {
             midas.slicerappstore.arch = $(this).val();
+            midas.slicerappstore.applyFilter();
+        });
+
+        // Enable filtering by revision
+        $('#revisionInput').keyup(function() {
+            midas.slicerappstore.revision = $(this).val();
             midas.slicerappstore.applyFilter();
         });
 
