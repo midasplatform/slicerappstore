@@ -71,25 +71,13 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       $category = 'any';
       }
     $os = $this->_getParam('os');
-    if(!$os)
-      {
-      $os = 'any';
-      }
     $arch = $this->_getParam('arch');
-    if(!$arch)
-      {
-      $arch = 'any';
-      }
     $release = $this->_getParam('release');
     if(!$release)
       {
       $release = 'any';
       }
     $revision = $this->_getParam('revision');
-    if(!$revision)
-      {
-      $revision = 'any';
-      }
     $limit = $this->_getParam('limit');
     if(!$limit)
       {
