@@ -74,22 +74,41 @@ midas.slicerappstore.resetFilter = function(){
 }
 
 /**
+ * Return the ideal number of items required to fill the space horizontally.
+ */
+midas.slicerappstore.idealNumberOfHorizontalItems = function(){
+  itemWidth = $('#extensionTemplate').outerWidth(true);
+  horizontalCount = Math.floor($('#extensionsContainer').width() / itemWidth);
+  return horizontalCount;
+}
+
+/**
+ * Return the ideal number of items required to fill the space vertically.
+ */
+midas.slicerappstore.idealNumberOfVerticalItems = function(){
+  itemHeight = $('#extensionTemplate').outerHeight(true);
+  verticalCount = Math.floor(($(window).height() - $('.extensionsHeader').height()) / itemHeight);
+  return verticalCount;
+}
+
+/**
+ * Return the ideal number of items required to fill the space horizontally and vertically.
+ */
+midas.slicerappstore.idealNumberOfItems = function(){
+  return midas.slicerappstore.idealNumberOfHorizontalItems() *
+      midas.slicerappstore.idealNumberOfVerticalItems();
+}
+
+/**
  * Compute number of items to fetch based on available width and height.
  * If no items have been fetched, number of items filling the available space plus an
  * extra row will be returned.
  * If items have already been fetched, number of items filling one row will be returned.
  */
 midas.slicerappstore.pageLimit = function(){
-    itemWidth = $('#extensionTemplate').outerWidth(true);
-    itemHeight = $('#extensionTemplate').outerHeight(true);
-    horizontalCount = Math.floor($('#extensionsContainer').width() / itemWidth);
-    verticalCount = Math.floor(($(window).height() - $('.extensionsHeader').height()) / itemHeight);
-    pageLimit = 0;
+    pageLimit = midas.slicerappstore.idealNumberOfHorizontalItems();
     if (midas.slicerappstore.totalResults == -1){
-        pageLimit = horizontalCount * (verticalCount +1);
-    }
-    else {
-        pageLimit = horizontalCount;
+        pageLimit += midas.slicerappstore.idealNumberOfItems();
     }
     return pageLimit;
 }
