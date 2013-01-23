@@ -26,7 +26,8 @@
 
   $.fn.startScrollPagination = function () {
     return this.each(function () {
-      $(this).prop('scrollPagination', true).trigger('scrollPaginationLoadContent');
+      $(this).prop('scrollPagination', true).prop('scrollPagination.inprogress', false)
+        .trigger('scrollPaginationLoadContent');
     });
   };
 
@@ -36,10 +37,12 @@
     });
   };
 
-  $.fn.scrollPagination.loadContent = function (obj, opts) {
+  $.fn.scrollPagination.loadContent = function (obj, opts, force) {
+    force = typeof force !== 'undefined' ? force : false;
     var target = opts.scrollTarget;
     var mayLoadContent = $(target).scrollTop() + opts.heightOffset >= $(document).height() - $(target).height();
-    if (mayLoadContent) {
+    if ((mayLoadContent || force) && !$(obj).prop('scrollPagination.inprogress')) {
+      $(obj).prop('scrollPagination.inprogress', true);
       if (opts.beforeLoad != null) {
         opts.beforeLoad();
       }
@@ -58,6 +61,7 @@
           if (opts.afterLoad != null) {
             opts.afterLoad(objectsRendered);
           }
+          $(obj).prop('scrollPagination.inprogress', false);
         },
         dataType: opts.dataType
       });
@@ -68,8 +72,8 @@
   $.fn.scrollPagination.init = function (obj, opts) {
     var target = opts.scrollTarget;
 
-    $(obj).bind('scrollPaginationLoadContent', function () {
-      $.fn.scrollPagination.loadContent($(this), opts);
+    $(obj).bind('scrollPaginationLoadContent', function(force) {
+      $.fn.scrollPagination.loadContent($(this), opts, force);
     });
 
     $(target).scroll(function (event) {
