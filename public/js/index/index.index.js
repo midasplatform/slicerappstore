@@ -77,8 +77,8 @@ midas.slicerappstore.resetFilter = function(){
  * Return the ideal number of items required to fill the space horizontally.
  */
 midas.slicerappstore.idealNumberOfHorizontalItems = function(){
-  itemWidth = $('#extensionTemplate').outerWidth(true);
-  horizontalCount = Math.floor($('#extensionsContainer').width() / itemWidth);
+  var itemWidth = $('#extensionTemplate').outerWidth(true);
+  var horizontalCount = Math.floor($('#extensionsContainer').width() / itemWidth);
   return horizontalCount;
 }
 
@@ -86,8 +86,8 @@ midas.slicerappstore.idealNumberOfHorizontalItems = function(){
  * Return the ideal number of items required to fill the space vertically.
  */
 midas.slicerappstore.idealNumberOfVerticalItems = function(){
-  itemHeight = $('#extensionTemplate').outerHeight(true);
-  verticalCount = Math.floor(($(window).height() - $('.extensionsHeader').height()) / itemHeight);
+  var itemHeight = $('#extensionTemplate').outerHeight(true);
+  var verticalCount = Math.floor(($(window).height() - $('.extensionsHeader').height()) / itemHeight);
   return verticalCount;
 }
 
@@ -106,7 +106,7 @@ midas.slicerappstore.idealNumberOfItems = function(){
  * If items have already been fetched, number of items filling one row will be returned.
  */
 midas.slicerappstore.pageLimit = function(){
-    pageLimit = midas.slicerappstore.idealNumberOfHorizontalItems();
+    var pageLimit = midas.slicerappstore.idealNumberOfHorizontalItems();
     if (midas.slicerappstore.totalResults == -1){
         pageLimit += midas.slicerappstore.idealNumberOfItems();
     }
@@ -121,7 +121,7 @@ midas.slicerappstore.scrollPaginationOptions = function(pageLimit){
 return {
   'contentPage': json.global.webroot+'/slicerappstore/index/listextensions',
   'contentData': function(){
-    currentPageLimit = typeof pageLimit !== 'undefined' ? pageLimit : midas.slicerappstore.pageLimit();
+    var currentPageLimit = typeof pageLimit !== 'undefined' ? pageLimit : midas.slicerappstore.pageLimit();
     contentData = {
       category: midas.slicerappstore.category,
       os: midas.slicerappstore.os,
