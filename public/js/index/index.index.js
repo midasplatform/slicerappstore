@@ -2,6 +2,7 @@ var midas = midas || {};
 midas.slicerappstore = midas.slicerappstore || {};
 midas.slicerappstore.totalResults = -1;
 midas.slicerappstore.pageOffset = 0;
+midas.slicerappstore.scrollPaginationInitialized = false;
 
 /**
  * Called when a user clicks to view the extension page
@@ -77,8 +78,8 @@ midas.slicerappstore.resetFilter = function(){
  * Return the ideal number of items required to fill the space horizontally.
  */
 midas.slicerappstore.idealNumberOfHorizontalItems = function(){
-  itemWidth = $('#extensionTemplate').outerWidth(true);
-  horizontalCount = Math.floor($('#extensionsContainer').width() / itemWidth);
+  var itemWidth = $('#extensionTemplate').outerWidth(true);
+  var horizontalCount = Math.floor($('#extensionsContainer').width() / itemWidth);
   return horizontalCount;
 }
 
@@ -86,8 +87,8 @@ midas.slicerappstore.idealNumberOfHorizontalItems = function(){
  * Return the ideal number of items required to fill the space vertically.
  */
 midas.slicerappstore.idealNumberOfVerticalItems = function(){
-  itemHeight = $('#extensionTemplate').outerHeight(true);
-  verticalCount = Math.floor(($(window).height() - $('.extensionsHeader').height()) / itemHeight);
+  var itemHeight = $('#extensionTemplate').outerHeight(true);
+  var verticalCount = Math.floor(($(window).height() - $('.extensionsHeader').height()) / itemHeight);
   return verticalCount;
 }
 
@@ -106,7 +107,7 @@ midas.slicerappstore.idealNumberOfItems = function(){
  * If items have already been fetched, number of items filling one row will be returned.
  */
 midas.slicerappstore.pageLimit = function(){
-    pageLimit = midas.slicerappstore.idealNumberOfHorizontalItems();
+    var pageLimit = midas.slicerappstore.idealNumberOfHorizontalItems();
     if (midas.slicerappstore.totalResults == -1){
         pageLimit += midas.slicerappstore.idealNumberOfItems();
     }
@@ -121,7 +122,7 @@ midas.slicerappstore.scrollPaginationOptions = function(pageLimit){
 return {
   'contentPage': json.global.webroot+'/slicerappstore/index/listextensions',
   'contentData': function(){
-    currentPageLimit = typeof pageLimit !== 'undefined' ? pageLimit : midas.slicerappstore.pageLimit();
+    var currentPageLimit = typeof pageLimit !== 'undefined' ? pageLimit : midas.slicerappstore.pageLimit();
     contentData = {
       category: midas.slicerappstore.category,
       os: midas.slicerappstore.os,
@@ -155,6 +156,44 @@ return {
       $('.loadingExtensions').hide();
   }
 };
+}
+
+/**
+ * Initialize scroll pagination
+ */
+midas.slicerappstore.initScrollPagination = function(){
+    if(midas.slicerappstore.scrollPaginationInitialized){
+        return;
+    }
+
+    // If it applies, fetch additonal items upon window resize
+    $(window).resize(function(){
+        // See http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
+        clearTimeout(this.id);
+        this.id = setTimeout(function(){
+            current_count = $('#extensionsContainer .extensionWrapper').length;
+            if (midas.slicerappstore.totalResults != -1
+                  && midas.slicerappstore.totalResults != current_count) {
+                ideal_count = midas.slicerappstore.idealNumberOfItems() + midas.slicerappstore.idealNumberOfHorizontalItems();
+                complement_count = current_count % midas.slicerappstore.idealNumberOfHorizontalItems();
+                item_to_fetch = 0;
+                if (current_count < ideal_count){
+                    item_to_fetch = ideal_count - current_count;
+                } else if (complement_count > 0){
+                    item_to_fetch = midas.slicerappstore.idealNumberOfHorizontalItems() - complement_count;
+                }
+                if (item_to_fetch > 0){
+                    $.fn.scrollPagination.loadContent(
+                        $('#extensionsContainer'), midas.slicerappstore.scrollPaginationOptions(item_to_fetch), true);
+                }
+
+            }
+        }, 500);
+    });
+
+    midas.slicerappstore.resetFilter();
+    $('#extensionsContainer').scrollPagination(midas.slicerappstore.scrollPaginationOptions());
+    midas.slicerappstore.scrollPaginationInitialized = true;
 }
 
 /**
@@ -274,31 +313,23 @@ $(document).ready(function() {
         'li.categoryControl[name="'+midas.slicerappstore.category+'"]';
     midas.slicerappstore.selectedCategory = $(selector).addClass('selectedCategory');
 
-    // If it applies, fetch additonal items upon window resize
-    $(window).resize(function(){
-      // See http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-      clearTimeout(this.id);
-      this.id = setTimeout(function(){
-        if (midas.slicerappstore.totalResults != -1) {
-          current_count = $('#extensionsContainer .extensionWrapper').length;
-          ideal_count = midas.slicerappstore.idealNumberOfItems() + midas.slicerappstore.idealNumberOfHorizontalItems();
-          complement_count = current_count % midas.slicerappstore.idealNumberOfHorizontalItems();
-          item_to_fetch = 0;
-          if (current_count < ideal_count){
-            item_to_fetch = ideal_count - current_count;
-          } else if (complement_count > 0){
-            item_to_fetch = midas.slicerappstore.idealNumberOfHorizontalItems() - complement_count;
-          }
-          if (item_to_fetch > 0){
-            $.fn.scrollPagination.loadContent(
-                  $('#extensionsContainer'), midas.slicerappstore.scrollPaginationOptions(item_to_fetch), true);
-          }
-
-        }
-      }, 500);
-    });
-
     // Setup scroll pagination and fetch results based on the initial settings
-    midas.slicerappstore.resetFilter();
-    $('#extensionsContainer').scrollPagination(midas.slicerappstore.scrollPaginationOptions());
+    if ($.support.pageVisibility){
+        if(!midas.slicerappstore.isPageHidden()){
+            midas.slicerappstore.initScrollPagination();
+        } else {
+            $(document).bind("show", function(){
+              midas.slicerappstore.initScrollPagination();
+              $(document).unbind("show");
+            });
+        }
+
+    }
+    else {
+      // If visibility API is not supported, fetch all extensions
+      midas.slicerappstore.resetFilter();
+      $.fn.scrollPagination.loadContent(
+          $('#extensionsContainer'), midas.slicerappstore.scrollPaginationOptions(/*pageLimit = */ 0), true);
+    }
+
 });
