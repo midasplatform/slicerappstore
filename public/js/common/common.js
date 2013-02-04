@@ -61,3 +61,7 @@ midas.slicerappstore.setExtensionButtonState = function(extensionName, buttonSta
       .addClass(buttonClass)
       .unbind('click').click(midas.slicerappstore.extensionButtonClick);
 }
+
+midas.slicerappstore.isPageHidden = function(){
+  return document.hidden || document.msHidden || document.webkitHidden;
+}
