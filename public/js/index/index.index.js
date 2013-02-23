@@ -201,7 +201,12 @@ midas.slicerappstore.initScrollPagination = function(){
  */
 midas.slicerappstore.applyFilter = function() {
     midas.slicerappstore.resetFilter();
-    $('#extensionsContainer').startScrollPagination();
+    if ($.support.pageVisibility){
+        $('#extensionsContainer').startScrollPagination();
+    } else {
+        $.fn.scrollPagination.loadContent(
+            $('#extensionsContainer'), midas.slicerappstore.scrollPaginationOptions(/*pageLimit = */ 0), true);
+    }
 }
 
 /**
@@ -327,9 +332,7 @@ $(document).ready(function() {
     }
     else {
       // If visibility API is not supported, fetch all extensions
-      midas.slicerappstore.resetFilter();
-      $.fn.scrollPagination.loadContent(
-          $('#extensionsContainer'), midas.slicerappstore.scrollPaginationOptions(/*pageLimit = */ 0), true);
+      midas.slicerappstore.applyFilter();
     }
 
 });
