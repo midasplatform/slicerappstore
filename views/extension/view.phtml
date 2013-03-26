@@ -47,9 +47,11 @@ $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item
       </div>
     </div>
     <div class="button_bar">
+      <!--
       <img qtip="+1 on Google+" src="<?php echo $this->moduleWebroot?>/public/images/googleplus.png" width="32" height="32" class="googlePlus"/>
       <img qtip="Tweet this" src="<?php echo $this->moduleWebroot?>/public/images/twitter.png" width="32" height="32" class="twitter"/>
       <img qtip="Like on Facebook" src="<?php echo $this->moduleWebroot?>/public/images/LikeButton.png" width="78" height="32" class="facebook" />
+      -->
       <?php if($this->logged) { ?>
         <div class="logoutDiv"><a href="javascript:;" id="logoutLink">Logout</a></div>
       <?php } ?>
