@@ -100,7 +100,7 @@ $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item
         <?php
         if($this->extension->getHomepage())
           {
-          echo '<div class="homepageContainer"><a href="'.$this->extension->getHomepage().'">';
+          echo '<div class="homepageContainer"><a target="_blank" href="'.$this->extension->getHomepage().'">';
           echo '<img alt="" src="'.$this->moduleWebroot.'/public/images/house_link.png" /> ';
           echo 'View home page</a></div>';
           }
@@ -118,7 +118,7 @@ $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item
               $icon = 'default';
               break;
             }
-          echo '<div class="repoLinkContainer"><a href="'.$this->extension->getRepositoryUrl().'">';
+          echo '<div class="repoLinkContainer"><a target="_blank" href="'.$this->extension->getRepositoryUrl().'">';
           echo '<img alt="" src="'.$this->moduleWebroot.'/public/images/repo/'.$icon.'.png" /> ';
           echo 'View source code</a></div>';
           }

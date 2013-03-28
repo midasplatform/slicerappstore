@@ -123,12 +123,25 @@ div.viewWrapper {
   line-height: 18px;
 }
 
-.tutorials {
+.links {
   font-size: 13px;
   font-weight: lighter;
   color: #666;
   margin-bottom: 25px;
   line-height: 18px;
+}
+
+.links a {
+  text-decoration: none !important;
+}
+
+.links a:hover {
+  color: #202020;
+}
+
+.links a img {
+  position: relative;
+  top: 2px;
 }
 
 .reviews {
@@ -318,5 +331,5 @@ input.validField {
 }
 
 div.repoLinkContainer,div.homepageContainer {
-  margin-top: 6px;
+  margin-top: 8px;
 }
