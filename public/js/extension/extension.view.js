@@ -127,6 +127,7 @@ midas.slicerappstore.renderScreenshots = function(screenshots) {
       imageBtnPrev: json.global.webroot+'/modules/slicerappstore/public/images/lightbox/lightbox-btn-prev.gif',
       imageBtnNext: json.global.webroot+'/modules/slicerappstore/public/images/lightbox/lightbox-btn-next.gif'
   });
+  $('div.screenshotContainer').imgLiquid();
 }
 
 $(document).ready(function() {

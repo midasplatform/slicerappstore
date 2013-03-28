@@ -238,16 +238,14 @@ span.addRating {
   margin-bottom: 8px;
 }
 
-img.screenshotPreview {
-  width: 180px;
-  height: 180px;
+img.screenshotPreview {  
   cursor: pointer;
 }
 
-img.screenshotPreview:hover {
-  -webkit-box-shadow: black 0 0 6px;
-  box-shadow: black 0 0 6px;
-  -moz-box-shadow: 0px 0px 6px black;
+div.screenshotContainer:hover {
+  -webkit-box-shadow: black 0 0 4px;
+  box-shadow: black 0 0 4px;
+  -moz-box-shadow: 0px 0px 4px black;
 }
 /* ======= END SCREENSHOT SECTION =========*/
 
