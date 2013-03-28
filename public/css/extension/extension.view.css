@@ -316,3 +316,7 @@ input.invalidField {
 input.validField {
   background-color: #91ff91;
 }
+
+div.repoLinkContainer,div.homepageContainer {
+  margin-top: 6px;
+}

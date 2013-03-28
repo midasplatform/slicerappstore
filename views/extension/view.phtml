@@ -84,10 +84,48 @@ $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item
     </div>
   </div>
   <div class="right_content">
-    <div class="content_header">Description</div>
+    <div class="content_header">
+      Description
+    </div>
     <div class="description">
       <?php echo htmlentities($this->extension->getDescription()) ?>
     </div>
+    <?php
+    if($this->extension->getHomepage() || $this->extension->getRepositoryUrl())
+      { ?>
+      <div class="content_header">
+        Links
+      </div>
+      <div class="links">
+        <?php
+        if($this->extension->getHomepage())
+          {
+          echo '<div class="homepageContainer"><a href="'.$this->extension->getHomepage().'">';
+          echo '<img alt="" src="'.$this->moduleWebroot.'/public/images/house_link.png" /> ';
+          echo 'View home page</a></div>';
+          }
+        if($this->extension->getRepositoryUrl())
+          {
+          switch(strtolower($this->extension->getRepositoryType()))
+            {
+            case 'git':
+              $icon = 'git';
+              break;
+            case 'svn':
+              $icon = 'svn';
+              break;
+            default:
+              $icon = 'default';
+              break;
+            }
+          echo '<div class="repoLinkContainer"><a href="'.$this->extension->getRepositoryUrl().'">';
+          echo '<img alt="" src="'.$this->moduleWebroot.'/public/images/repo/'.$icon.'.png" /> ';
+          echo 'View source code</a></div>';
+          }
+        ?>
+      </div>
+    <?php 
+      } ?>
     <div class="content_header">
       Screenshots
     </div>
