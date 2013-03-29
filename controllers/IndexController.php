@@ -62,7 +62,7 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       {
       $filterParams['arch'] = $this->view->json['arch'];
       }
-    $this->view->json['categories'] = $extensionModel->getAllCategories($filterParams);
+    $this->view->json['categories'] = $extensionModel->getCategoriesWithCounts($filterParams);
     ksort($this->view->json['categories']);
     }
 
