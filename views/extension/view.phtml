@@ -37,15 +37,15 @@ $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item
 
 <div id="container_main">
   <div id="extension_banner">
+    <div class="category">
+      <span id="categoryBreadcrumb">
+        <a id="rootBreadcrumb" class="breadcrumbLink" href="">Slicer Extensions</a>
+      </span>
+    </div>
     <div class="title">
       <div class="extension_title"><?php echo $this->extension->getProductname()?></div>
       <div class="group_title">
         <?php echo $this->extension->getContributors() ?>
-      </div>
-      <div class="category">
-        <span id="categoryBreadcrumb">
-          <a id="rootBreadcrumb" class="breadcrumbLink" href="">Slicer Extensions</a>
-        </span>
       </div>
     </div>
     <div class="button_bar">
