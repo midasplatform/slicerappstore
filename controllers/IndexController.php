@@ -40,8 +40,6 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       }
     
     $this->view->layout = $this->view->json['layout'];
-    $this->view->json['categories'] = $extensionModel->getAllCategories();
-    sort($this->view->json['categories']);
 
     $avalue = function($k, $a, $default) { return array_key_exists($k, $a) ? $a[$k] : $default; };
     $params = $this->_getAllParams();
@@ -50,6 +48,22 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $this->view->json['release'] = $avalue('release', $params, '');
     $this->view->json['revision'] = $avalue('revision', $params, '');
     $this->view->json['category'] = $avalue('category', $params, '');
+
+    $filterParams = array();
+    if($this->view->json['revision'])
+      {
+      $filterParams['revision'] = $this->view->json['revision'];
+      }
+    if($this->view->json['os'])
+      {
+      $filterParams['os'] = $this->view->json['os'];
+      }
+    if($this->view->json['arch'])
+      {
+      $filterParams['arch'] = $this->view->json['arch'];
+      }
+    $this->view->json['categories'] = $extensionModel->getAllCategories($filterParams);
+    ksort($this->view->json['categories']);
     }
 
   /**

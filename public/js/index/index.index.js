@@ -212,7 +212,7 @@ midas.slicerappstore.applyFilter = function() {
 /**
  * Render the category tree based on tokens separated by . character
  */
-midas.slicerappstore.showCategory = function(category) {
+midas.slicerappstore.showCategory = function(category, count) {
     var tokens = category.split('.');
     var lastToken = '';
     var name = '';
@@ -290,8 +290,8 @@ $(document).ready(function() {
     }
 
     // Render the category tree based on all available categories
-    $.each(json.categories, function(k, category) {
-        midas.slicerappstore.showCategory(category);
+    $.each(json.categories, function(category, count) {
+        midas.slicerappstore.showCategory(category, count);
     });
 
     // Enable the "All" category filter
