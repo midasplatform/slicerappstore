@@ -225,7 +225,7 @@ midas.slicerappstore.showCategory = function(category, count) {
             lastToken += '_';
             var id = 'category_'+lastToken+tokenId;
             if($('#'+id).length == 0) {
-                var html = '<li class="categoryControl" name="'+name+'" id="'+id+'">'+token+'</li>';
+                var html = '<li class="categoryControl" name="'+name+'" id="'+id+'">'+token+' ('+count+')</li>';
                 html = '<ul class="categoriesSubList">'+html+'</ul>';
                 var el = $('#'+parentId);
                 while(el.next().length > 0) {
@@ -236,7 +236,7 @@ midas.slicerappstore.showCategory = function(category, count) {
         } else { //top level category
             var id = 'category_'+tokenId;
             if($('#'+id).length == 0) {
-                var html = '<li class="categoryControl" name="'+name+'" id="'+id+'">'+token+'</li>';
+                var html = '<li class="categoryControl" name="'+name+'" id="'+id+'">'+token+' ('+count+')</li>';
                 $('#'+parentId).append(html);
             }
         }
@@ -305,7 +305,6 @@ $(document).ready(function() {
 
     // Enable filtering by specific categories
     $('li.categoryControl').click(function() {
-        console.log("Enable filtering by specific categories");
         midas.slicerappstore.category = $(this).attr('name');
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
         midas.slicerappstore.selectedCategory = $(this);
