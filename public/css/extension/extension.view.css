@@ -1,14 +1,15 @@
 body {
   font-size: 12px;
+  padding-top: 0px;
 }
 
 div.viewWrapper {
-  padding-right: 25px !important;
+  padding-right: 0 !important;
 }
 
 #container_main {
   margin-left: 10px;
-  margin-top: 10px;
+  padding-right: 25px;
 }
 
 #navi_frame {
@@ -32,7 +33,7 @@ div.viewWrapper {
   margin-bottom: 25px;
   font-size: 22px;
   font-weight: bold;
-  margin-top: 0px;
+  margin-top: 10px;
   color: #333;
   float: left;
 }
@@ -49,10 +50,6 @@ div.viewWrapper {
 .button_bar {
   float: right;
   margin-right: 15px;
-}
-
-.category {
-
 }
 
 .left_column {
@@ -93,9 +90,6 @@ div.viewWrapper {
 
 .info_item {
   padding-bottom: 3px;
-}
-
-.category {
 }
 
 .rating_scale {
@@ -171,7 +165,13 @@ input.extensionActionButton {
 
 /* Breadcrumbs */
 .category {
-  margin-top: 8px;
+  padding: 10px 0 10px 7px;
+  background-color: #ffffbb;
+  margin-right: 0;
+  border-bottom: 1px solid #c0c0c0;
+  -webkit-box-shadow: 0 0 4px rgba(0,0,0,.4);
+     -moz-box-shadow: 0 0 4px rgba(0,0,0,.4);
+          box-shadow: 0 0 4px rgba(0,0,0,.4);
 }
 
 #categoryBreadcrumb {
@@ -182,16 +182,16 @@ input.extensionActionButton {
 }
 
 a.breadcrumbLink,a.breadcrumbLink:visited {
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif !important;
   text-decoration: none !important;
   font-weight: bold !important;
-  font-size: 13px !important;
-  color: #99aabb !important;
+  font-size: 12px !important;
+  color: #56758b !important;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 a.breadcrumbLink:hover {
-  text-decoration: underline !important;
-  color: #8899cc !important;
+  color: #404040 !important;
 }
 /* end breadcrumbs */
 
