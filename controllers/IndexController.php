@@ -52,7 +52,7 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $filterParams = array();
     if($this->view->json['revision'])
       {
-      $filterParams['revision'] = $this->view->json['revision'];
+      $filterParams['slicer_revision'] = $this->view->json['revision'];
       }
     if($this->view->json['os'])
       {
