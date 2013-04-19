@@ -9,7 +9,7 @@ midas.slicerappstore.scrollPaginationInitialized = false;
  */
 midas.slicerappstore.extensionClick = function() {
   var url = json.global.webroot+'/slicerappstore/extension/view?extensionId='+$(this).attr('element')+'&layout='+json.layout;
-  window.location.assign(url);
+  window.location = url;
 }
 
 /**
@@ -199,15 +199,31 @@ midas.slicerappstore.initScrollPagination = function(){
 /**
  * Based on the filter parameters, return a page of extension results
  */
-midas.slicerappstore.applyFilter = function() {
+midas.slicerappstore.applyFilter = function(skipFetchCategories) {
     midas.slicerappstore.resetFilter();
+    if(window.history && typeof window.history.replaceState == 'function') {
+        var params = '?os=' + window.encodeURIComponent(midas.slicerappstore.os);
+        params += '&arch=' + window.encodeURIComponent(midas.slicerappstore.arch);
+        params += '&revision=' + window.encodeURIComponent(midas.slicerappstore.revision);
+        params += '&category=' + window.encodeURIComponent(midas.slicerappstore.category);
+        params += '&layout=' + json.layout;
+        window.history.replaceState({
+            os: midas.slicerappstore.os,
+            arch: midas.slicerappstore.arch,
+            revision: midas.slicerappstore.revision,
+            category: midas.slicerappstore.category,
+            layout: json.layout
+        }, '', params);
+    }
     if ($.support.pageVisibility){
         $('#extensionsContainer').startScrollPagination();
     } else {
         $.fn.scrollPagination.loadContent(
             $('#extensionsContainer'), midas.slicerappstore.scrollPaginationOptions(/*pageLimit = */ 0), true);
     }
-    midas.slicerappstore.fetchCategories();
+    if(!skipFetchCategories) {
+        midas.slicerappstore.fetchCategories();
+    }
 }
 
 /**
@@ -261,7 +277,7 @@ midas.slicerappstore.categoriesLoaded = function () {
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
         midas.slicerappstore.selectedCategory = $(this);
         $(this).addClass('selectedCategory');
-        midas.slicerappstore.applyFilter();
+        midas.slicerappstore.applyFilter(true);
     });
 
     // Enable filtering by specific categories
@@ -270,7 +286,7 @@ midas.slicerappstore.categoriesLoaded = function () {
         midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
         midas.slicerappstore.selectedCategory = $(this);
         $(this).addClass('selectedCategory');
-        midas.slicerappstore.applyFilter();
+        midas.slicerappstore.applyFilter(true);
     });
 
     var selector = midas.slicerappstore.category == '' ?
