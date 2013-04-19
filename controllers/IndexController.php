@@ -29,8 +29,7 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
    */
   function indexAction()
     {
-    $modelLoader = new MIDAS_ModelLoader();
-    $extensionModel = $modelLoader->loadModel('Extension', 'slicerpackages');
+    $extensionModel = MidasLoader::loadModel('Extension', 'slicerpackages');
 
     $layout = $this->_getParam('layout');
     if(!isset($layout) || $layout != 'empty')
@@ -38,9 +37,6 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       $this->view->availableReleases = $extensionModel->getAllReleases();
       $this->view->layout = 'layout';
       }
-    
-    $this->view->layout = $this->view->json['layout'];
-
     $avalue = function($k, $a, $default) { return array_key_exists($k, $a) ? $a[$k] : $default; };
     $params = $this->_getAllParams();
     $this->view->json['os'] = $avalue('os', $params, '');
@@ -48,22 +44,42 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $this->view->json['release'] = $avalue('release', $params, '');
     $this->view->json['revision'] = $avalue('revision', $params, '');
     $this->view->json['category'] = $avalue('category', $params, '');
+    $this->view->layout = $this->view->json['layout'];
+    }
+
+  /**
+   * If a filter param changes on the normal layout view, call into this
+   * to retrieve updated category counts based on the current filter
+   */
+  function categoriesAction()
+    {
+    $this->disableLayout();
+    $this->disableView();
+
+    $avalue = function($k, $a, $default) { return array_key_exists($k, $a) ? $a[$k] : $default; };
+    $params = $this->_getAllParams();
+
+    $os = $avalue('os', $params, '');
+    $arch = $avalue('arch', $params, '');
+    $revision = $avalue('revision', $params, '');
 
     $filterParams = array();
-    if($this->view->json['revision'])
+    if($revision)
       {
-      $filterParams['slicer_revision'] = $this->view->json['revision'];
+      $filterParams['slicer_revision'] = $revision;
       }
-    if($this->view->json['os'])
+    if($os)
       {
-      $filterParams['os'] = $this->view->json['os'];
+      $filterParams['os'] = $os;
       }
-    if($this->view->json['arch'])
+    if($arch)
       {
-      $filterParams['arch'] = $this->view->json['arch'];
+      $filterParams['arch'] = $arch;
       }
-    $this->view->json['categories'] = $extensionModel->getCategoriesWithCounts($filterParams);
-    ksort($this->view->json['categories']);
+    $extensionModel = MidasLoader::loadModel('Extension', 'slicerpackages');
+    $categories = $extensionModel->getCategoriesWithCounts($filterParams);
+    ksort($categories);
+    echo JsonComponent::encode($categories);
     }
 
   /**

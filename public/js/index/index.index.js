@@ -207,6 +207,7 @@ midas.slicerappstore.applyFilter = function() {
         $.fn.scrollPagination.loadContent(
             $('#extensionsContainer'), midas.slicerappstore.scrollPaginationOptions(/*pageLimit = */ 0), true);
     }
+    midas.slicerappstore.fetchCategories();
 }
 
 /**
@@ -243,10 +244,77 @@ midas.slicerappstore.showCategory = function(category, count) {
         lastToken += tokenId;
         name += '.';
     });
-}
+};
+
+/**
+ * Called when the categories have been loaded or refreshed
+ */
+midas.slicerappstore.categoriesLoaded = function () {
+    $('li.categoryControl').remove();
+    $.each(midas.slicerappstore.categories, function(category, count) {
+        midas.slicerappstore.showCategory(category, count);
+    });
+
+    // Enable the "All" category filter
+    midas.slicerappstore.selectedCategory = $('li#categoryAll').unbind('click').click(function() {
+        midas.slicerappstore.category = '';
+        midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
+        midas.slicerappstore.selectedCategory = $(this);
+        $(this).addClass('selectedCategory');
+        midas.slicerappstore.applyFilter();
+    });
+
+    // Enable filtering by specific categories
+    $('li.categoryControl').unbind('click').click(function() {
+        midas.slicerappstore.category = $(this).attr('name');
+        midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
+        midas.slicerappstore.selectedCategory = $(this);
+        $(this).addClass('selectedCategory');
+        midas.slicerappstore.applyFilter();
+    });
+
+    var selector = midas.slicerappstore.category == '' ?
+        'li#categoryAll' :
+        'li.categoryControl[name="'+midas.slicerappstore.category+'"]';
+    midas.slicerappstore.selectedCategory = $(selector).addClass('selectedCategory');
+
+    // Setup scroll pagination and fetch results based on the initial settings
+    if ($.support.pageVisibility){
+        if(!midas.slicerappstore.isPageHidden()){
+            midas.slicerappstore.initScrollPagination();
+        } else {
+            $(document).bind("show", function(){
+              midas.slicerappstore.initScrollPagination();
+              $(document).unbind("show");
+            });
+        }
+
+    }
+    else {
+      // If visibility API is not supported, fetch all extensions
+      midas.slicerappstore.applyFilter();
+    }
+};
+
+midas.slicerappstore.fetchCategories = function () {
+    // Refresh and render the category tree based on all available categories
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: json.global.webroot+'/slicerappstore/index/categories',
+        data: {
+            os: midas.slicerappstore.os,
+            arch: midas.slicerappstore.arch,
+            revision: midas.slicerappstore.revision
+        },
+        success: function (resp) {
+            midas.slicerappstore.categories = resp;
+            midas.slicerappstore.categoriesLoaded();
+        }
+    });
+};
 
 $(document).ready(function() {
-
     midas.slicerappstore.os = json.os;
     midas.slicerappstore.arch = json.arch;
     midas.slicerappstore.release = json.release;
@@ -289,53 +357,10 @@ $(document).ready(function() {
         });
     }
 
-    // Render the category tree based on all available categories
-    $.each(json.categories, function(category, count) {
-        midas.slicerappstore.showCategory(category, count);
-    });
-
-    // Enable the "All" category filter
-    midas.slicerappstore.selectedCategory = $('li#categoryAll').click(function() {
-        midas.slicerappstore.category = '';
-        midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
-        midas.slicerappstore.selectedCategory = $(this);
-        $(this).addClass('selectedCategory');
-        midas.slicerappstore.applyFilter();
-    });
-
-    // Enable filtering by specific categories
-    $('li.categoryControl').click(function() {
-        midas.slicerappstore.category = $(this).attr('name');
-        midas.slicerappstore.selectedCategory.removeClass('selectedCategory');
-        midas.slicerappstore.selectedCategory = $(this);
-        $(this).addClass('selectedCategory');
-        midas.slicerappstore.applyFilter();
-    });
-
-    var selector = midas.slicerappstore.category == '' ?
-        'li#categoryAll' :
-        'li.categoryControl[name="'+midas.slicerappstore.category+'"]';
-    midas.slicerappstore.selectedCategory = $(selector).addClass('selectedCategory');
-
-    // Setup scroll pagination and fetch results based on the initial settings
-    if ($.support.pageVisibility){
-        if(!midas.slicerappstore.isPageHidden()){
-            midas.slicerappstore.initScrollPagination();
-        } else {
-            $(document).bind("show", function(){
-              midas.slicerappstore.initScrollPagination();
-              $(document).unbind("show");
-            });
-        }
-
-    }
-    else {
-      // If visibility API is not supported, fetch all extensions
-      midas.slicerappstore.applyFilter();
-    }
+    midas.slicerappstore.fetchCategories();
 
     $('img.kwLogo').click(function () {
-        var dlgWidth = Math.min($(window).width() * 0.8, 550); 
+        var dlgWidth = Math.min($(window).width() * 0.8, 550);
         midas.loadDialog('KWInfo', '/slicerappstore/index/kwinfo');
         midas.showDialog('Slicer Extension Catalog', false, {width: dlgWidth})
     });
