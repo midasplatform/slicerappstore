@@ -334,4 +334,9 @@ $(document).ready(function() {
       midas.slicerappstore.applyFilter();
     }
 
+    $('img.kwLogo').click(function () {
+        var dlgWidth = Math.min($(window).width() * 0.8, 550); 
+        midas.loadDialog('KWInfo', '/slicerappstore/index/kwinfo');
+        midas.showDialog('Slicer Extension Catalog', false, {width: dlgWidth})
+    });
 });

@@ -161,4 +161,11 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $this->_redirect('/download/index?items='.$extension->getItemId());
     }
 
+  /**
+   * Call this to render the kitware info dialog
+   */
+  public function kwinfoAction()
+    {
+    $this->disableLayout();
+    }
 } // end class

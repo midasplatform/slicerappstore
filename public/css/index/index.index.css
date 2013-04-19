@@ -38,6 +38,15 @@ div.extensionFilterArea {
   margin-top: 10px;
 }
 
+div.kwLogoContainer {
+  float: right;
+  padding-top: 7px;
+}
+
+img.kwLogo:hover{
+  cursor: pointer;
+}
+
 div.extensionsBodyLeftColumn {
   float: left;
   width: 230px;

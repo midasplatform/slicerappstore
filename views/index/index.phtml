@@ -33,29 +33,38 @@ else
 ?>
   <div class="extensionsHeader">
     <div class="extensionsTitle">Slicer Extensions</div>
-    <?php if($this->layout != 'empty')
+    <?php
+    if($this->layout == 'empty')
       { ?>
-    <div class="extensionFilterArea">
-      <select id="osSelect">
-        <option value="win">Windows</option>
-        <option value="linux">Linux</option>
-        <option value="macosx">Mac OSX</option>
-      </select>
-      <select id="archSelect">
-        <option value="i386">32-bit</option>
-        <option value="amd64">64-bit</option>
-      </select>
-      <input type="text" id="revisionInput"><br>
-      <select id="releaseSelect" style="display:none;">
-        <?php
-        foreach($this->availableReleases as $release)
-          {
-          echo '<option value="'.$release.'">'.$release.'</option>';
-          }
-        ?>
-      </select>
-    </div>
-    <?php } ?>
+      <div class="kwLogoContainer">
+        <img alt="" class="kwLogo" src="<?php echo $this->moduleWebroot?>/public/images/kwlogo_100.png" />
+      </div>
+    <?php
+      }
+    else
+      { ?>
+      <div class="extensionFilterArea">
+        <select id="osSelect">
+          <option value="win">Windows</option>
+          <option value="linux">Linux</option>
+          <option value="macosx">Mac OSX</option>
+        </select>
+        <select id="archSelect">
+          <option value="i386">32-bit</option>
+          <option value="amd64">64-bit</option>
+        </select>
+        <input type="text" id="revisionInput"><br>
+        <select id="releaseSelect" style="display:none;">
+          <?php
+          foreach($this->availableReleases as $release)
+            {
+            echo '<option value="'.$release.'">'.$release.'</option>';
+            }
+          ?>
+        </select>
+      </div>
+    <?php
+      } ?>
   </div>
   <div class="extensionsBody">
     <div class="extensionsBodyLeftColumn">
