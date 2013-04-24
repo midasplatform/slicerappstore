@@ -376,8 +376,8 @@ $(document).ready(function() {
     midas.slicerappstore.fetchCategories();
 
     $('img.kwLogo').click(function () {
-        var dlgWidth = Math.min($(window).width() * 0.8, 550);
+        var dlgWidth = Math.min($(window).width() * 0.9, 600);
         midas.loadDialog('KWInfo', '/slicerappstore/index/kwinfo');
-        midas.showDialog('Slicer Extension Catalog', false, {width: dlgWidth})
+        midas.showDialog('Slicer Extensions Catalog', false, {width: dlgWidth})
     });
 });
