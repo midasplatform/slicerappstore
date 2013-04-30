@@ -293,23 +293,6 @@ midas.slicerappstore.categoriesLoaded = function () {
         'li#categoryAll' :
         'li.categoryControl[name="'+midas.slicerappstore.category+'"]';
     midas.slicerappstore.selectedCategory = $(selector).addClass('selectedCategory');
-
-    // Setup scroll pagination and fetch results based on the initial settings
-    if ($.support.pageVisibility){
-        if(!midas.slicerappstore.isPageHidden()){
-            midas.slicerappstore.initScrollPagination();
-        } else {
-            $(document).bind("show", function(){
-              midas.slicerappstore.initScrollPagination();
-              $(document).unbind("show");
-            });
-        }
-
-    }
-    else {
-      // If visibility API is not supported, fetch all extensions
-      midas.slicerappstore.applyFilter();
-    }
 };
 
 midas.slicerappstore.fetchCategories = function () {
@@ -374,6 +357,23 @@ $(document).ready(function() {
     }
 
     midas.slicerappstore.fetchCategories();
+
+    // Setup scroll pagination and fetch results based on the initial settings
+    if ($.support.pageVisibility){
+        if(!midas.slicerappstore.isPageHidden()){
+            midas.slicerappstore.initScrollPagination();
+        } else {
+            $(document).bind("show", function(){
+              midas.slicerappstore.initScrollPagination();
+              $(document).unbind("show");
+            });
+        }
+
+    }
+    else {
+      // If visibility API is not supported, fetch all extensions
+      midas.slicerappstore.applyFilter();
+    }
 
     $('img.kwLogo').click(function () {
         var dlgWidth = Math.min($(window).width() * 0.9, 600);
