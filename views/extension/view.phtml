@@ -71,6 +71,21 @@ $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item
       <div class="info_item">
         Created <?php echo date('F j, Y', strtotime($this->extension->getItem()->getDateCreation())); ?>
       </div>
+      <?php
+      if($this->extension->getRepositoryUrl())
+        {
+        $revision = $this->extension->getRevision();
+        if(strtolower($this->extension->getRepositoryType()) == 'git')
+          {
+          $revision = substr($revision, 0, 8);
+          }
+        ?>
+        <div class="info_item">
+          Revision <?php echo $revision; ?>
+        </div>
+      <?php
+        }
+      ?>
       <div class="info_item">
         <?php echo UtilityComponent::formatSize($this->extension->getItem()->getSizebytes()); ?>
       </div>
