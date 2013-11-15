@@ -33,8 +33,15 @@ class Slicerappstore_ApiComponent extends AppComponent
    */
   private function _getUser($args)
     {
-    $componentLoader = new MIDAS_ComponentLoader();
-    $authComponent = $componentLoader->loadComponent('Authentication', 'api');
+    try
+      {
+      $componentLoader = new MIDAS_ComponentLoader();
+      $authComponent = $componentLoader->loadComponent('Authentication', 'api');
+      }
+    catch (Zend_Exception $e)
+      {
+      $authComponent = MidasLoader::loadComponent('Authentication');
+      }
     return $authComponent->getUser($args, null);
     }
 
