@@ -329,12 +329,14 @@ $(document).ready(function() {
     $('#archSelect').val(json.arch);
     $('#releaseSelect').val(json.release);
     $('#revisionInput').val(json.revision);
+    $('#searchInput').val(json.search);
 
     if(json.layout != 'empty' ) {
         midas.slicerappstore.os = $('#osSelect').val();
         midas.slicerappstore.arch = $('#archSelect').val();
         midas.slicerappstore.release = $('#releaseSelect').val();
         midas.slicerappstore.revision = $('#revisionInput').val();
+        midas.slicerappstore.search = $('#searchInput').val();
 
         // Enable filtering by OS
         $('#osSelect').change(function() {
@@ -351,6 +353,12 @@ $(document).ready(function() {
         // Enable filtering by revision
         $('#revisionInput').keyup(function() {
             midas.slicerappstore.revision = $(this).val();
+            midas.slicerappstore.applyFilter();
+        });
+
+        // Enable filtering by revision
+        $('#searchInput').keyup(function() {
+            midas.slicerappstore.search = $(this).val();
             midas.slicerappstore.applyFilter();
         });
 
