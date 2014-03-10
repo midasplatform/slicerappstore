@@ -129,6 +129,7 @@ return {
       arch: midas.slicerappstore.arch,
       //release: midas.slicerappstore.release,
       revision: midas.slicerappstore.revision,
+      search: midas.slicerappstore.search,
       limit: currentPageLimit,
       offset: midas.slicerappstore.pageOffset
     };
@@ -206,12 +207,14 @@ midas.slicerappstore.applyFilter = function(skipFetchCategories) {
         params += '&arch=' + window.encodeURIComponent(midas.slicerappstore.arch);
         params += '&revision=' + window.encodeURIComponent(midas.slicerappstore.revision);
         params += '&category=' + window.encodeURIComponent(midas.slicerappstore.category);
+        params += '&search=' + window.encodeURIComponent(midas.slicerappstore.search);
         params += '&layout=' + json.layout;
         window.history.replaceState({
             os: midas.slicerappstore.os,
             arch: midas.slicerappstore.arch,
             revision: midas.slicerappstore.revision,
             category: midas.slicerappstore.category,
+            search: midas.slicerappstore.search,
             layout: json.layout
         }, '', params);
     }
@@ -304,7 +307,8 @@ midas.slicerappstore.fetchCategories = function () {
         data: {
             os: midas.slicerappstore.os,
             arch: midas.slicerappstore.arch,
-            revision: midas.slicerappstore.revision
+            revision: midas.slicerappstore.revision,
+            search: midas.slicerappstore.search
         },
         success: function (resp) {
             midas.slicerappstore.categories = resp;
@@ -319,6 +323,7 @@ $(document).ready(function() {
     midas.slicerappstore.release = json.release;
     midas.slicerappstore.revision = json.revision;
     midas.slicerappstore.category = json.category;
+    midas.slicerappstore.search = json.search;
 
     $('#osSelect').val(json.os);
     $('#archSelect').val(json.arch);
