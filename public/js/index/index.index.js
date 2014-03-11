@@ -170,8 +170,8 @@ midas.slicerappstore.initScrollPagination = function(){
     // If it applies, fetch additonal items upon window resize
     $(window).resize(function(){
         // See http://stackoverflow.com/questions/4298612/jquery-how-to-call-resize-event-only-once-its-finished-resizing
-        clearTimeout(this.id);
-        this.id = setTimeout(function(){
+        clearTimeout(this.scrollTimerId);
+        this.scrollTimerId = setTimeout(function(){
             current_count = $('#extensionsContainer .extensionWrapper').length;
             if (midas.slicerappstore.totalResults != -1
                   && midas.slicerappstore.totalResults != current_count) {
@@ -356,17 +356,26 @@ $(document).ready(function() {
             midas.slicerappstore.applyFilter();
         });
 
-        // Enable filtering by revision
-        $('#searchInput').keyup(function() {
-            midas.slicerappstore.search = $(this).val();
-            midas.slicerappstore.applyFilter();
-        });
-
         // Enable filtering by release
         $('#releaseSelect').change(function() {
             midas.slicerappstore.release = $(this).val();
             midas.slicerappstore.applyFilter();
         });
+
+        // Enable filtering by search text
+        $('#searchInput').keyup(function() {
+            if (midas.slicerappstore.search != $('#searchInput').val()) {
+                clearTimeout(this.searchTimerId);
+                this.searchTimerId = setTimeout(function(){
+                    var filter = $('#searchInput').val();
+                    if (midas.slicerappstore.search != filter) {
+                        midas.slicerappstore.search = filter;
+                        midas.slicerappstore.applyFilter();
+                    }
+                }, 200);
+            }
+        });
+        this.searchTimerId = null;
     }
 
     midas.slicerappstore.fetchCategories();
