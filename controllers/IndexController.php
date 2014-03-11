@@ -37,14 +37,10 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       $this->view->availableReleases = $extensionModel->getAllReleases();
       $this->view->layout = 'layout';
       }
-    $avalue = function($k, $a, $default) { return array_key_exists($k, $a) ? $a[$k] : $default; };
-    $params = $this->_getAllParams();
-    $this->view->json['os'] = $avalue('os', $params, '');
-    $this->view->json['arch'] = $avalue('arch', $params, '');
-    $this->view->json['release'] = $avalue('release', $params, '');
-    $this->view->json['revision'] = $avalue('revision', $params, '');
-    $this->view->json['category'] = $avalue('category', $params, '');
-    $this->view->json['search'] = $avalue('search', $params, '');
+    foreach(array('os', 'arch', 'release', 'revision', 'category', 'search') as $option)
+      {
+      $this->view->json[$option] = $this->_getParam($option, '');
+      }
     $this->view->layout = $this->view->json['layout'];
     }
 
@@ -58,12 +54,14 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $this->disableView();
 
     $filterParams = array();
-    foreach(array('os', 'arch', 'revision', 'search') as $option)
+    foreach(array('os' => 'os', 'arch' => 'arch',
+                  'revision' => 'slicer_revision',
+                  'search' => 'search') as $option => $key)
       {
       $value = $this->_getParam($option);
       if($value)
         {
-        $filterParams[$option == 'revision' ? 'slicer_revision' : $option] = $value;
+        $filterParams[$key] = $value;
         }
       }
     $extensionModel = MidasLoader::loadModel('Extension', 'slicerpackages');
