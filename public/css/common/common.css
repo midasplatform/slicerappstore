@@ -24,6 +24,10 @@ body {
        -moz-appearance: none;
             appearance: none;
 
+    /* weird hack needed to hide default dropdown arrow on FireFox */
+    text-indent: 0.01px;
+    text-overflow: "";
+
     -webkit-border-radius: 4px;
      -khtml-border-radius: 4px;
        -moz-border-radius: 4px;
