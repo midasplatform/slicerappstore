@@ -2,9 +2,76 @@ body {
   font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
 }
 
-input.extensionSearchField {
-    background: white url(/core/public/images/icons/search.png) no-repeat scroll 2px 2px;
-    padding: 2px 6px 2px 20px;
+.extensionSelect {
+    position: relative;
+    display: inline;
+}
+
+.extensionSelect select {
+    color: black;
+    background: #cccac4;
+    background: -webkit-linear-gradient(#d0cec8, #c8c6c0);
+    background:    -moz-linear-gradient(#d0cec8, #c8c6c0);
+    background:      -o-linear-gradient(#d0cec8, #c8c6c0);
+    background:         linear-gradient(#d0cec8, #c8c6c0);
+
+    padding: 2px 24px 2px 4px;
+    outline: none;
+
+    border: 1px solid #d4d2cc;
+
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+
+    -webkit-border-radius: 4px;
+     -khtml-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    -webkit-box-shadow: #888 0 1px 3px;
+       -moz-box-shadow: #888 0 1px 3px;
+            box-shadow: #888 0 1px 3px;
+}
+
+.extensionSelect svg {
+    position: absolute;
+    right: 0.8em;
+    top: 50%;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+
+    pointer-events: none;
+}
+
+.extensionSelect path {
+    fill: none;
+    stroke: black;
+    stroke-width: 1.75px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.extensionSelect select:hover {
+    border: 1px solid #5aa;
+
+    -webkit-box-shadow: #ccc 0 1px 3px, #2cc 0 0 4px;
+       -moz-box-shadow: #ccc 0 1px 3px, #2cc 0 0 4px;
+            box-shadow: #ccc 0 1px 3px, #2cc 0 0 4px;
+}
+
+.extensionSelect select:focus {
+    border: 1px solid #28b;
+
+    -webkit-box-shadow: #ccc 0 1px 3px, #28b 0 0 3px;
+       -moz-box-shadow: #ccc 0 1px 3px, #28b 0 0 3px;
+            box-shadow: #ccc 0 1px 3px, #28b 0 0 3px;
+}
+
+input.extensionField {
+    color: black;
+    background: white;
+    padding: 2px 4px 2px 4px;
     outline: none;
 
     border: 1px solid #cccccc;
@@ -16,13 +83,20 @@ input.extensionSearchField {
     -webkit-box-shadow: #888 0 0 3px inset;
        -moz-box-shadow: #888 0 0 3px inset;
             box-shadow: #888 0 0 3px inset;
+}
 
+input.extensionField, .extensionSelect select {
     -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
        -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
             transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 
-input.extensionSearchField:hover {
+input.extensionSearchField {
+    background: white url(/core/public/images/icons/search.png) no-repeat scroll 2px 2px;
+    padding: 2px 6px 2px 22px;
+}
+
+input.extensionField:hover {
     border: 1px solid #5aa;
 
     -webkit-box-shadow: #2cc 0 0 3px inset, #ddd 0 0 2px;
@@ -30,7 +104,7 @@ input.extensionSearchField:hover {
             box-shadow: #2cc 0 0 3px inset, #ddd 0 0 2px;
 }
 
-input.extensionSearchField:focus {
+input.extensionField:focus {
     border: 1px solid #28b;
 
     -webkit-box-shadow: #28b 0 0 3px inset, #888 0 0 2px;

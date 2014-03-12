@@ -44,17 +44,27 @@ else
     else
       { ?>
       <div class="extensionFilterArea">
-        <select id="osSelect">
-          <option value="win">Windows</option>
-          <option value="linux">Linux</option>
-          <option value="macosx">Mac OSX</option>
-        </select>
-        <select id="archSelect">
-          <option value="i386">32-bit</option>
-          <option value="amd64">64-bit</option>
-        </select>
-        <input type="text" id="revisionInput">
-        <input type="text" id="searchInput" class="extensionSearchField">
+        <div class="extensionSelect">
+          <select id="osSelect">
+            <option value="win">Windows</option>
+            <option value="linux">Linux</option>
+            <option value="macosx">Mac OSX</option>
+          </select>
+          <svg width="12" height="12">
+            <path d="m 2.5,5.5 4,4 4,-4"/>
+          </svg>
+        </div>
+        <div class="extensionSelect">
+          <select id="archSelect">
+            <option value="i386">32-bit</option>
+            <option value="amd64">64-bit</option>
+          </select>
+          <svg width="12" height="12">
+            <path d="m 2.5,5.5 4,4 4,-4"/>
+          </svg>
+        </div>
+        <input type="text" id="revisionInput" class="extensionField" style="width: 4em;">
+        <input type="text" id="searchInput" class="extensionField extensionSearchField">
         <br>
         <select id="releaseSelect" style="display:none;">
           <?php
