@@ -117,49 +117,87 @@ input.extensionField:focus {
 }
 
 input.extensionActionButton {
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  border: 1px solid #aaaaaa;
-  line-height: 1.5;
-  display: block;
-  text-transform: uppercase;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -khtml-border-radius: 3px;
-  border-radius: 3px;
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
+    display: block;
+    cursor: pointer;
+
+    color: white;
+    text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5),
+                 1px 1px 2px rgba(255, 255, 255, 0.5);
+
+    line-height: 1.5;
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
+    font-weight: bold;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    border: 1px solid #aaaaaa;
+
+    -webkit-border-radius: 4px;
+     -khtml-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    -webkit-box-shadow: #888 0 1px 3px;
+       -moz-box-shadow: #888 0 1px 3px;
+            box-shadow: #888 0 1px 3px;
 }
 
 input.extensionDownloadButton, input.extensionInstallButton {
-  background-color: #2277aa;
+    border-color: #2686c0;
+
+    background: #2277aa;
+    background: -webkit-linear-gradient(#247eb4, #2070a0);
+    background:    -moz-linear-gradient(#247eb4, #2070a0);
+    background:      -o-linear-gradient(#247eb4, #2070a0);
+    background:         linear-gradient(#247eb4, #2070a0);
 }
 
 input.extensionDownloadButton:hover, input.extensionInstallButton:hover {
-  background-color: #00aaaa;
+    border-color: #00c0c0;
+
+    background-color: #00aaaa;
+    background: -webkit-linear-gradient(#00b4b4, #00a0a0);
+    background:    -moz-linear-gradient(#00b4b4, #00a0a0);
+    background:      -o-linear-gradient(#00b4b4, #00a0a0);
+    background:         linear-gradient(#00b4b4, #00a0a0);
 }
 
 input.extensionCancelScheduledForUninstallButton {
-  background-color: #a11900;
+    border-color: #c01c00;
+
+    background: #a11900;
+    background: -webkit-linear-gradient(#ac1800, #941600);
+    background:    -moz-linear-gradient(#ac1800, #941600);
+    background:      -o-linear-gradient(#ac1800, #941600);
+    background:         linear-gradient(#ac1800, #941600);
 }
 
 input.extensionCancelScheduledForUninstallButton:hover {
-  background-color: #d06f5e;
+    border-color: #e85440;
+
+    background-color: #d44e36;
+    background: -webkit-linear-gradient(#e05238, #c84832);
+    background:    -moz-linear-gradient(#e05238, #c84832);
+    background:      -o-linear-gradient(#e05238, #c84832);
+    background:         linear-gradient(#e05238, #c84832);
 }
 
-input.extensionScheduleUninstallButton {
-  background-color: #007f09;
+input.extensionScheduleUninstallButton, input.extensionUninstallButton {
+    border-color: #00a010;
+
+    background: #00800c;
+    background: -webkit-linear-gradient(#008c0e, #00700a);
+    background:    -moz-linear-gradient(#008c0e, #00700a);
+    background:      -o-linear-gradient(#008c0e, #00700a);
+    background:         linear-gradient(#008c0e, #00700a);
 }
 
-input.extensionScheduleUninstallButton:hover {
-  background-color: #6eb04b;
-}
+input.extensionScheduleUninstallButton:hover, input.extensionUninstallButton:hover {
+    border-color: #74ca14;
 
-input.extensionUninstallButton {
-  background-color: #007f09;
-}
-
-input.extensionUninstallButton:hover {
-  background-color: #6eb04b;
+    background-color: #68b410;
+    background: -webkit-linear-gradient(#6ec012, #64ac10);
+    background:    -moz-linear-gradient(#6ec012, #64ac10);
+    background:      -o-linear-gradient(#6ec012, #64ac10);
+    background:         linear-gradient(#6ec012, #64ac10);
 }
