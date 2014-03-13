@@ -75,6 +75,14 @@ div.viewWrapper {
   margin-left: 25px;
 }
 
+.icon_art img
+{
+  -webkit-border-radius: 8px;
+   -khtml-border-radius: 8px;
+     -moz-border-radius: 8px;
+          border-radius: 8px;
+}
+
 .extensionActionButtonWrapper {
   margin-bottom: 15px;
   margin-left: 15px;

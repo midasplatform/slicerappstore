@@ -2,50 +2,204 @@ body {
   font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
 }
 
+.extensionSelect {
+    position: relative;
+    display: inline;
+}
+
+.extensionSelect select {
+    color: black;
+    background: #cccac4;
+    background: -webkit-linear-gradient(#d0cec8, #c8c6c0);
+    background:    -moz-linear-gradient(#d0cec8, #c8c6c0);
+    background:      -o-linear-gradient(#d0cec8, #c8c6c0);
+    background:         linear-gradient(#d0cec8, #c8c6c0);
+
+    padding: 2px 24px 2px 4px;
+    outline: none;
+
+    border: 1px solid #d4d2cc;
+
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+
+    /* weird hack needed to hide default dropdown arrow on FireFox */
+    text-indent: 0.01px;
+    text-overflow: "";
+
+    -webkit-border-radius: 4px;
+     -khtml-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    -webkit-box-shadow: rgba(0, 160, 160, 0) 0 0 3px 1px, #888 0 1px 3px;
+       -moz-box-shadow: rgba(0, 160, 160, 0) 0 0 3px 1px, #888 0 1px 3px;
+            box-shadow: rgba(0, 160, 160, 0) 0 0 3px 1px, #888 0 1px 3px;
+}
+
+.extensionSelect svg {
+    position: absolute;
+    right: 0.8em;
+    top: 50%;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+
+    pointer-events: none;
+}
+
+.extensionSelect path {
+    fill: none;
+    stroke: black;
+    stroke-width: 1.75px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.extensionSelect select:hover {
+    -webkit-box-shadow: #0aa 0 0 3px 1px, #ccc 0 1px 3px;
+       -moz-box-shadow: #0aa 0 0 3px 1px, #ccc 0 1px 3px;
+            box-shadow: #0aa 0 0 3px 1px, #ccc 0 1px 3px;
+}
+
+.extensionSelect select:focus {
+    -webkit-box-shadow: #28b 0 0 3px 1px, #ccc 0 1px 3px;
+       -moz-box-shadow: #28b 0 0 3px 1px, #ccc 0 1px 3px;
+            box-shadow: #28b 0 0 3px 1px, #ccc 0 1px 3px;
+}
+
+input.extensionField {
+    color: black;
+    background: white;
+    padding: 2px 4px 2px 4px;
+    outline: none;
+
+    border: 1px solid;
+    border-top-color: #cccccc;
+    border-left-color: #d8d8d8;
+    border-right-color: #d8d8d8;
+    border-bottom-color: #e4e4e4;
+
+    -webkit-border-radius: 4px;
+     -khtml-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    -webkit-box-shadow: rgba(32, 192, 192, 0) 0 0 3px inset, #ddd 0 1px 2px inset, #eee 0 0 1px;
+       -moz-box-shadow: rgba(32, 192, 192, 0) 0 0 3px inset, #ddd 0 1px 2px inset, #eee 0 0 1px;
+            box-shadow: rgba(32, 192, 192, 0) 0 0 3px inset, #ddd 0 1px 2px inset, #eee 0 0 1px;
+}
+
+input.extensionField, .extensionSelect select {
+    margin: 2px;
+
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+       -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+            transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+input.extensionSearchField {
+    background: white url(/core/public/images/icons/search.png) no-repeat scroll 2px 2px;
+    padding: 2px 6px 2px 22px;
+}
+
+input.extensionField:hover {
+    border: 1px solid #5aa;
+
+    -webkit-box-shadow: #2cc 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+       -moz-box-shadow: #2cc 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+            box-shadow: #2cc 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+}
+
+input.extensionField:focus {
+    border: 1px solid #28b;
+
+    -webkit-box-shadow: #28b 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+       -moz-box-shadow: #28b 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+            box-shadow: #28b 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+}
+
 input.extensionActionButton {
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  border: 1px solid #aaaaaa;
-  line-height: 1.5;
-  display: block;
-  text-transform: uppercase;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -khtml-border-radius: 3px;
-  border-radius: 3px;
-  font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
+    display: block;
+    cursor: pointer;
+
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4),
+                 0 1px 0 rgba(255, 255, 255, 0.4);
+
+    line-height: 1.5;
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
+    font-weight: bold;
+
+    text-align: center;
+    text-transform: uppercase;
+
+    border: 1px solid #aaaaaa;
+
+    -webkit-border-radius: 4px;
+     -khtml-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    -webkit-box-shadow: #888 0 1px 3px;
+       -moz-box-shadow: #888 0 1px 3px;
+            box-shadow: #888 0 1px 3px;
 }
 
 input.extensionDownloadButton, input.extensionInstallButton {
-  background-color: #2277aa;
+    border-color: #2686c0;
+
+    background: #2277aa;
+    background: -webkit-linear-gradient(#247eb4, #2070a0);
+    background:    -moz-linear-gradient(#247eb4, #2070a0);
+    background:      -o-linear-gradient(#247eb4, #2070a0);
+    background:         linear-gradient(#247eb4, #2070a0);
 }
 
 input.extensionDownloadButton:hover, input.extensionInstallButton:hover {
-  background-color: #00aaaa;
+    border-color: #00c0c0;
+
+    background-color: #00aaaa;
+    background: -webkit-linear-gradient(#00b4b4, #00a0a0);
+    background:    -moz-linear-gradient(#00b4b4, #00a0a0);
+    background:      -o-linear-gradient(#00b4b4, #00a0a0);
+    background:         linear-gradient(#00b4b4, #00a0a0);
 }
 
 input.extensionCancelScheduledForUninstallButton {
-  background-color: #a11900;
+    border-color: #c01c00;
+
+    background: #a11900;
+    background: -webkit-linear-gradient(#ac1800, #941600);
+    background:    -moz-linear-gradient(#ac1800, #941600);
+    background:      -o-linear-gradient(#ac1800, #941600);
+    background:         linear-gradient(#ac1800, #941600);
 }
 
 input.extensionCancelScheduledForUninstallButton:hover {
-  background-color: #d06f5e;
+    border-color: #e85440;
+
+    background-color: #d44e36;
+    background: -webkit-linear-gradient(#e05238, #c84832);
+    background:    -moz-linear-gradient(#e05238, #c84832);
+    background:      -o-linear-gradient(#e05238, #c84832);
+    background:         linear-gradient(#e05238, #c84832);
 }
 
-input.extensionScheduleUninstallButton {
-  background-color: #007f09;
+input.extensionScheduleUninstallButton, input.extensionUninstallButton {
+    border-color: #00a010;
+
+    background: #00800c;
+    background: -webkit-linear-gradient(#008c0e, #00700a);
+    background:    -moz-linear-gradient(#008c0e, #00700a);
+    background:      -o-linear-gradient(#008c0e, #00700a);
+    background:         linear-gradient(#008c0e, #00700a);
 }
 
-input.extensionScheduleUninstallButton:hover {
-  background-color: #6eb04b;
-}
+input.extensionScheduleUninstallButton:hover, input.extensionUninstallButton:hover {
+    border-color: #74ca14;
 
-input.extensionUninstallButton {
-  background-color: #007f09;
-}
-
-input.extensionUninstallButton:hover {
-  background-color: #6eb04b;
+    background-color: #68b410;
+    background: -webkit-linear-gradient(#6ec012, #64ac10);
+    background:    -moz-linear-gradient(#6ec012, #64ac10);
+    background:      -o-linear-gradient(#6ec012, #64ac10);
+    background:         linear-gradient(#6ec012, #64ac10);
 }

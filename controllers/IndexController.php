@@ -37,13 +37,10 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       $this->view->availableReleases = $extensionModel->getAllReleases();
       $this->view->layout = 'layout';
       }
-    $avalue = function($k, $a, $default) { return array_key_exists($k, $a) ? $a[$k] : $default; };
-    $params = $this->_getAllParams();
-    $this->view->json['os'] = $avalue('os', $params, '');
-    $this->view->json['arch'] = $avalue('arch', $params, '');
-    $this->view->json['release'] = $avalue('release', $params, '');
-    $this->view->json['revision'] = $avalue('revision', $params, '');
-    $this->view->json['category'] = $avalue('category', $params, '');
+    foreach(array('os', 'arch', 'release', 'revision', 'category', 'search') as $option)
+      {
+      $this->view->json[$option] = $this->_getParam($option, '');
+      }
     $this->view->layout = $this->view->json['layout'];
     }
 
@@ -56,25 +53,16 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
     $this->disableLayout();
     $this->disableView();
 
-    $avalue = function($k, $a, $default) { return array_key_exists($k, $a) ? $a[$k] : $default; };
-    $params = $this->_getAllParams();
-
-    $os = $avalue('os', $params, '');
-    $arch = $avalue('arch', $params, '');
-    $revision = $avalue('revision', $params, '');
-
     $filterParams = array();
-    if($revision)
+    foreach(array('os' => 'os', 'arch' => 'arch',
+                  'revision' => 'slicer_revision',
+                  'search' => 'search') as $option => $key)
       {
-      $filterParams['slicer_revision'] = $revision;
-      }
-    if($os)
-      {
-      $filterParams['os'] = $os;
-      }
-    if($arch)
-      {
-      $filterParams['arch'] = $arch;
+      $value = $this->_getParam($option);
+      if($value)
+        {
+        $filterParams[$key] = $value;
+        }
       }
     $extensionModel = MidasLoader::loadModel('Extension', 'slicerpackages');
     $categories = $extensionModel->getCategoriesWithCounts($filterParams);
@@ -90,34 +78,20 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
    * @param release The release filter
    * @param limit Pagination limit
    * @param offset Pagination offset
+   * @param search The search text
    */
   function listextensionsAction()
     {
     $this->disableLayout();
     $this->disableView();
-    $category = $this->_getParam('category');
-    if(!$category)
-      {
-      $category = 'any';
-      }
+    $category = $this->_getParam('category', 'any');
     $os = $this->_getParam('os');
     $arch = $this->_getParam('arch');
-    $release = $this->_getParam('release');
-    if(!$release)
-      {
-      $release = 'any';
-      }
+    $release = $this->_getParam('release', 'any');
     $revision = $this->_getParam('revision');
-    $limit = $this->_getParam('limit');
-    if(!$limit)
-      {
-      $limit = 0;
-      }
-    $offset = $this->_getParam('offset');
-    if(!$offset)
-      {
-      $offset = 0;
-      }
+    $limit = $this->_getParam('limit', 0);
+    $offset = $this->_getParam('offset', 0);
+    $search = $this->_getParam('search', '');
 
     $modelLoader = new MIDAS_ModelLoader();
     $settingModel = $modelLoader->loadModel('Setting');
@@ -129,7 +103,8 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
                                           'category' => $category,
                                           'slicer_revision' => $revision,
                                           'limit' => $limit,
-                                          'offset' => $offset));
+                                          'offset' => $offset,
+                                          'search' => $search));
     $defaultIcon = $settingModel->getValueByName('defaultIcon', $this->moduleName);
 
     $results = array();
