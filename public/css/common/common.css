@@ -32,9 +32,9 @@ body {
      -khtml-border-radius: 4px;
        -moz-border-radius: 4px;
             border-radius: 4px;
-    -webkit-box-shadow: #888 0 1px 3px;
-       -moz-box-shadow: #888 0 1px 3px;
-            box-shadow: #888 0 1px 3px;
+    -webkit-box-shadow: rgba(0, 160, 160, 0) 0 0 3px 1px, #888 0 1px 3px;
+       -moz-box-shadow: rgba(0, 160, 160, 0) 0 0 3px 1px, #888 0 1px 3px;
+            box-shadow: rgba(0, 160, 160, 0) 0 0 3px 1px, #888 0 1px 3px;
 }
 
 .extensionSelect svg {
@@ -57,19 +57,15 @@ body {
 }
 
 .extensionSelect select:hover {
-    border: 1px solid #5aa;
-
-    -webkit-box-shadow: #ccc 0 1px 3px, #2cc 0 0 4px;
-       -moz-box-shadow: #ccc 0 1px 3px, #2cc 0 0 4px;
-            box-shadow: #ccc 0 1px 3px, #2cc 0 0 4px;
+    -webkit-box-shadow: #0aa 0 0 3px 1px, #ccc 0 1px 3px;
+       -moz-box-shadow: #0aa 0 0 3px 1px, #ccc 0 1px 3px;
+            box-shadow: #0aa 0 0 3px 1px, #ccc 0 1px 3px;
 }
 
 .extensionSelect select:focus {
-    border: 1px solid #28b;
-
-    -webkit-box-shadow: #ccc 0 1px 3px, #28b 0 0 3px;
-       -moz-box-shadow: #ccc 0 1px 3px, #28b 0 0 3px;
-            box-shadow: #ccc 0 1px 3px, #28b 0 0 3px;
+    -webkit-box-shadow: #28b 0 0 3px 1px, #ccc 0 1px 3px;
+       -moz-box-shadow: #28b 0 0 3px 1px, #ccc 0 1px 3px;
+            box-shadow: #28b 0 0 3px 1px, #ccc 0 1px 3px;
 }
 
 input.extensionField {
@@ -78,18 +74,24 @@ input.extensionField {
     padding: 2px 4px 2px 4px;
     outline: none;
 
-    border: 1px solid #cccccc;
+    border: 1px solid;
+    border-top-color: #cccccc;
+    border-left-color: #d8d8d8;
+    border-right-color: #d8d8d8;
+    border-bottom-color: #e4e4e4;
 
     -webkit-border-radius: 4px;
      -khtml-border-radius: 4px;
        -moz-border-radius: 4px;
             border-radius: 4px;
-    -webkit-box-shadow: #888 0 0 3px inset;
-       -moz-box-shadow: #888 0 0 3px inset;
-            box-shadow: #888 0 0 3px inset;
+    -webkit-box-shadow: rgba(32, 192, 192, 0) 0 0 3px inset, #ddd 0 1px 2px inset, #eee 0 0 1px;
+       -moz-box-shadow: rgba(32, 192, 192, 0) 0 0 3px inset, #ddd 0 1px 2px inset, #eee 0 0 1px;
+            box-shadow: rgba(32, 192, 192, 0) 0 0 3px inset, #ddd 0 1px 2px inset, #eee 0 0 1px;
 }
 
 input.extensionField, .extensionSelect select {
+    margin: 2px;
+
     -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
        -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
             transition: border linear 0.2s, box-shadow linear 0.2s;
@@ -103,17 +105,17 @@ input.extensionSearchField {
 input.extensionField:hover {
     border: 1px solid #5aa;
 
-    -webkit-box-shadow: #2cc 0 0 3px inset, #ddd 0 0 2px;
-       -moz-box-shadow: #2cc 0 0 3px inset, #ddd 0 0 2px;
-            box-shadow: #2cc 0 0 3px inset, #ddd 0 0 2px;
+    -webkit-box-shadow: #2cc 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+       -moz-box-shadow: #2cc 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+            box-shadow: #2cc 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
 }
 
 input.extensionField:focus {
     border: 1px solid #28b;
 
-    -webkit-box-shadow: #28b 0 0 3px inset, #888 0 0 2px;
-       -moz-box-shadow: #28b 0 0 3px inset, #888 0 0 2px;
-            box-shadow: #28b 0 0 3px inset, #888 0 0 2px;
+    -webkit-box-shadow: #28b 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+       -moz-box-shadow: #28b 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
+            box-shadow: #28b 0 0 3px inset, #ddd 0 1px 2px inset, #ddd 0 0 1px;
 }
 
 input.extensionActionButton {
@@ -121,8 +123,8 @@ input.extensionActionButton {
     cursor: pointer;
 
     color: white;
-    text-shadow: -1px -1px 2px rgba(0, 0, 0, 0.5),
-                 1px 1px 2px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4),
+                 0 1px 0 rgba(255, 255, 255, 0.4);
 
     line-height: 1.5;
     font-family: 'Lucida Grande', 'Lucida Sans Unicode', helvetica, arial, Verdana, sans-serif;
