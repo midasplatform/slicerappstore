@@ -98,7 +98,7 @@ input.extensionField, .extensionSelect select {
 }
 
 input.extensionSearchField {
-    background: white url(/core/public/images/icons/search.png) no-repeat scroll 2px 2px;
+    background: white url("../../../../../core/public/images/icons/search.png") no-repeat scroll 2px 2px;
     padding: 2px 6px 2px 22px;
 }
 
