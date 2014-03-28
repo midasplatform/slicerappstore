@@ -150,7 +150,13 @@ $(document).ready(function() {
 
     $('#viewUrl').click(function(){
       $('#dialogUrl').dialog({
-        width: 450
+        width: 450,
+        modal: true,
+        open: function(){
+          $('.ui-widget-overlay').click(function(){
+            $('#dialogUrl').dialog('close');
+          })
+        }
       });
       $('#dialogUrl input').select();
       $('#dialogUrl input').click(function(){
