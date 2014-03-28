@@ -106,7 +106,7 @@ $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item
           </p>
           <div style="width: 100%; position: relative; margin: 0; padding: 0;">
             <input
-              style="position: absolute; left: 0; right: 0;"
+              style="position: absolute; left: 0; right: 0; width: -moz-calc(100% - 14px);"
               class="extensionField"
               type="text"
               value="<?php echo UtilityComponent::getServerURL().$this->webroot?>/slicerappstore/extension/view?extensionId=<?php echo $this->extension->getKey()?>"
