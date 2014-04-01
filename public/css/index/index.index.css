@@ -70,6 +70,10 @@ div.extensionWrapper {
    -khtml-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
+
+  -webkit-transition: all linear 0.2s;
+     -moz-transition: all linear 0.2s;
+          transition: all linear 0.2s;
 }
 
 div.extensionIconWrapper img
@@ -83,6 +87,10 @@ div.extensionIconWrapper img
 div.extensionWrapper:hover {
   border: 1px solid #d7d7d7;
   background-color: #f5f5f5;
+
+  -webkit-box-shadow: #ccc 0 0 3px;
+     -moz-box-shadow: #ccc 0 0 3px;
+          box-shadow: #ccc 0 0 3px;
 }
 
 div.extensionNameWrapper,div.subtitleWrapper {
