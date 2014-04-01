@@ -92,6 +92,28 @@ $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item
       <div class="info_item">
         <?php echo $this->extension->getItem()->getDownload() ?> downloads
       </div>
+      <div class="info_item">
+        <a id="viewUrl">View URL</a>
+        <div id="dialogUrl" title="Extension: <?php echo $this->extension->getProductname()?>" style="display: none;">
+          <p>
+            The following URL points to the extension details page (for the Slicer <?php
+              echo $this->extension->getSlicerRevision();
+              echo ' ';
+              echo $this->extension->getArch();
+              echo ' ';
+              echo $this->extension->getOs();
+            ?> build). This URL will remain unchanged, allowing you to share it.
+          </p>
+          <div style="width: 100%; position: relative; margin: 0; padding: 0;">
+            <input
+              style="position: absolute; left: 0; right: 0; width: -moz-calc(100% - 14px);"
+              class="extensionField"
+              type="text"
+              value="<?php echo UtilityComponent::getServerURL().$this->webroot?>/slicerappstore/extension/view?extensionId=<?php echo $this->extension->getKey()?>"
+              readonly>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="rating_area">
       <?php echo $this->element('rating', 'ratings'); ?>
