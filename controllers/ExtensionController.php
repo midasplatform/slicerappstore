@@ -62,5 +62,6 @@ class Slicerappstore_ExtensionController extends Slicerappstore_AppController
                                   'user' => $this->userSession->Dao);
 
     $this->view->layout = $this->view->json['layout'];
+    $this->view->breadcrumbs = $this->_getParam('breadcrumbs');
     }
 } // end class

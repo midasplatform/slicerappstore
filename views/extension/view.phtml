@@ -35,11 +35,15 @@ $this->headScript()->appendFile($this->webroot.'/modules/comments/public/js/item
 <link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/comments/public/css/item/item.comments.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo $this->webroot?>/modules/ratings/public/css/item/item.ratings.css" />
 
+<?php
+if($this->breadcrumbs != 'none')
+  { ?>
 <div class="category">
   <span id="categoryBreadcrumb">
     <a id="rootBreadcrumb" class="breadcrumbLink" href="">Slicer Extensions</a>
   </span>
 </div>
+<?php } ?>
 
 <div id="container_main">
   <div id="extension_banner">

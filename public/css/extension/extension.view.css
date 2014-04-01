@@ -3,6 +3,10 @@ body {
   padding-top: 0px;
 }
 
+div.SubMainContent {
+  overflow: hidden;
+}
+
 div.viewWrapper {
   padding-right: 0 !important;
 }
@@ -173,13 +177,14 @@ input.extensionActionButton {
 
 /* Breadcrumbs */
 .category {
-  padding: 10px 0 10px 7px;
+  padding: 9px 7px 6px 7px;
   background-color: #f3fff3;
   margin-right: 0;
-  border-bottom: 1px solid #c0c0c0;
-  -webkit-box-shadow: 0 0 4px rgba(0,0,0,.4);
-     -moz-box-shadow: 0 0 4px rgba(0,0,0,.4);
-          box-shadow: 0 0 4px rgba(0,0,0,.4);
+  border-bottom: 1px solid #d7d7d7;
+
+  -webkit-box-shadow: #ccc 0 0 3px;
+     -moz-box-shadow: #ccc 0 0 3px;
+          box-shadow: #ccc 0 0 3px;
 }
 
 #categoryBreadcrumb {
