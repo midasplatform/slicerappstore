@@ -271,7 +271,9 @@ midas.slicerappstore.showCategory = function(category, count) {
 midas.slicerappstore.categoriesLoaded = function () {
     $('li.categoryControl').remove();
     $.each(midas.slicerappstore.categories, function(category, count) {
-        midas.slicerappstore.showCategory(category, count);
+        if(count > 0) {
+            midas.slicerappstore.showCategory(category, count);
+        }
     });
 
     // Enable the "All" category filter
