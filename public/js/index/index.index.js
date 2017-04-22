@@ -237,7 +237,7 @@ midas.slicerappstore.showCategory = function(category, count) {
     var lastToken = '';
     var name = '';
     $.each(tokens, function(k, token) {
-        var tokenId = token.replace(/ /g, '_');
+        var tokenId = token.replace(/[^a-z0-9_]/ig, '_');
         var parentId = lastToken == '' ? 'categoriesList' : 'category_'+lastToken;
 
         name += token;
