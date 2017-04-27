@@ -22,6 +22,32 @@
 class Slicerappstore_IndexController extends Slicerappstore_AppController
 {
   /**
+   * Gets FolderDaos for package type and submission type
+   */
+  private function _getPackageFolder($packagetype, $submissiontype)
+    {
+    $modelLoader = new MIDAS_ModelLoader();
+    $settingModel = $modelLoader->loadModel('Setting');
+    $folderModel = $modelLoader->loadModel('Folder');
+    $key = strtolower($packagetype).'s.'.$submissiontype.'.folder';
+    $folderId = $settingModel->getValueByName($key, 'slicerpackages');
+    if(!$folderId || !is_numeric($folderId))
+      {
+      throw new Exception('You must configure a folder id for key '.$key, -1);
+      }
+    $folder = $folderModel->load($folderId);
+    if(!$folder)
+      {
+      throw new Exception('Folder with id '.$folderId.' does not exist', -1);
+      }
+    if(!$folderModel->policyCheck($folder, $this->userSession->Dao, MIDAS_POLICY_READ))
+      {
+      throw new Exception('Invalid policy on folder '.$folderId, -1);
+      }
+    return $folder;
+    }
+
+  /**
    * Action for rendering the page that lists extensions
    * @param os (Optional) The default operating system to filter by
    * @param arch (Optional) The default architecture to filter by
@@ -30,6 +56,7 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
   function indexAction()
     {
     $extensionModel = MidasLoader::loadModel('Extension', 'slicerpackages');
+    $packageModel = MidasLoader::loadModel('Package', 'slicerpackages');
 
     $layout = $this->_getParam('layout');
     if(!isset($layout) || $layout != 'empty')
@@ -37,9 +64,19 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       $this->view->availableReleases = $extensionModel->getAllReleases();
       $this->view->layout = 'layout';
       }
+
+    $folderDaos = array(
+      $this->_getPackageFolder('Package', 'nightly'));
+    $defaultRevision = $packageModel->getMostRecentRevision($folderDaos);
+
     foreach(array('os', 'arch', 'release', 'revision', 'category', 'search') as $option)
       {
-      $this->view->json[$option] = $this->_getParam($option, '');
+      $default = '';
+      if ($option == 'revision')
+        {
+        $default = $defaultRevision;
+        }
+      $this->view->json[$option] = $this->_getParam($option, $default);
       }
     $this->view->layout = $this->view->json['layout'];
     }
@@ -62,6 +99,11 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       if($value)
         {
         $filterParams[$key] = $value;
+        }
+      // Explicitly setting revision to empty string so that database returns correct counts
+      if(empty($value) and $option == 'revision')
+        {
+        $filterParams[$key] = '';
         }
       }
     $extensionModel = MidasLoader::loadModel('Extension', 'slicerpackages');
