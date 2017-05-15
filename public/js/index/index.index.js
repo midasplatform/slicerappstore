@@ -150,7 +150,10 @@ return {
           midas.slicerappstore.renderExtension(extension, index);
       });
       if(data.total == 0) {
-          $('.paginationMessage').show().text('No extensions found');
+          $('.paginationMessage').show().text('No extensions found for ' + midas.slicerappstore.os + ':'
+						+ (midas.slicerappstore.arch == 'amd64' ? '64-bit':'32-bit') 
+						+ ', revision: \'' + midas.slicerappstore.revision + '\'.'
+						 +'\n Please try a different combination');
       }
   },
   'afterLoad': function(elementsLoaded){
