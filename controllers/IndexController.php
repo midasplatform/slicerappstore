@@ -65,9 +65,13 @@ class Slicerappstore_IndexController extends Slicerappstore_AppController
       $this->view->layout = 'layout';
       }
 
-    $folderDaos = array(
-      $this->_getPackageFolder('Package', 'nightly'));
-    $defaultRevision = $packageModel->getMostRecentRevision($folderDaos);
+    $defaultRevision = '';
+    if (!$this->hasParam('revision'))
+      {
+      $folderDaos = array(
+        $this->_getPackageFolder('Package', 'nightly'));
+      $defaultRevision = $packageModel->getMostRecentRevision($folderDaos);
+      }
 
     foreach(array('os', 'arch', 'release', 'revision', 'category', 'search') as $option)
       {
