@@ -139,7 +139,6 @@ $(document).ready(function() {
     $('input.extensionActionButton')
         .attr('element', json.extension.slicerpackages_extension_id)
         .attr('extensionname', json.extension.productname);
-    midas.slicerappstore.updateExtensionButtonState(json.extension.productname);
 
     if(json.layout == 'empty') {
         midas.registerCallback('CALLBACK_RATINGS_AFTER_LOAD', 'ratings', function() {
@@ -195,4 +194,9 @@ $(document).ready(function() {
             window.location.reload();
         });
     });
+});
+
+$(window).on("load", function() {
+    // Extension button state is updated once all window variables and qt webchannels are set up.
+    midas.slicerappstore.updateExtensionButtonState(json.extension.productname);
 });
