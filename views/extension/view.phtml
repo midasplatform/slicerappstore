@@ -143,7 +143,7 @@ if($this->breadcrumbs != 'none')
         <?php
         if($this->extension->getHomepage())
           {
-          echo '<div class="homepageContainer"><a target="_blank" href="'.$this->extension->getHomepage().'">';
+          echo '<div class="homepageContainer"><a href="'.$this->extension->getHomepage().'">';
           echo '<img alt="" src="'.$this->moduleWebroot.'/public/images/house_link.png" /> ';
           echo 'View home page</a></div>';
           }
@@ -161,7 +161,7 @@ if($this->breadcrumbs != 'none')
               $icon = 'default';
               break;
             }
-          echo '<div class="repoLinkContainer"><a target="_blank" href="'.$this->extension->getRepositoryUrl().'">';
+          echo '<div class="repoLinkContainer"><a href="'.$this->extension->getRepositoryUrl().'">';
           echo '<img alt="" src="'.$this->moduleWebroot.'/public/images/repo/'.$icon.'.png" /> ';
           echo 'View source code</a></div>';
           }
