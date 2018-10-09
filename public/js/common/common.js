@@ -27,13 +27,39 @@ midas.slicerappstore.updateExtensionButtonState = function(extensionName) {
     if(!window.extensions_manager_model) {
         midas.slicerappstore.setExtensionButtonState(extensionName, 'Download');
     } else {
-        var buttonState = 'Install';
-        if(window.extensions_manager_model.isExtensionScheduledForUninstall(extensionName)) {
-          buttonState = 'CancelScheduledForUninstall';
-        } else if(window.extensions_manager_model.isExtensionInstalled(extensionName)) {
-          buttonState = 'ScheduleUninstall';
+        /* Following will be true when WebEngine is present for Qt5.x  */
+        if(typeof qt!='undefined')
+        {
+            window.extensions_manager_model.isExtensionScheduledForUninstall(extensionName, function(returnValue) {
+                if (returnValue)
+                {
+                    midas.slicerappstore.setExtensionButtonState(extensionName, 'CancelScheduledForUninstall');
+                }
+                else
+                {
+                    window.extensions_manager_model.isExtensionInstalled(extensionName, function(returnValue) {
+                        if (returnValue)
+                        {
+                            midas.slicerappstore.setExtensionButtonState(extensionName, 'ScheduleUninstall');
+                        }
+                        else
+                        {
+                            midas.slicerappstore.setExtensionButtonState(extensionName, 'Install');
+                        }
+                    });
+                }
+            });
         }
-        midas.slicerappstore.setExtensionButtonState(extensionName, buttonState);
+        else
+        {
+          var buttonState = 'Install';
+          if(window.extensions_manager_model.isExtensionScheduledForUninstall(extensionName)) {
+            buttonState = 'CancelScheduledForUninstall';
+          } else if(window.extensions_manager_model.isExtensionInstalled(extensionName)) {
+            buttonState = 'ScheduleUninstall';
+          }
+          midas.slicerappstore.setExtensionButtonState(extensionName, buttonState);
+        }
     }
 }
 
