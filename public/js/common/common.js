@@ -2,14 +2,6 @@ var midas = midas || {};
 midas.slicerappstore = midas.slicerappstore || {};
 'use strict';
 
-/* Following will be true when WebEngine is present for Qt5.x  */
-if(typeof qt!='undefined')
-{
-    new QWebChannel(qt.webChannelTransport, function(channel) {
-      window.extensions_manager_model = channel.objects.extensions_manager_model;
-    });
-}
-
 /**
  * Called when a user clicks the extension button (download, install or uninstall)
  */
